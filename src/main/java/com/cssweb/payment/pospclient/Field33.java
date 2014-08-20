@@ -5,7 +5,11 @@ package com.cssweb.payment.pospclient;
  */
 public class Field33 extends Field{
 
-    private byte[] len = new byte[2];
 
-    private byte[] val = new byte[11];
+
+  public Field33()
+  {
+      fieldNo = 33;
+      fieldLengthType = Field.FIELD_LENGTH_TYPE_2;
+  }
 }

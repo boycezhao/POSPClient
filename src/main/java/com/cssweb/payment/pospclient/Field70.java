@@ -5,5 +5,8 @@ package com.cssweb.payment.pospclient;
  */
 public class Field70 extends Field{
 
-    private byte[] val = new byte[3];
+    public Field70()
+    {
+        fieldNo = 70;
+    }
 }
