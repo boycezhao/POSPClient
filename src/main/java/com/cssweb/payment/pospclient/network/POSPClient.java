@@ -126,7 +126,21 @@ public class POSPClient {
         bfm.addField(f39);
         bfm.addField(f70);
 
-        //byte[] bitmap = bfm.getBitFieldMap(); // 16字节长度的字节数组
+        byte[] mainBitFieldMap = bfm.getMainBitFieldMap(); // 8字节长度的字节数组
+        for (int i=0; i<mainBitFieldMap.length; i++)
+        {
+            String binaryStr  = BitUtil.byteToBinaryStr(mainBitFieldMap[i]);
+            System.out.println("i=" + i + ", str=" + binaryStr);
+        }
+
+        byte[] extBitFieldMap = bfm.getExtBitFieldMap(); // 8字节长度的字节数组
+        for (int i=0; i<extBitFieldMap.length; i++)
+        {
+            String binaryStr  = BitUtil.byteToBinaryStr(extBitFieldMap[i]);
+            System.out.println("i=" + i + ", str=" + binaryStr);
+        }
+
+
         byte[] data = bfm.getData();
         System.out.println("data = " + new String(data));
 
