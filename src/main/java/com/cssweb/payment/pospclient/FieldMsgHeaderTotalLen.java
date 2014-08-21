@@ -5,13 +5,22 @@ package com.cssweb.payment.pospclient;
  */
 public class FieldMsgHeaderTotalLen {
 
-    private byte[] totalLen = new byte[4];
+       private byte[] totalLen = new byte[4];
 
-    public byte[] getTotalLen() {
-        return totalLen;
+    public void setTotalLen(int len) {
+
+        String s = String.valueOf(len);
+
+
+        String str ="0000";
+
+        String val  = str.substring(0, str.length() - s.length()) + s;
+
+        totalLen = val.getBytes();
     }
 
-    public void setTotalLen(byte[] totalLen) {
-        this.totalLen = totalLen;
+    public byte[] getTotalLen()
+    {
+        return totalLen;
     }
 }

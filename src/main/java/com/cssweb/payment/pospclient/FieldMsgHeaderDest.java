@@ -10,7 +10,16 @@ public class FieldMsgHeaderDest {
         return dest;
     }
 
-    public void setDest(byte[] dest) {
-        this.dest = dest;
+    public void setDest(String destId) {
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(destId);
+
+        for (int i = destId.length(); i<11; i++)
+        {
+            sb.append(" "); // 不足11位，后补空格
+        }
+
+        dest = sb.toString().getBytes();
     }
 }

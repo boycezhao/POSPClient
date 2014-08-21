@@ -126,6 +126,9 @@ public class POSPClient {
         bfm.addField(f39);
         bfm.addField(f70);
 
+        byte[] dataByteArray = bfm.getData();
+        System.out.println("dataByteArray = " + new String(dataByteArray));
+
         byte[] mainBitFieldMap = bfm.getMainBitFieldMap(); // 8字节长度的字节数组
         for (int i=0; i<mainBitFieldMap.length; i++)
         {
@@ -141,8 +144,36 @@ public class POSPClient {
         }
 
 
-        byte[] data = bfm.getData();
-        System.out.println("data = " + new String(data));
+        MessageType msgType = new MessageType();
+        msgType.setMsgType("0820");
+        byte[] msgTypeByteArray = msgType.getMsgType();
+        System.out.println("msgType len = " + msgTypeByteArray.length);
+
+
+        FieldMsgHeaderLen msgHeaderLen = new FieldMsgHeaderLen();
+        msgHeaderLen.setMsgHeaderLen((byte)46);
+
+        FieldMsgHeaderVer msgHeaderVer = new FieldMsgHeaderVer();
+        msgHeaderVer.setVersion((byte)0b00000010);
+
+
+        int totalLen = 0;
+        if (bfm.hasExtBitFieldMap())
+        {
+            totalLen = 46 + msgTypeByteArray.length + mainBitFieldMap.length + extBitFieldMap.length + dataByteArray.length;
+        }
+        else
+        {
+            totalLen = 46 + msgTypeByteArray.length + mainBitFieldMap.length + dataByteArray.length;
+        }
+        FieldMsgHeaderTotalLen msgHeaderTotalLen = new FieldMsgHeaderTotalLen();
+        msgHeaderTotalLen.setTotalLen(totalLen);
+
+        FieldMsgHeaderDest msgHeaderDest = new FieldMsgHeaderDest();
+        msgHeaderDest.setDest("00010000");
+
+        FieldMsgHeaderSource msgHeaderSource = new FieldMsgHeaderSource();
+        msgHeaderSource.setSource("");
 
     }
 }

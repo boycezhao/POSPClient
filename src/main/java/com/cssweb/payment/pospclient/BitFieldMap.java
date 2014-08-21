@@ -20,6 +20,8 @@ public class BitFieldMap {
 
     private char[] array = new char[128];
 
+    private boolean extBitFieldMap = false;
+
 
     public BitFieldMap()
     {
@@ -38,8 +40,10 @@ public class BitFieldMap {
 
         array[fieldNo - 1] = '1'; // 置有效位
 
-        if (fieldNo > 64)
+        if (fieldNo > 64) {
             array[0] = '1'; // 说明位图2有效
+            extBitFieldMap = true;
+        }
     }
 
     public byte[] getMainBitFieldMap()
@@ -112,6 +116,11 @@ public class BitFieldMap {
 
 
         return baos.toByteArray();
+    }
+
+    public boolean hasExtBitFieldMap()
+    {
+        return extBitFieldMap;
     }
 
 }
