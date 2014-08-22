@@ -1,10 +1,10 @@
 package com.cssweb.payment.pospclient;
 
-import java.io.ByteArrayInputStream;
+import com.cssweb.payment.pospclient.network.BitUtil;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,6 +32,10 @@ public class BitFieldMap {
         }
     }
 
+    /**
+     * 添加域，并设置有效位
+     * @param field
+     */
     public void addField(Field field)
     {
         fields.add(field);
@@ -46,6 +50,10 @@ public class BitFieldMap {
         }
     }
 
+    /**
+     * 返回主位图
+     * @return
+     */
     public byte[] getMainBitFieldMap()
     {
         String binaryStr = "";
@@ -72,6 +80,10 @@ public class BitFieldMap {
         return mainBitmap;
     }
 
+    /**
+     * 返回扩展位图
+     * @return
+     */
     public byte[] getExtBitFieldMap()
     {
         String binaryStr = "";
@@ -97,6 +109,10 @@ public class BitFieldMap {
         return extBitmap;
     }
 
+    /**
+     * 返回添加的域的字节数组
+     * @return
+     */
     public byte[] getData()
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -118,6 +134,10 @@ public class BitFieldMap {
         return baos.toByteArray();
     }
 
+    /**
+     * 是否有扩展位图
+     * @return
+     */
     public boolean hasExtBitFieldMap()
     {
         return extBitFieldMap;

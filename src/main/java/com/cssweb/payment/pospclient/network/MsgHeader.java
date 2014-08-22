@@ -1,150 +1,135 @@
 package com.cssweb.payment.pospclient.network;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+/**
+ * Created by chenhf on 2014/8/22.
+ */
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
- * Created by chenhf on 14-1-4.
+ * Created by chenhf on 2014/7/21.
  */
 public class MsgHeader {
-    private static final Logger logger = LogManager
-            .getLogger(MsgHeader.class.getName());
 
-    private int msgContentSize;
-    private byte msgType;
-    private int crc;
-    private byte priority; // 优先级
-    private byte zip;
-    private byte encrypt;
-    public final static int MSG_HEADER_SIZE = 12; // 4+1+4+1+1+1=12
+    // 总共46字节
+
+    public static final int MSG_HEADER_SIZE = 46;
+
+    private byte msgHeaderLen;
+    private byte version;
+    private byte[] totalLen = new byte[4];
+    private String destId;
+    private String srcId;
+    private byte[] reserved;
+    private byte batchNo;
+    private String tradeInfo;
+    private byte userInfo;
+    private String rejectCode;
 
 
-    public byte getEncrypt() {
-        return encrypt;
+
+    public boolean decodeMsgHeader(byte[] msgHeader)
+    {
+        return true;
     }
 
-    public void setEncrypt(byte encrypt) {
-        this.encrypt = encrypt;
+    public boolean encodeMsgHeader()
+    {
+        return true;
     }
 
-    public byte getPriority() {
-        return priority;
-    }
-
-    public void setPriority(byte priority) {
-        this.priority = priority;
-    }
-
-
-    public int getMsgContentSize() {
-
-        return msgContentSize;
-    }
-
-    public void setMsgContentSize(int msgContentSize) {
-        this.msgContentSize = msgContentSize;
-    }
-
-    public int getCrc() {
-        return crc;
-    }
-
-    public void setCrc(int crc) {
-        this.crc = crc;
-    }
-
-    public byte getZip() {
-        return zip;
-    }
-
-    public void setZip(byte zip) {
-        this.zip = zip;
-    }
-
-    public byte getMsgType() {
-        return msgType;
-    }
-
-    public void setMsgType(byte msgType) {
-        this.msgType = msgType;
-    }
-
-
-    public void encodeMsgHeader(int msgContentSize, byte msgType, int crc, byte zip, byte encrypt, byte priority)  {
-        setMsgContentSize(msgContentSize);
-        setMsgType(msgType);
-        setCrc(crc);
-        setZip(zip);
-        setEncrypt(encrypt);
-        setPriority(priority);
-
-        //return toByteArray();
-    }
 
     public byte[] toByteArray() throws IOException {
-        // 可以使用java aio ByteBuffer
-        // 可以使用netty ByteBuf
-
-        ByteArrayOutputStream buf = new ByteArrayOutputStream();
-        DataOutputStream out = new DataOutputStream(buf);
-
-        byte[] temp = Util.ntoh(msgContentSize, 4); // 新版本
-        // byte[] temp =  Util.hton(msgContentSize); // 老版本
-        out.write(temp, 0, 4);
-
-
-        out.writeByte(msgType);
-
-        out.writeInt(crc);
-
-        out.writeByte(priority);
-
-        out.writeByte(zip);
-        out.writeByte(encrypt);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        baos.write(msgHeaderLen);
+        baos.write(version);
+        baos.write(totalLen);
+        baos.write(destId.getBytes());
+        baos.write(srcId.getBytes());
+        baos.write(reserved);
+        baos.write(batchNo);
+        baos.write(tradeInfo.getBytes());
+        baos.write(userInfo);
+        baos.write(rejectCode.getBytes());
 
 
 
-        byte[] msgHeader = buf.toByteArray();
-
-        out.close();
-        buf.close();
-
-
-
-        return msgHeader;
+        return baos.toByteArray();
     }
 
 
-
-
-    /*
-    解析消息头
-     */
-    public void decodeMsgHeader(byte[] msgHeader) throws IOException {
-        ByteArrayInputStream buf = new ByteArrayInputStream(msgHeader);
-        DataInputStream in = new DataInputStream(buf);
-
-        byte[] size = new byte[4];
-        in.readFully(size);
-        msgContentSize = Util.hton(size); // 新版本
-
-      //  msgContentSize = Util.ntoh(size); // 老版本
-        logger.info("消息内容大小" + msgContentSize);
-
-        msgType = in.readByte();
-
-        crc = in.readInt();
-
-        priority = in.readByte();
-
-        zip = in.readByte();
-        encrypt = in.readByte();
-
-
-
-        in.close();
-        buf.close();
+    public void setMsgHeaderLen(byte msgHeaderLen)
+    {
+        this.msgHeaderLen = msgHeaderLen;
     }
+
+    public void setVersion(byte version)
+    {
+        this.version = version;
+    }
+
+    public void setTotalLen(int totalLen)
+    {
+        String s = String.valueOf(totalLen);
+
+
+        String str ="0000";
+
+        String val  = str.substring(0, str.length() - s.length()) + s;
+
+        this.totalLen = val.getBytes();
+    }
+
+    public void setDestId(String destId)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append(destId);
+
+        for (int i = destId.length(); i<11; i++)
+        {
+            sb.append(" "); // 不足11位，后补空格
+        }
+
+        this.destId = sb.toString();
+    }
+
+    public void setSourceId(String srcId)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append(srcId);
+
+        for (int i = srcId.length(); i<11; i++)
+        {
+            sb.append(" "); // 不足11位，后补空格
+        }
+
+
+        this.srcId = sb.toString();
+    }
+
+    public void setReserved(byte[] reserved)
+    {
+        this.reserved = reserved;
+    }
+
+    public void setBatchNo(byte batchNo)
+    {
+        this.batchNo = batchNo;
+    }
+
+    public void setTradeInfo(String tradeInfo)
+    {
+        this.tradeInfo = tradeInfo;
+    }
+    public void setUserInfo(byte userInfo)
+    {
+        this.userInfo = userInfo;
+    }
+
+    public void setRejectCode(String rejectCode)
+    {
+        this.rejectCode = rejectCode;
+    }
+
 }

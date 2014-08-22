@@ -15,6 +15,7 @@ public class CustomMessage {
 
     private MsgHeader msgHeader;
     private byte[] msgContent;
+
     private AsynchronousSocketChannel channel;
     private ChannelHandlerContext channelHandlerContext;
 

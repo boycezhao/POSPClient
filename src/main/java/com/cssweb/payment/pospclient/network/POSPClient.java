@@ -10,6 +10,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -93,6 +94,7 @@ public class POSPClient {
 
     public void ping()
     {
+        // 设置域值
         Field7 f7 = new Field7();
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
@@ -118,14 +120,19 @@ public class POSPClient {
 
         Field70 f70 = new Field70();
         f70.setFieldValue("301"); // 线路测试
+        // 设置域值结束
 
+        // 处理位和域的映射
         BitFieldMap bfm = new BitFieldMap();
+
+        // 注意：一定要按顺序写入
         bfm.addField(f7);
         bfm.addField(f11);
         bfm.addField(f33);
         bfm.addField(f39);
         bfm.addField(f70);
 
+        // 返回域值字节数组
         byte[] dataByteArray = bfm.getData();
         System.out.println("dataByteArray = " + new String(dataByteArray));
 
@@ -142,38 +149,64 @@ public class POSPClient {
             String binaryStr  = BitUtil.byteToBinaryStr(extBitFieldMap[i]);
             System.out.println("i=" + i + ", str=" + binaryStr);
         }
+        // 处理位和域的映射结束
 
 
+        // 开始处理消息类型
         MessageType msgType = new MessageType();
         msgType.setMsgType("0820");
         byte[] msgTypeByteArray = msgType.getMsgType();
         System.out.println("msgType len = " + msgTypeByteArray.length);
 
 
-        FieldMsgHeaderLen msgHeaderLen = new FieldMsgHeaderLen();
-        msgHeaderLen.setMsgHeaderLen((byte)46);
-
-        FieldMsgHeaderVer msgHeaderVer = new FieldMsgHeaderVer();
-        msgHeaderVer.setVersion((byte)0b00000010);
+        // 开始处理消息头
+        MsgHeader msgHeader = new MsgHeader();
+        msgHeader.setMsgHeaderLen((byte)46);
+        msgHeader.setVersion((byte)0b00000010);
 
 
         int totalLen = 0;
         if (bfm.hasExtBitFieldMap())
         {
-            totalLen = 46 + msgTypeByteArray.length + mainBitFieldMap.length + extBitFieldMap.length + dataByteArray.length;
+            totalLen = MsgHeader.MSG_HEADER_LEN + msgTypeByteArray.length + mainBitFieldMap.length + extBitFieldMap.length + dataByteArray.length;
         }
         else
         {
-            totalLen = 46 + msgTypeByteArray.length + mainBitFieldMap.length + dataByteArray.length;
+            totalLen = MsgHeader.MSG_HEADER_LEN + msgTypeByteArray.length + mainBitFieldMap.length + dataByteArray.length;
         }
-        FieldMsgHeaderTotalLen msgHeaderTotalLen = new FieldMsgHeaderTotalLen();
-        msgHeaderTotalLen.setTotalLen(totalLen);
+        msgHeader.setTotalLen(totalLen);
 
-        FieldMsgHeaderDest msgHeaderDest = new FieldMsgHeaderDest();
-        msgHeaderDest.setDest("00010000");
 
-        FieldMsgHeaderSource msgHeaderSource = new FieldMsgHeaderSource();
-        msgHeaderSource.setSource("");
+        msgHeader.setDestId("00010000");
+        msgHeader.setSourceId("00010000");
+
+        byte[] reserved = new byte[3];
+        for (int i=0; i<reserved.length; i++)
+            reserved[i] = 0;
+        msgHeader.setReserved(reserved);
+
+        msgHeader.setBatchNo((byte)0);
+
+        msgHeader.setTradeInfo("00000000"); // 8字节定长
+
+        msgHeader.setUserInfo((byte) 0);
+
+        msgHeader.setRejectCode("00000"); // 5字节定长
+
+        try {
+            byte[] msgHeaderByteArray = msgHeader.toByteArray();
+            System.out.println("消息头大小 = " + msgHeaderByteArray.length);
+            if (msgHeaderByteArray.length != MsgHeader.MSG_HEADER_LEN)
+            {
+                System.out.println("消息头大小不符");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 处理消息头结束
 
     }
+
+
 }
