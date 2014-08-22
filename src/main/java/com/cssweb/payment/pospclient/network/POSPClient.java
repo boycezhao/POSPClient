@@ -38,11 +38,14 @@ public class POSPClient {
         this.paymentServer = paymentServer;
     }
 
+
     public boolean connect()
     {
+        try {
+
         b.group(group).channel(NioSocketChannel.class).option(ChannelOption.TCP_NODELAY, true).handler(new NettyClientInitializer());
 
-        try {
+
             channel = b.connect("127.0.0.1", 6000).sync().channel();
 
 
@@ -69,30 +72,11 @@ public class POSPClient {
         group.shutdownGracefully();
     }
 
-    public void sendRequest(byte msgType, byte[] msgBody) {
-        if (!connected )
-        {
-            connect();
-        }
-
-        handler.sendRequest(msgType, msgBody);
-    }
 
 
 
-    public CustomMessage recvResponse()
-    {
-        CustomMessage response = handler.recvResponse();
-        return response;
-    }
 
-    public static void main(String[] args)
-    {
-        POSPClient client = new POSPClient();
-        client.ping();
-    }
-
-    public void ping()
+    public void testNetwork()
     {
         // 设置域值
         Field7 f7 = new Field7();
@@ -109,18 +93,18 @@ public class POSPClient {
         }
         f11.setFieldValue(traceNo);
 
-
         Field33 f33 = new Field33();
         f33.setFieldValue("111111");
-
 
         Field39 f39 = new Field39();
         f39.setFieldValue("00");
 
-
         Field70 f70 = new Field70();
         f70.setFieldValue("301"); // 线路测试
         // 设置域值结束
+
+
+
 
         // 处理位和域的映射
         BitFieldMap bfm = new BitFieldMap();
@@ -203,10 +187,45 @@ public class POSPClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         // 处理消息头结束
+
+
+
+        // 处理消息内容
+        byte[] msgContent = new byte[totalLen - MsgHeader.MSG_HEADER_SIZE];
+
+        int destPos = 0;
+
+        System.arraycopy(msgTypeByteArray, 0, msgContent, destPos, msgTypeByteArray.length);
+        destPos += msgTypeByteArray.length;
+
+        System.arraycopy(mainBitFieldMap, 0, msgContent, destPos, mainBitFieldMap.length);
+        destPos += mainBitFieldMap.length;
+
+        if (bfm.hasExtBitFieldMap()) {
+            System.arraycopy(extBitFieldMap, 0, msgContent, destPos, extBitFieldMap.length);
+            destPos += extBitFieldMap.length;
+
+        }
+        System.arraycopy(dataByteArray, 0, msgContent, destPos, dataByteArray.length);
+        // 处理消息内容结束
+
+        CustomMessage customMessage = new CustomMessage();
+        customMessage.setMsgHeader(msgHeader);
+        customMessage.setMsgContent(msgContent);
+
+        handler.sendRequest(customMessage);
+        handler.recvResponse();
 
     }
 
+    public static void main(String[] args)
+    {
+        POSPClient client = new POSPClient();
+        //client.connect();
 
+        client.testNetwork();
+
+        //client.close();
+    }
 }

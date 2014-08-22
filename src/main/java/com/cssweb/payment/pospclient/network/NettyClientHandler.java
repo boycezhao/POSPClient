@@ -38,7 +38,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<CustomMessag
 
     final BlockingQueue<CustomMessage> answer = new LinkedBlockingQueue<CustomMessage>();
 
-    public void sendRequest(byte msgType, byte[] body) {
+    public void sendRequest(CustomMessage customMessage) {
 
 
 
@@ -54,19 +54,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<CustomMessag
         future.addListener(numberSender);
 
         ctx.flush();
-
     }
-    private final ChannelFutureListener numberSender = new ChannelFutureListener() {
-        @Override
-        public void operationComplete(ChannelFuture future) throws Exception {
-            if (future.isSuccess()) {
-                System.out.println("send is success....");
-            } else {
-                future.cause().printStackTrace();
-                future.channel().close();
-            }
-        }
-    };
 
     public CustomMessage recvResponse() {
         boolean interrupted = false;
@@ -81,10 +69,24 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<CustomMessag
             }
         } finally {
             if (interrupted) {
-               // Thread.currentThread().interrupt();
+                // Thread.currentThread().interrupt();
             }
         }
     }
+
+    private final ChannelFutureListener numberSender = new ChannelFutureListener() {
+        @Override
+        public void operationComplete(ChannelFuture future) throws Exception {
+            if (future.isSuccess()) {
+                System.out.println("send is success....");
+            } else {
+                future.cause().printStackTrace();
+                future.channel().close();
+            }
+        }
+    };
+
+
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
@@ -106,10 +108,4 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<CustomMessag
         cause.printStackTrace();
         ctx.close();
     }
-
-
-
-
-
-
 }

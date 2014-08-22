@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class BitFieldMap {
 
-    //private HashMap<Integer, Field> bm;
+
+
     private byte[] mainBitmap = new byte[8];
     private byte[] extBitmap = new byte[8];
 
