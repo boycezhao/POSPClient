@@ -40,17 +40,10 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<CustomMessag
 
     public void sendRequest(CustomMessage customMessage) {
 
-
-
-        MsgHeader msgHeader = new MsgHeader();
-        msgHeader.encodeMsgHeader(body.length, msgType, (byte)0, (byte)0, (byte)0, (byte)0);
-
-        CustomMessage req = new CustomMessage();
-        req.setMsgContent(body);
-        req.setMsgHeader(msgHeader);
-
         ChannelFuture future = null;
-        future = ctx.write(req);
+
+        future = ctx.write(customMessage);
+
         future.addListener(numberSender);
 
         ctx.flush();
