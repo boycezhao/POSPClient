@@ -168,11 +168,11 @@ public class POSPClient {
         int totalLen = 0;
         if (bfm.hasExtBitFieldMap())
         {
-            totalLen = MsgHeader.MSG_HEADER_LEN + msgTypeByteArray.length + mainBitFieldMap.length + extBitFieldMap.length + dataByteArray.length;
+            totalLen = MsgHeader.MSG_HEADER_SIZE + msgTypeByteArray.length + mainBitFieldMap.length + extBitFieldMap.length + dataByteArray.length;
         }
         else
         {
-            totalLen = MsgHeader.MSG_HEADER_LEN + msgTypeByteArray.length + mainBitFieldMap.length + dataByteArray.length;
+            totalLen = MsgHeader.MSG_HEADER_SIZE + msgTypeByteArray.length + mainBitFieldMap.length + dataByteArray.length;
         }
         msgHeader.setTotalLen(totalLen);
 
@@ -196,7 +196,7 @@ public class POSPClient {
         try {
             byte[] msgHeaderByteArray = msgHeader.toByteArray();
             System.out.println("消息头大小 = " + msgHeaderByteArray.length);
-            if (msgHeaderByteArray.length != MsgHeader.MSG_HEADER_LEN)
+            if (msgHeaderByteArray.length != MsgHeader.MSG_HEADER_SIZE)
             {
                 System.out.println("消息头大小不符");
             }

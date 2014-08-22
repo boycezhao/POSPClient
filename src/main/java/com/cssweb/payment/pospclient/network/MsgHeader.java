@@ -4,7 +4,9 @@ package com.cssweb.payment.pospclient.network;
  * Created by chenhf on 2014/8/22.
  */
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 
 /**
@@ -19,18 +21,48 @@ public class MsgHeader {
     private byte msgHeaderLen;
     private byte version;
     private byte[] totalLen = new byte[4];
-    private String destId;
-    private String srcId;
-    private byte[] reserved;
+    private byte[] destId = new byte[11];
+    private byte[] srcId = new byte[11];
+    private byte[] reserved = new byte[3];
     private byte batchNo;
-    private String tradeInfo;
+    private byte[] tradeInfo = new byte[8];
     private byte userInfo;
-    private String rejectCode;
+    private byte[] rejectCode = new byte[5];
 
 
+    private int msgContentSize;
 
-    public boolean decodeMsgHeader(byte[] msgHeader)
-    {
+    public int getMsgContentSize() {
+        return msgContentSize;
+    }
+
+    public void setMsgContentSize(int msgContentSize) {
+        this.msgContentSize = msgContentSize;
+    }
+
+    public boolean decodeMsgHeader(byte[] msgHeader) throws IOException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(msgHeader);
+        DataInputStream in = new DataInputStream(bais);
+
+        msgHeaderLen = in.readByte();
+        version = in.readByte();
+        in.readFully(totalLen);
+        in.readFully(destId);
+        in.readFully(srcId);
+        in.readFully(reserved);
+        batchNo = in.readByte();
+        in.readFully(tradeInfo);
+        userInfo = in.readByte();
+        in.readFully(rejectCode);
+
+        in.close();
+        bais.close();
+
+
+        String sTotalLen = new String(totalLen);
+        Integer len = Integer.parseInt(sTotalLen);
+        msgContentSize = len.intValue();
+
         return true;
     }
 
@@ -45,13 +77,13 @@ public class MsgHeader {
         baos.write(msgHeaderLen);
         baos.write(version);
         baos.write(totalLen);
-        baos.write(destId.getBytes());
-        baos.write(srcId.getBytes());
+        baos.write(destId);
+        baos.write(srcId);
         baos.write(reserved);
         baos.write(batchNo);
-        baos.write(tradeInfo.getBytes());
+        baos.write(tradeInfo);
         baos.write(userInfo);
-        baos.write(rejectCode.getBytes());
+        baos.write(rejectCode);
 
 
 
@@ -91,7 +123,7 @@ public class MsgHeader {
             sb.append(" "); // 不足11位，后补空格
         }
 
-        this.destId = sb.toString();
+        this.destId = sb.toString().getBytes();
     }
 
     public void setSourceId(String srcId)
@@ -105,7 +137,7 @@ public class MsgHeader {
         }
 
 
-        this.srcId = sb.toString();
+        this.srcId = sb.toString().getBytes();
     }
 
     public void setReserved(byte[] reserved)
@@ -120,7 +152,7 @@ public class MsgHeader {
 
     public void setTradeInfo(String tradeInfo)
     {
-        this.tradeInfo = tradeInfo;
+        this.tradeInfo = tradeInfo.getBytes();
     }
     public void setUserInfo(byte userInfo)
     {
@@ -129,7 +161,7 @@ public class MsgHeader {
 
     public void setRejectCode(String rejectCode)
     {
-        this.rejectCode = rejectCode;
+        this.rejectCode = rejectCode.getBytes();
     }
 
 }
