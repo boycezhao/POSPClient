@@ -59,8 +59,10 @@ public class MsgHeader {
         bais.close();
 
 
+        // 计算消息内容大小
         String sTotalLen = new String(totalLen);
         Integer len = Integer.parseInt(sTotalLen);
+        len = len - MSG_HEADER_SIZE;
         msgContentSize = len.intValue();
 
         return true;

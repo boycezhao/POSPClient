@@ -51,11 +51,11 @@ public class CustomDecoder extends ByteToMessageDecoder {
 
 
 
-        CustomMessage request = new CustomMessage();
-        request.setMsgHeader(msgHeader);
-        request.setMsgContent(msgContent);
-        request.setChannelHandlerContext(ctx);
+        CustomMessage customMessage = new CustomMessage();
+        customMessage.setMsgHeader(msgHeader);
+        customMessage.setMsgContent(msgContent);
+        customMessage.setChannelHandlerContext(ctx);
 
-        out.add(request);
+        out.add(customMessage);
     }
 }

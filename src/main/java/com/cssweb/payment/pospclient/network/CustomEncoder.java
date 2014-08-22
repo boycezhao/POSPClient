@@ -27,17 +27,17 @@ public class CustomEncoder extends MessageToByteEncoder<CustomMessage> {
              CustomEncoder.class.getName());
 	 
     @Override
-    protected void encode(ChannelHandlerContext ctx, CustomMessage response, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, CustomMessage customMessage, ByteBuf out) throws Exception {
     	logger.info("encode");
     	
         
     	// 发送消息头
         //response.getMsgHeader().toBytes();
 
-    	out.writeBytes(response.getMsgHeader().toByteArray());
+    	out.writeBytes(customMessage.getMsgHeader().toByteArray());
        
     	// 发送消息内容
 
-        out.writeBytes(response.getMsgContent());     
+        out.writeBytes(customMessage.getMsgContent());
     }
 }
