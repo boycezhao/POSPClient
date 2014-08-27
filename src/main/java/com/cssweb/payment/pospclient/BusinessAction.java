@@ -1,6 +1,7 @@
 package com.cssweb.payment.pospclient;
 
-import com.cssweb.payment.posp.network.CustomMessage;
+
+import com.cssweb.payment.pospclient.network.CustomMessage;
 
 /**
  * Created by chenhf on 2014/8/25.

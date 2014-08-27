@@ -1,7 +1,8 @@
 package com.cssweb.payment.pospclient;
 
-import com.cssweb.payment.posp.network.CustomMessage;
-import com.cssweb.payment.posp.network.MsgHeader;
+
+import com.cssweb.payment.pospclient.network.CustomMessage;
+import com.cssweb.payment.pospclient.network.MsgHeader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

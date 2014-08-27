@@ -14,7 +14,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 
@@ -47,7 +49,7 @@ public class POSPClient {
     {
         try {
 
-        b.group(group).channel(NioSocketChannel.class).option(ChannelOption.TCP_NODELAY, true).handler(new NettyClientInitializer());
+            b.group(group).channel(NioSocketChannel.class).option(ChannelOption.TCP_NODELAY, true).handler(new NettyClientInitializer());
 
 
             channel = b.connect("127.0.0.1", 6000).sync().channel();
@@ -82,6 +84,13 @@ public class POSPClient {
 
     public void testNetwork()
     {
+        CustomMessage customMessage = new CustomMessage();
+        List<Field> fields = new ArrayList<Field>();
+        MsgHeader msgHeader = new MsgHeader();
+        MessageType msgType = new MessageType();
+        BitFieldMap bitFieldMap = new BitFieldMap();
+        FieldData fieldData = new FieldData();
+
         // 设置域值
         Field7 f7 = new Field7();
         Date now = new Date();
@@ -105,118 +114,47 @@ public class POSPClient {
 
         Field70 f70 = new Field70();
         f70.setFieldValue("301"); // 线路测试
+
+
+        fields.add(f7);
+        fields.add(f11);
+        fields.add(f33);
+        fields.add(f39);
+        fields.add(f70);
         // 设置域值结束
 
 
-
-
-        // 处理位和域的映射
-        BitFieldMap bfm = new BitFieldMap();
-
-        // 注意：一定要按顺序写入
-        bfm.addField(f7);
-        bfm.addField(f11);
-        bfm.addField(f33);
-        bfm.addField(f39);
-        bfm.addField(f70);
-
-        // 返回域值字节数组
-        byte[] dataByteArray = bfm.getData();
-        System.out.println("dataByteArray = " + new String(dataByteArray));
-
-        byte[] mainBitFieldMap = bfm.getMainBitFieldMap(); // 8字节长度的字节数组
-        for (int i=0; i<mainBitFieldMap.length; i++)
-        {
-            String binaryStr  = BitUtil.byteToBinaryStr(mainBitFieldMap[i]);
-            System.out.println("i=" + i + ", str=" + binaryStr);
-        }
-
-        byte[] extBitFieldMap = bfm.getExtBitFieldMap(); // 8字节长度的字节数组
-        for (int i=0; i<extBitFieldMap.length; i++)
-        {
-            String binaryStr  = BitUtil.byteToBinaryStr(extBitFieldMap[i]);
-            System.out.println("i=" + i + ", str=" + binaryStr);
-        }
-        // 处理位和域的映射结束
-
-
         // 开始处理消息类型
-        MessageType msgType = new MessageType();
         msgType.setMsgType("0820");
-        byte[] msgTypeByteArray = msgType.getMsgType();
-        System.out.println("msgType len = " + msgTypeByteArray.length);
+        customMessage.setMsgType(msgType);
+        // 结束处理消息类型
 
 
-        // 开始处理消息头
-        MsgHeader msgHeader = new MsgHeader();
-        msgHeader.setMsgHeaderLen((byte)46);
-        msgHeader.setVersion((byte)0b00000010);
+
+        // 设置位图
+        bitFieldMap.setFields(fields);
+        customMessage.setBitFieldMap(bitFieldMap);
 
 
-        int totalLen = 0;
-        if (bfm.hasExtBitFieldMap())
-        {
-            totalLen = MsgHeader.MSG_HEADER_SIZE + msgTypeByteArray.length + mainBitFieldMap.length + extBitFieldMap.length + dataByteArray.length;
-        }
-        else
-        {
-            totalLen = MsgHeader.MSG_HEADER_SIZE + msgTypeByteArray.length + mainBitFieldMap.length + dataByteArray.length;
-        }
-        msgHeader.setTotalLen(totalLen);
-
-
-        msgHeader.setDestId("00010000");
-        msgHeader.setSourceId("00010000");
-
-        byte[] reserved = new byte[3];
-        for (int i=0; i<reserved.length; i++)
-            reserved[i] = 0;
-        msgHeader.setReserved(reserved);
-
-        msgHeader.setBatchNo((byte)0);
-
-        msgHeader.setTradeInfo("00000000"); // 8字节定长
-
-        msgHeader.setUserInfo((byte) 0);
-
-        msgHeader.setRejectCode("00000"); // 5字节定长
-
+        // 设置域值
         try {
-            byte[] msgHeaderByteArray = msgHeader.toByteArray();
-            System.out.println("消息头大小 = " + msgHeaderByteArray.length);
-            if (msgHeaderByteArray.length != MsgHeader.MSG_HEADER_SIZE)
-            {
-                System.out.println("消息头大小不符");
-            }
+            fieldData.encode(fields);
+            customMessage.setFieldData(fieldData);
+
+            // 设置消息头
+            int totalLen = MsgHeader.MSG_HEADER_SIZE + MessageType.MSG_TYPE_SIZE + bitFieldMap.getBitFieldMapLen() + fieldData.getFieldDataLen();
+            msgHeader.encodeMsgHeader(totalLen, "00010000", "00010000", (byte)0, "00000000", (byte)0, "00000");
+            customMessage.setMsgHeader(msgHeader);
+
+            // 消息编码,这一步非常重要，把msgType, bitFieldMap, fieldData合成msgContent
+            customMessage.encode();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // 处理消息头结束
 
 
-
-        // 处理消息内容
-        byte[] msgContent = new byte[totalLen - MsgHeader.MSG_HEADER_SIZE];
-
-        int destPos = 0;
-
-        System.arraycopy(msgTypeByteArray, 0, msgContent, destPos, msgTypeByteArray.length);
-        destPos += msgTypeByteArray.length;
-
-        System.arraycopy(mainBitFieldMap, 0, msgContent, destPos, mainBitFieldMap.length);
-        destPos += mainBitFieldMap.length;
-
-        if (bfm.hasExtBitFieldMap()) {
-            System.arraycopy(extBitFieldMap, 0, msgContent, destPos, extBitFieldMap.length);
-            destPos += extBitFieldMap.length;
-
-        }
-        System.arraycopy(dataByteArray, 0, msgContent, destPos, dataByteArray.length);
-        // 处理消息内容结束
-
-        CustomMessage customMessage = new CustomMessage();
-        customMessage.setMsgHeader(msgHeader);
-        customMessage.setMsgContent(msgContent);
 
         handler.sendRequest(customMessage);
         handler.recvResponse();

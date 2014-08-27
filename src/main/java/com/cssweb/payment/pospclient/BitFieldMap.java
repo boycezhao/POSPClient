@@ -1,6 +1,6 @@
 package com.cssweb.payment.pospclient;
 
-import com.cssweb.payment.posp.network.BitUtil;
+import com.cssweb.payment.pospclient.network.BitUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
