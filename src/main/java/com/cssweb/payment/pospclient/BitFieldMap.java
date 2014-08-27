@@ -1,61 +1,119 @@
 package com.cssweb.payment.pospclient;
 
-import com.cssweb.payment.pospclient.network.BitUtil;
+import com.cssweb.payment.posp.network.BitUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by chenhf on 2014/8/20.
  */
 public class BitFieldMap {
+    private static final Logger logger = LogManager.getLogger(BitFieldMap.class.getName());
+    public static final int BIT_FIELD_MAP_SIZE = 8;
 
+    private byte[] mainBitFieldMap = new byte[BIT_FIELD_MAP_SIZE];
+    private byte[] extBitFieldMap = new byte[BIT_FIELD_MAP_SIZE];
 
-
-    private byte[] mainBitmap = new byte[8];
-    private byte[] extBitmap = new byte[8];
-
-    private List<Field> fields = new ArrayList<Field>();
-
-    private char[] array = new char[128];
-
-    private boolean extBitFieldMap = false;
+    private List<Field> fields;
+    private boolean isExtBitFieldMap;
+    private int bitFieldMapLen;
+    private byte[] array = new byte[128];
 
 
     public BitFieldMap()
     {
+        isExtBitFieldMap = false;
+
         // 初始化
         for (int i=0; i<array.length; i++)
         {
-            array[i] = '0';
+            array[i] = 0;
         }
     }
 
     /**
-     * 添加域，并设置有效位
-     * @param field
+     * 返回
+     * @return
      */
-    public void addField(Field field)
+    public byte[] getArray()
     {
-        fields.add(field);
-
-        int fieldNo = field.getFieldNo();
-
-        array[fieldNo - 1] = '1'; // 置有效位
-
-        if (fieldNo > 64) {
-            array[0] = '1'; // 说明位图2有效
-            extBitFieldMap = true;
-        }
+        return array;
     }
+
+
+    public byte[] getMainBitFieldMap() {
+        return mainBitFieldMap;
+    }
+    public int getMainBitFieldMapLen()
+    {
+        return mainBitFieldMap.length;
+    }
+    public void setMainBitFieldMap(byte[] mainBitFieldMap) {
+        this.mainBitFieldMap = mainBitFieldMap;
+
+        // 把主位图第一个字节转成二进制数组
+        byte first = mainBitFieldMap[0];
+        byte[] firstByteArray = BitUtil.byteToBinaryArray(first);
+
+        if (firstByteArray[0] == 1)
+        {
+            isExtBitFieldMap = true;
+        }
+        else
+        {
+            isExtBitFieldMap = false;
+        }
+
+        int pos = 0;
+        for (int i=0; i<mainBitFieldMap.length; i++)
+        {
+            byte[] ba = BitUtil.byteToBinaryArray(mainBitFieldMap[i]);
+
+            for (int j=0; j<ba.length; j++)
+            {
+                byte b = ba[j];
+
+                array[pos++] = b;
+            }
+        }
+
+        bitFieldMapLen = mainBitFieldMap.length;
+    }
+
+    public byte[] getExtBitFieldMap() {
+        return extBitFieldMap;
+    }
+    public int getExtBitFieldMapLen()
+    {
+        return extBitFieldMap.length;
+    }
+    public void setExtBitFieldMap(byte[] extBitFieldMap) {
+        this.extBitFieldMap = extBitFieldMap;
+
+        int pos = 64;
+        for (int i=0; i<extBitFieldMap.length; i++)
+        {
+            byte[] ba = BitUtil.byteToBinaryArray(extBitFieldMap[i]);
+
+            for (int j=0; j<ba.length; j++)
+            {
+                byte b = ba[j];
+
+                array[pos++] = b;
+            }
+        }
+
+        bitFieldMapLen += extBitFieldMap.length;
+    }
+
 
     /**
      * 返回主位图
      * @return
      */
-    public byte[] getMainBitFieldMap()
+    private void setMainBitFieldMap()
     {
         String binaryStr = "";
         for (int i=0, j=1; i<64; i++, j++)
@@ -70,22 +128,20 @@ public class BitFieldMap {
                 byte b = BitUtil.binaryStrToByte(binaryStr);
 
                 int index = i/8;
-                mainBitmap[index] = b;
+                mainBitFieldMap[index] = b;
 
 
                 binaryStr = "";
                 j = 0;
             }
-        }
-
-        return mainBitmap;
+        }//end for
     }
 
     /**
      * 返回扩展位图
      * @return
      */
-    public byte[] getExtBitFieldMap()
+    private void setExtBitFieldMap()
     {
         String binaryStr = "";
         for (int i=64, j=1; i<128; i++, j++)
@@ -100,48 +156,60 @@ public class BitFieldMap {
                 byte b = BitUtil.binaryStrToByte(binaryStr);
 
                 int index = i/8;
-                extBitmap[index-8] = b;
+                extBitFieldMap[index-8] = b;
 
                 binaryStr = "";
                 j = 0;
             }
-        }
-
-        return extBitmap;
+        }//end for
     }
 
-    /**
-     * 返回添加的域的字节数组
-     * @return
-     */
-    public byte[] getData()
+
+    private void setFieldValid()
     {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        // ByteBuffer
-
-        //StringBuffer sb = new StringBuffer();
         for (Field field : fields)
         {
-            byte[] fieldValue = field.getFieldValue();
-            try {
-                baos.write(fieldValue);
-            } catch (IOException e) {
-                e.printStackTrace();
+            int fieldNo = field.getFieldNo();
+
+            array[fieldNo - 1] = 1; // 置有效位
+
+            if (fieldNo > 64) {
+                array[0] = 1; // 说明位图2有效
+                isExtBitFieldMap = true;
             }
         }
+    }
 
 
-        return baos.toByteArray();
+    public void setFields(List<Field> fields)
+    {
+        this.fields = fields;
+
+        setFieldValid();
+
+
+
+        setMainBitFieldMap();
+        bitFieldMapLen = mainBitFieldMap.length;
+
+        if (isExtBitFieldMap) {
+            setExtBitFieldMap();
+            bitFieldMapLen += extBitFieldMap.length;
+        }
     }
 
     /**
      * 是否有扩展位图
      * @return
      */
-    public boolean hasExtBitFieldMap()
+    public boolean isExtBitFieldMap()
     {
-        return extBitFieldMap;
+        return isExtBitFieldMap;
+    }
+
+    public int getBitFieldMapLen()
+    {
+        return bitFieldMapLen;
     }
 
 }

@@ -4,6 +4,9 @@ package com.cssweb.payment.pospclient.network;
  * Created by chenhf on 2014/8/22.
  */
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -13,7 +16,7 @@ import java.io.IOException;
  * Created by chenhf on 2014/7/21.
  */
 public class MsgHeader {
-
+    private static final Logger logger = LogManager.getLogger(MsgHeader.class.getName());
     // 总共46字节
 
     public static final int MSG_HEADER_SIZE = 46;
@@ -29,20 +32,39 @@ public class MsgHeader {
     private byte userInfo;
     private byte[] rejectCode = new byte[5];
 
-
+    private byte[] msgHeader;
     private int msgContentSize;
+
+
+    public byte[] getMsgHeader() {
+        return msgHeader;
+    }
+    public void setMsgHeader(byte[] msgHeader) {
+        this.msgHeader = msgHeader;
+    }
+
+    public byte getMsgHeaderLen() {
+
+        return msgHeaderLen;
+    }
 
     public int getMsgContentSize() {
         return msgContentSize;
     }
-
     public void setMsgContentSize(int msgContentSize) {
         this.msgContentSize = msgContentSize;
     }
 
+    /**
+     * 解码消息头
+     * @param msgHeader
+     * @return
+     * @throws java.io.IOException
+     */
     public boolean decodeMsgHeader(byte[] msgHeader) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(msgHeader);
         DataInputStream in = new DataInputStream(bais);
+
 
         msgHeaderLen = in.readByte();
         version = in.readByte();
@@ -68,14 +90,44 @@ public class MsgHeader {
         return true;
     }
 
-    public boolean encodeMsgHeader()
-    {
+    /**
+     * 编码消息头
+     * @param totalLen
+     * @param destId
+     * @param srcId
+     * @param batchNo
+     * @param tradeInfo
+     * @param userInfo
+     * @param rejectCode
+     * @return
+     * @throws java.io.IOException
+     */
+    public boolean encodeMsgHeader(int totalLen, String destId, String srcId, byte batchNo, String tradeInfo, byte userInfo, String rejectCode) throws IOException {
+        setMsgHeaderLen((byte)46);
+        setVersion((byte)0b00000010);
+        setTotalLen(totalLen);
+        setDestId(destId);
+        setSourceId(srcId);
+
+        byte[] reserved = new byte[3];
+        for (int i=0; i<reserved.length; i++)
+            reserved[i] = 0;
+        setReserved(reserved);
+
+        setBatchNo(batchNo);
+        setTradeInfo(tradeInfo); // 8字节定长
+        setUserInfo(userInfo);
+        setRejectCode(rejectCode); // 5字节定长
+
+        toByteArray();
+
         return true;
     }
 
 
-    public byte[] toByteArray() throws IOException {
+    private void toByteArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         baos.write(msgHeaderLen);
         baos.write(version);
         baos.write(totalLen);
@@ -87,9 +139,7 @@ public class MsgHeader {
         baos.write(userInfo);
         baos.write(rejectCode);
 
-
-
-        return baos.toByteArray();
+        msgHeader =  baos.toByteArray();
     }
 
 
@@ -156,6 +206,7 @@ public class MsgHeader {
     {
         this.tradeInfo = tradeInfo.getBytes();
     }
+
     public void setUserInfo(byte userInfo)
     {
         this.userInfo = userInfo;

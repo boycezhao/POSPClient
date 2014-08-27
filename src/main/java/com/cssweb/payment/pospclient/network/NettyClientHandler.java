@@ -19,6 +19,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -31,8 +33,8 @@ import java.util.concurrent.LinkedBlockingQueue;
  * this handler to avoid a race condition.
  */
 public class NettyClientHandler extends SimpleChannelInboundHandler<CustomMessage> {
+    private static final Logger logger = LogManager.getLogger(NettyClientHandler.class.getName());
 
-    private static final String SOH = "&";
 
     private ChannelHandlerContext ctx;
 

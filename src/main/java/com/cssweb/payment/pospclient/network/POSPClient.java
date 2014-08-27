@@ -9,6 +9,8 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -21,6 +23,8 @@ import java.util.Random;
  */
 
 public class POSPClient {
+    private static final Logger logger =  LogManager.getLogger(POSPClient.class.getName());
+
     private EventLoopGroup group = new NioEventLoopGroup();
     private Bootstrap b = new Bootstrap();
     private Channel channel = null;
