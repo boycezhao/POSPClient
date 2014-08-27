@@ -42,6 +42,18 @@ public class BitFieldMap {
         return array;
     }
 
+    public String getArrayStr()
+    {
+        String s = "";
+
+        for (int i=0; i<array.length; i++)
+        {
+            s += array[i];
+        }
+
+        return s;
+    }
+
 
     public byte[] getMainBitFieldMap() {
         return mainBitFieldMap;
@@ -211,5 +223,7 @@ public class BitFieldMap {
     {
         return bitFieldMapLen;
     }
+
+
 
 }

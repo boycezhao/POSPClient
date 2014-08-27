@@ -140,6 +140,7 @@ public class MsgHeader {
         baos.write(rejectCode);
 
         msgHeader =  baos.toByteArray();
+        logger.info("msgHeader len = " + msgHeader.length);
     }
 
 

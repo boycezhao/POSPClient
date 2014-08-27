@@ -52,7 +52,7 @@ public class POSPClient {
             b.group(group).channel(NioSocketChannel.class).option(ChannelOption.TCP_NODELAY, true).handler(new NettyClientInitializer());
 
 
-            channel = b.connect("127.0.0.1", 6000).sync().channel();
+            channel = b.connect("127.0.0.1", 8080).sync().channel();
 
 
              handler =  (NettyClientHandler) channel.pipeline().last();
@@ -127,6 +127,7 @@ public class POSPClient {
         // 开始处理消息类型
         msgType.setMsgType("0820");
         customMessage.setMsgType(msgType);
+        logger.info("msgType = " + new String(msgType.getMsgType()));
         // 结束处理消息类型
 
 
@@ -135,14 +136,19 @@ public class POSPClient {
         bitFieldMap.setFields(fields);
         customMessage.setBitFieldMap(bitFieldMap);
 
+        logger.info("array = " + bitFieldMap.getArrayStr());
 
-        // 设置域值
+
+
         try {
+            // 设置域值
             fieldData.encode(fields);
             customMessage.setFieldData(fieldData);
+            logger.info("fieldData = " + new String(fieldData.getFieldData()));
 
             // 设置消息头
             int totalLen = MsgHeader.MSG_HEADER_SIZE + MessageType.MSG_TYPE_SIZE + bitFieldMap.getBitFieldMapLen() + fieldData.getFieldDataLen();
+            logger.info("totalLen = " + totalLen);
             msgHeader.encodeMsgHeader(totalLen, "00010000", "00010000", (byte)0, "00000000", (byte)0, "00000");
             customMessage.setMsgHeader(msgHeader);
 
@@ -157,17 +163,23 @@ public class POSPClient {
 
 
         handler.sendRequest(customMessage);
-        handler.recvResponse();
 
+        CustomMessage response = handler.recvResponse();
+
+        response.decode();
+
+        FieldData resFieldData = response.getFieldData();
+        Field7 resF7 = (Field7) resFieldData.getField(7);
+        logger.info("resF7=" + new String(resF7.getFieldValue()));
     }
 
     public static void main(String[] args)
     {
         POSPClient client = new POSPClient();
-        //client.connect();
+        client.connect();
 
         client.testNetwork();
 
-        //client.close();
+        client.close();
     }
 }
