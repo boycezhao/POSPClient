@@ -1,6 +1,9 @@
-package com.cssweb.payment.pospclient;
+package com.cssweb.payment.pospclient.business;
 
 
+import com.cssweb.payment.pospclient.network.BitFieldMap;
+import com.cssweb.payment.pospclient.network.FieldData;
+import com.cssweb.payment.pospclient.network.MessageType;
 import com.cssweb.payment.pospclient.network.CustomMessage;
 import com.cssweb.payment.pospclient.network.MsgHeader;
 import org.apache.logging.log4j.LogManager;

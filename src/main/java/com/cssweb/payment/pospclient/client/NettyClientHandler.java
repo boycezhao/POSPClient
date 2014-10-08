@@ -13,8 +13,9 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.cssweb.payment.pospclient.network;
+package com.cssweb.payment.pospclient.client;
 
+import com.cssweb.payment.pospclient.network.CustomMessage;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;

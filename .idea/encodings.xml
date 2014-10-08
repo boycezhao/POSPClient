@@ -6,6 +6,11 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/pospclient/network/CustomMessage.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/pospclient/network/MsgHeader.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/pospclient/network/Util.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/pospclient/server/NettyServerHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/pospclient/server/NettyServerInitializer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/pospclient/server/POSPServer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/pospclient/server/WorkerThread.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/pospclient/server/WorkerThreadPool.java" charset="UTF-8" />
   </component>
 </project>
 

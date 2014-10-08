@@ -13,34 +13,32 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.cssweb.payment.pospclient.network;
+package com.cssweb.payment.pospclient.server;
 
+
+import com.cssweb.payment.pospclient.network.CustomDecoder;
+import com.cssweb.payment.pospclient.network.CustomEncoder;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 
-/**
- * Creates a newly configured {@link io.netty.channel.ChannelPipeline} for a client-side channel.
- */
-public class NettyClientInitializer extends ChannelInitializer<SocketChannel> {
 
-
-
+public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
-    public void initChannel(SocketChannel ch) {
+    public void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
 
-
-
         // Enable stream compression (you can remove these two if unnecessary)
-        //pipeline.addLast(ZlibCodecFactory.newZlibEncoder(ZlibWrapper.GZIP));
-        //pipeline.addLast(ZlibCodecFactory.newZlibDecoder(ZlibWrapper.GZIP));
+        //pipeline.addLast("deflater", ZlibCodecFactory.newZlibEncoder(ZlibWrapper.GZIP));
+        //pipeline.addLast("inflater", ZlibCodecFactory.newZlibDecoder(ZlibWrapper.GZIP));
 
         // Add the number codec first,
         pipeline.addLast("decoder", new CustomDecoder());
         pipeline.addLast("encoder", new CustomEncoder());
 
         // and then business logic.
-        pipeline.addLast(new NettyClientHandler());
+        // Please note we create a handler for every new channel
+        // because it has stateful properties.
+        pipeline.addLast("handler", new NettyServerHandler());
     }
 }

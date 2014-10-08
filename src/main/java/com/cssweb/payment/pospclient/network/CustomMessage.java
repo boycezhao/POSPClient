@@ -1,9 +1,6 @@
 package com.cssweb.payment.pospclient.network;
 
 
-import com.cssweb.payment.pospclient.BitFieldMap;
-import com.cssweb.payment.pospclient.FieldData;
-import com.cssweb.payment.pospclient.MessageType;
 import io.netty.channel.ChannelHandlerContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,8 +1,9 @@
-package com.cssweb.payment.pospclient.network;
+package com.cssweb.payment.pospclient.client;
 
 
 
-import com.cssweb.payment.pospclient.*;
+import com.cssweb.payment.pospclient.business.*;
+import com.cssweb.payment.pospclient.network.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
@@ -29,6 +30,7 @@ public class POSPClient {
 
     private EventLoopGroup group = new NioEventLoopGroup();
     private Bootstrap b = new Bootstrap();
+
     private Channel channel = null;
     private NettyClientHandler handler = null;
     private boolean connected = false;
@@ -45,14 +47,14 @@ public class POSPClient {
     }
 
 
-    public boolean connect()
+    public boolean connect(String paymentServer, int port)
     {
         try {
 
             b.group(group).channel(NioSocketChannel.class).option(ChannelOption.TCP_NODELAY, true).handler(new NettyClientInitializer());
 
 
-            channel = b.connect("127.0.0.1", 8080).sync().channel();
+            channel = b.connect(paymentServer, port).sync().channel();
 
 
              handler =  (NettyClientHandler) channel.pipeline().last();
@@ -173,13 +175,5 @@ public class POSPClient {
         logger.info("resF7=" + new String(resF7.getFieldValue()));
     }
 
-    public static void main(String[] args)
-    {
-        POSPClient client = new POSPClient();
-        client.connect();
 
-        client.testNetwork();
-
-        client.close();
-    }
 }

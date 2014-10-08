@@ -1,4 +1,4 @@
-package com.cssweb.payment.pospclient;
+package com.cssweb.payment.pospclient.business;
 
 
 import com.cssweb.payment.pospclient.network.CustomMessage;
