@@ -1,9 +1,7 @@
-package com.cssweb.payment.pospclient.server;
+package com.cssweb.payment.pospclient.business;
 
 
 
-import com.cssweb.payment.pospclient.business.BusiGetBalance;
-import com.cssweb.payment.pospclient.business.BusiTestNetwork;
 import com.cssweb.payment.pospclient.network.CustomMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,12 +38,13 @@ public class WorkerThread implements Runnable {
 
         if (msgType.equals("0820"))
         {
-            testNetwork.process(request);
+            logger.info("收到echo应答");
+            //testNetwork.process(request);
         }
 
         if (msgType == "0200")
         {
-            getBalance.process(request);
+            //getBalance.process(request);
         }
 
 

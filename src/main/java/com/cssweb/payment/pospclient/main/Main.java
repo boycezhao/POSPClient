@@ -2,7 +2,7 @@ package com.cssweb.payment.pospclient.main;
 
 import com.cssweb.payment.pospclient.client.POSPClient;
 import com.cssweb.payment.pospclient.server.POSPServer;
-import com.cssweb.payment.pospclient.server.WorkerThreadPool;
+import com.cssweb.payment.pospclient.business.WorkerThreadPool;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +28,8 @@ public class Main {
         try {
             BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
             while(true) {
+                System.out.println("请输入命令（echo, quit, exit）:");
+
                 String cmd = console.readLine();
 
 
@@ -39,7 +41,7 @@ public class Main {
                     client.testNetwork();
                     client.close();
                 }
-                else if(cmd.equalsIgnoreCase("exit"))
+                else if(cmd.equalsIgnoreCase("exit") || cmd.equalsIgnoreCase("quit"))
                 {
                     server.stop();
 

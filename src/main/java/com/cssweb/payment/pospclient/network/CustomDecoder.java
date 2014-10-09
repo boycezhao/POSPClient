@@ -11,7 +11,8 @@ import java.util.List;
 
 
 public class CustomDecoder extends ByteToMessageDecoder {
-	 private static final Logger logger =  LogManager.getLogger(CustomDecoder.class.getName());
+	 private static final Logger logger =  LogManager.getLogger(
+             CustomDecoder.class.getName());
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {

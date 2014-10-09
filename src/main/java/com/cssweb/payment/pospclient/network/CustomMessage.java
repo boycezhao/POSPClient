@@ -1,6 +1,5 @@
 package com.cssweb.payment.pospclient.network;
 
-
 import io.netty.channel.ChannelHandlerContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,8 +16,10 @@ public class CustomMessage {
     private MessageType msgType;
     private BitFieldMap bitFieldMap;
     private FieldData fieldData;
+
     private byte[] msgContent; // 包含MessageType, BitFieldMap, fieldData
     private int msgContentSize;
+
     private AsynchronousSocketChannel channel;
     private ChannelHandlerContext channelHandlerContext;
 
@@ -154,6 +155,7 @@ public class CustomMessage {
 
         byte[] array = bitFieldMap.getArray();
         logger.info("array = " + bitFieldMap.getArrayStr());
+
 
         // 解析域数据
         fieldData = new FieldData();

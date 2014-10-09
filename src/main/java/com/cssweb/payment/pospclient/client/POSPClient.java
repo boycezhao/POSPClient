@@ -86,6 +86,7 @@ public class POSPClient {
 
     public void testNetwork()
     {
+
         CustomMessage customMessage = new CustomMessage();
         List<Field> fields = new ArrayList<Field>();
         MsgHeader msgHeader = new MsgHeader();
@@ -164,8 +165,10 @@ public class POSPClient {
 
 
 
+        logger.info("发送echo请求");
         handler.sendRequest(customMessage);
 
+        /*
         CustomMessage response = handler.recvResponse();
 
         response.decode();
@@ -173,6 +176,7 @@ public class POSPClient {
         FieldData resFieldData = response.getFieldData();
         Field7 resF7 = (Field7) resFieldData.getField(7);
         logger.info("resF7=" + new String(resF7.getFieldValue()));
+        */
     }
 
 

@@ -1,4 +1,4 @@
-package com.cssweb.payment.pospclient.server;
+package com.cssweb.payment.pospclient.business;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

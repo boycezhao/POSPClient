@@ -1,5 +1,6 @@
 package com.cssweb.payment.pospclient.network;
 
+
 import com.cssweb.payment.pospclient.business.Field;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,15 +12,19 @@ import java.util.List;
  */
 public class BitFieldMap {
     private static final Logger logger = LogManager.getLogger(BitFieldMap.class.getName());
+
     public static final int BIT_FIELD_MAP_SIZE = 8;
 
+    private byte[] array = new byte[128];
     private byte[] mainBitFieldMap = new byte[BIT_FIELD_MAP_SIZE];
     private byte[] extBitFieldMap = new byte[BIT_FIELD_MAP_SIZE];
 
     private List<Field> fields;
+
     private boolean isExtBitFieldMap;
+
     private int bitFieldMapLen;
-    private byte[] array = new byte[128];
+
 
 
     public BitFieldMap()
@@ -41,7 +46,6 @@ public class BitFieldMap {
     {
         return array;
     }
-
     public String getArrayStr()
     {
         String s = "";
@@ -54,7 +58,6 @@ public class BitFieldMap {
         return s;
     }
 
-
     public byte[] getMainBitFieldMap() {
         return mainBitFieldMap;
     }
@@ -62,6 +65,11 @@ public class BitFieldMap {
     {
         return mainBitFieldMap.length;
     }
+
+    /**
+     * 把字节转换成二进制字符串，同时设置array数组
+     * @param mainBitFieldMap
+     */
     public void setMainBitFieldMap(byte[] mainBitFieldMap) {
         this.mainBitFieldMap = mainBitFieldMap;
 
@@ -94,35 +102,8 @@ public class BitFieldMap {
         bitFieldMapLen = mainBitFieldMap.length;
     }
 
-    public byte[] getExtBitFieldMap() {
-        return extBitFieldMap;
-    }
-    public int getExtBitFieldMapLen()
-    {
-        return extBitFieldMap.length;
-    }
-    public void setExtBitFieldMap(byte[] extBitFieldMap) {
-        this.extBitFieldMap = extBitFieldMap;
-
-        int pos = 64;
-        for (int i=0; i<extBitFieldMap.length; i++)
-        {
-            byte[] ba = BitUtil.byteToBinaryArray(extBitFieldMap[i]);
-
-            for (int j=0; j<ba.length; j++)
-            {
-                byte b = ba[j];
-
-                array[pos++] = b;
-            }
-        }
-
-        bitFieldMapLen += extBitFieldMap.length;
-    }
-
-
     /**
-     * 返回主位图
+     * 把8个长度的二进制字符串转换成字节
      * @return
      */
     private void setMainBitFieldMap()
@@ -147,6 +128,34 @@ public class BitFieldMap {
                 j = 0;
             }
         }//end for
+    }
+
+
+
+    public byte[] getExtBitFieldMap() {
+        return extBitFieldMap;
+    }
+    public int getExtBitFieldMapLen()
+    {
+        return extBitFieldMap.length;
+    }
+    public void setExtBitFieldMap(byte[] extBitFieldMap) {
+        this.extBitFieldMap = extBitFieldMap;
+
+        int pos = 64;
+        for (int i=0; i<extBitFieldMap.length; i++)
+        {
+            byte[] ba = BitUtil.byteToBinaryArray(extBitFieldMap[i]);
+
+            for (int j=0; j<ba.length; j++)
+            {
+                byte b = ba[j];
+
+                array[pos++] = b;
+            }
+        }
+
+        bitFieldMapLen += extBitFieldMap.length;
     }
 
     /**
@@ -223,7 +232,6 @@ public class BitFieldMap {
     {
         return bitFieldMapLen;
     }
-
 
 
 }
