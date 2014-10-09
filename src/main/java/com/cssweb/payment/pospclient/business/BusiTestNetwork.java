@@ -90,7 +90,7 @@ public class BusiTestNetwork implements BusinessAction {
 
             // 设置消息头
             int totalLen = MsgHeader.MSG_HEADER_SIZE + MessageType.MSG_TYPE_SIZE + bitFieldMap.getBitFieldMapLen() + fieldData.getFieldDataLen();
-            msgHeader.encodeMsgHeader(totalLen, "00010000", "00010000", (byte)0, "00000000", (byte)0, "00000");
+            msgHeader.encode(totalLen, "00010000", "00010000", (byte)0, "00000000", (byte)0, "00000");
             response.setMsgHeader(msgHeader);
 
             // 消息编码,这一步非常重要，把msgType, bitFieldMap, fieldData合成msgContent

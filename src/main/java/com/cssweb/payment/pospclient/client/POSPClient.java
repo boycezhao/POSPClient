@@ -88,13 +88,16 @@ public class POSPClient {
     {
 
         CustomMessage customMessage = new CustomMessage();
-        List<Field> fields = new ArrayList<Field>();
+
+
         MsgHeader msgHeader = new MsgHeader();
         MessageType msgType = new MessageType();
         BitFieldMap bitFieldMap = new BitFieldMap();
         FieldData fieldData = new FieldData();
 
         // 设置域值
+        List<Field> fields = new ArrayList<Field>();
+
         Field7 f7 = new Field7();
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
@@ -152,7 +155,7 @@ public class POSPClient {
             // 设置消息头
             int totalLen = MsgHeader.MSG_HEADER_SIZE + MessageType.MSG_TYPE_SIZE + bitFieldMap.getBitFieldMapLen() + fieldData.getFieldDataLen();
             logger.info("totalLen = " + totalLen);
-            msgHeader.encodeMsgHeader(totalLen, "00010000", "00010000", (byte)0, "00000000", (byte)0, "00000");
+            msgHeader.encode(totalLen, "00010000", "00010000", (byte)0, "00000000", (byte)0, "00000");
             customMessage.setMsgHeader(msgHeader);
 
             // 消息编码,这一步非常重要，把msgType, bitFieldMap, fieldData合成msgContent

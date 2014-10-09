@@ -36,7 +36,7 @@ public class WorkerThread implements Runnable {
 
         logger.info("消息类型 = " + msgType);
 
-        if (msgType.equals("0820"))
+        if (msgType.equals("0830"))
         {
             logger.info("收到echo应答");
             //testNetwork.process(request);
