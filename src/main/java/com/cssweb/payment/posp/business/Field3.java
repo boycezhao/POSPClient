@@ -34,7 +34,7 @@ public class Field3  extends Field{
 
     public static final String FROM_DEFAULT = "0";
     public static final String FROM_DEPOSIT = "1";
-    public static final String FROM_CHECK = "2";
+    public static final String FROM_CHEQUE = "2";
     public static final String FROM_CREDIT = "3";
     public static final String FROM_COMMON = "4";
     public static final String FROM_INVESTMENT = "5";
@@ -42,7 +42,36 @@ public class Field3  extends Field{
 
     public static final String TO_DEFAULT = "0";
 
+    private String tradeType; //交易类型
+    private String from; //表示转出(From)账户类型
+    private String to; //表示转入(To)账户类型
+
+    public String getTradeType() {
+        return tradeType;
+    }
+
+    public void setTradeType(String tradeType) {
+        this.tradeType = tradeType;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
     public Field3()
+
     {
         fieldName = "交易处理码";
         fieldNo = "3";

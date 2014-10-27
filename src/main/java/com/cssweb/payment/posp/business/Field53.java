@@ -16,6 +16,32 @@ public class Field53 extends Field {
 
     public static final String RESERVED = "00000000000000";
 
+
+    private String pinFormat;
+    private String encAlgo;
+
+
+
+    public static String getKeyTypePik() {
+        return KEY_TYPE_PIK;
+    }
+
+    public String getEncAlgo() {
+        return encAlgo;
+    }
+
+    public void setEncAlgo(String encAlgo) {
+        this.encAlgo = encAlgo;
+    }
+
+    public String getPinFormat() {
+        return pinFormat;
+    }
+
+    public void setPinFormat(String pinFormat) {
+        this.pinFormat = pinFormat;
+    }
+
     public Field53()
     {
         fieldName = "安全控制信息";
@@ -25,5 +51,7 @@ public class Field53 extends Field {
 
         fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
         fieldLength = 16;
+
+        fieldValue = new byte[16];
     }
 }

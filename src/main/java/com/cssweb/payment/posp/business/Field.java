@@ -93,6 +93,8 @@ public class Field {
         this.fieldValue = fieldValue;
     }
     public void setFieldValue(String fieldValue) {this.fieldValue = fieldValue.getBytes(); }
+
+
     public byte[] getFieldValue()
     {
         if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)

@@ -20,6 +20,24 @@ public class Field22 extends Field{
     public static final String PIN_INCLUDE  = "1"; //交易中包含PIN
     public static final String PIN_NOT_INCLUDE  = "2";//交易中不包含PIN
 
+    public String getPAN() {
+        return PAN;
+    }
+
+    public void setPAN(String PAN) {
+        this.PAN = PAN;
+    }
+
+    public String getPIN() {
+        return PIN;
+    }
+
+    public void setPIN(String PIN) {
+        this.PIN = PIN;
+    }
+
+    private String PAN;
+    private String PIN;
 
     public Field22()
     {
