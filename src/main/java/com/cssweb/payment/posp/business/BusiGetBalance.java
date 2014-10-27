@@ -1,7 +1,7 @@
 package com.cssweb.payment.posp.business;
 
 
-import com.cssweb.payment.posp.network.CustomMessage;
+import com.cssweb.payment.posp.network.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +25,13 @@ public class BusiGetBalance implements BusinessAction {
 
         String referNo = "181030414357";
         String terminalNo = "63856007";
+
+        CustomMessage response = new CustomMessage();
+
+        MsgHeader msgHeader = new MsgHeader();
+        MessageType msgType = new MessageType();
+        BitFieldMap bitFieldMap = new BitFieldMap();
+        FieldData fieldData = new FieldData();
 
         List<Field> fields = new ArrayList<Field>();
 
@@ -159,6 +166,10 @@ public class BusiGetBalance implements BusinessAction {
 
         //附加数据－私有
         Field48 field48 = new Field48();
+
+        Field48_AA field48_aa = new Field48_AA();
+
+
         fields.add(field48);
 
         //交易货币代码
@@ -200,25 +211,49 @@ public class BusiGetBalance implements BusinessAction {
         //预付卡发卡机构保留
         Field121 field121 = new Field121();
 
-
+        //应答/应答原因码
         Field121_1 field121_1 = new Field121_1();
+        field121_1.setFieldValue(Field121_1.RC_ISSUER_RESPONSE);
+        field121.setF1(field121_1);
+
+        //单/双或双/单转换码
         Field121_2 field121_2 = new Field121_2();
+        field121_2.setFieldValue(Field121_2.CC_UNKNOWN);
+        field121.setF2(field121_2);
+
+        //卡性质
         Field121_3 field121_3 = new Field121_3();
+        field121_3.setFieldValue(Field121_3.CARD_TYPE_CUP_DEBIT);
+        field121.setF3(field121_3);
+
+        //预付卡发卡机构保留
         Field121_4 field121_4 = new Field121_4();
+        field121_4.setFieldValue('0', field121_4.getFieldLength());
+        field121.setF4(field121_4);
+
+
+
+
+        Field121_5_ID field121_5_id = new Field121_5_ID();
+        StringBuffer sb = new StringBuffer();
+        for (int i=0; i < field121_5_id.getFieldLength()-2; i++) {
+            sb.append('0');
+        }
+        field121_5_id.setFieldValue(sb.toString().getBytes());
+
+        //转入和转出方标识代码/手续费信息
         Field121_5 field121_5 = new Field121_5();
-        field121.addField(field121_1);
-        field121.addField(field121_2);
-        field121.addField(field121_3);
-        field121.addField(field121_4);
-        field121.addField(field121_5);
+        field121_5.setId(field121_5_id);
+
+        field121.setF5(field121_5);
+
         fields.add(field121);
 
         //受理方保留
         Field122 field122 = new Field122();
         Field122_1 field122_1 = new Field122_1();
         Field122_2 field122_2 = new Field122_2();
-        field122.addField(field122_1);
-        field122.addField(field122_2);
+
 
         //发卡方保留
         Field123 field123 = new Field123();

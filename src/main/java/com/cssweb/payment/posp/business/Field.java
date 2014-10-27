@@ -45,15 +45,19 @@ public class Field {
     // 域值
     protected byte[] fieldValue;
 
+    // 子域当前标志名称
+    protected String tag; // 如果是子域代表标签名称，如果是父域代表当前设置的是哪一个子域
+    protected String len;
+    protected String value;
+
+    protected static final int FIELD_VALUE_TYPE_DEFAULT = 0;
+    protected static final int FIELD_VALUE_TYPE_TL = 1;
+    protected static final int FIELD_VALUE_TYPE_TLV = 2;
+    protected int fieldValueType = FIELD_VALUE_TYPE_DEFAULT;
+
     // 子域相关处理
     protected boolean isSubField = false; // 是否是子域
     protected boolean hasSubField = false; // 是否有子域
-    protected List<Field> subFields = new ArrayList<Field>();
-    public void addField(Field subField)
-    {
-        subFields.add(subField);
-        hasSubField = true;
-    }
     protected int beginPos = 0; // 相对于父域的开始位置
 
 
@@ -87,12 +91,54 @@ public class Field {
         this.fieldNo = fieldNo;
     }
 
+    public Field()
+    {
+        /*
+        if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)
+        {
+            fieldValue = new byte[fieldLength];
+        }
+        else
+        {
+            fieldValue = new byte[maxFieldLength];
+        }
+        */
+    }
 
+
+    /**
+     *
+     * @param fieldValue
+     */
     public void setFieldValue(byte[] fieldValue)
     {
-        this.fieldValue = fieldValue;
+        if (fieldValueType == FIELD_VALUE_TYPE_DEFAULT)
+        {
+            this.fieldValue = fieldValue;
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_TL)
+        {
+            System.arraycopy(tag.getBytes(), 0, this.fieldValue, 0, tag.getBytes().length);
+            System.arraycopy(fieldValue, 0, this.fieldValue, tag.getBytes().length, fieldValue.length);
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_TLV)
+        {
+
+        }
+        else
+        {
+            //throw exception
+        }
     }
-    public void setFieldValue(String fieldValue) {this.fieldValue = fieldValue.getBytes(); }
+
+    /**
+     *
+     * @param fieldValue
+     */
+    public void setFieldValue(String fieldValue)
+    {
+        this.fieldValue = fieldValue.getBytes();
+    }
 
 
     public byte[] getFieldValue()
@@ -163,5 +209,22 @@ public class Field {
         // 用正则表达式验证数据格式
         // 返回RejectCode
         return true;
+    }
+
+    public void setFieldValue(char c, int num)
+    {
+        StringBuffer sb = new StringBuffer();
+
+        for (int i=0; i<num; i++)
+        {
+            sb.append(c);
+        }
+
+        fieldValue = sb.toString().getBytes();
+    }
+
+    public String getTag()
+    {
+        return tag;
     }
 }

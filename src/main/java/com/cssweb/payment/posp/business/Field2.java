@@ -7,6 +7,8 @@ public class Field2 extends Field{
 
     public Field2()
     {
+
+
         fieldName = "主账号";
         fieldNo = "2";
 
@@ -14,6 +16,8 @@ public class Field2 extends Field{
 
         fieldLengthType = FIELD_LENGTH_TYPE_VAR2;
         maxFieldLength = 19;
+
+
     }
 
 
