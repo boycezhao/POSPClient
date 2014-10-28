@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e9e7d76-46a5-438e-aae6-24410e02c682" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/log4j2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiGetBalance.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiGetBalance.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field128.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field128.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field22.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field22.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field3.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field52.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field52.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/POSPClient.iml" afterPath="$PROJECT_DIR$/POSPClient.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/cssweb/payment/posp/TestField.java" afterPath="$PROJECT_DIR$/src/test/java/com/cssweb/payment/posp/TestField.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="POSPClient.iws" />
@@ -861,7 +852,7 @@
       <workItem from="1414373672512" duration="16007000" />
       <workItem from="1414392872896" duration="6468000" />
       <workItem from="1414400488310" duration="4361000" />
-      <workItem from="1414412526250" duration="34448000" />
+      <workItem from="1414412526250" duration="34471000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1408510691824</created>
@@ -947,11 +938,15 @@
       <created>1414479979135</created>
       <updated>1414479979135</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="commit">
+      <created>1414491049652</created>
+      <updated>1414491049652</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231299000" />
+    <option name="totallyTimeSpent" value="231322000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1552" height="824" extended-state="6" />
