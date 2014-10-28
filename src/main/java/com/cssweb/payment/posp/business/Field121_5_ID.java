@@ -17,6 +17,7 @@ public class Field121_5_ID extends Field{
 
         fieldValueType = FIELD_VALUE_TYPE_TL;
         tag = "ID";
+        valueLen = 36;
 
         isSubField = true;
     }

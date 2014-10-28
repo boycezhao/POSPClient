@@ -20,7 +20,7 @@ public class Field121_5 extends Field{
     public void setFd(Field121_5_FD fd) {
         this.fd = fd;
 
-        tag = fd.getTag();
+        currentTag = fd.getTag();
 
         System.arraycopy(fd.getFieldValue(), 0,  fieldValue, 0, fd.getFieldLength());
     }
@@ -28,7 +28,7 @@ public class Field121_5 extends Field{
     public void setId(Field121_5_ID id) {
         this.id = id;
 
-        tag = id.getTag();
+        currentTag = id.getTag();
 
         System.arraycopy(id.getFieldValue(), 0,  fieldValue, 0, id.getFieldLength());
     }
@@ -43,7 +43,9 @@ public class Field121_5 extends Field{
         fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
         fieldLength = 38;
 
-        isSubField = true;
         fieldValue = new byte[fieldLength];
+
+        isSubField = true;
+
     }
 }

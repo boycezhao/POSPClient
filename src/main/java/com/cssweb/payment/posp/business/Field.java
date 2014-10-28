@@ -4,7 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chenhf on 2014/7/21.
@@ -46,9 +48,12 @@ public class Field {
     protected byte[] fieldValue;
 
     // 子域当前标志名称
-    protected String tag; // 如果是子域代表标签名称，如果是父域代表当前设置的是哪一个子域
-    protected String len;
-    protected String value;
+    protected String tag; //T
+    protected int valueLen; //L
+    protected String value;  //V
+
+    //如果是父域代表当前设置的是哪一个子域
+    protected String currentTag;
 
     protected static final int FIELD_VALUE_TYPE_DEFAULT = 0;
     protected static final int FIELD_VALUE_TYPE_TL = 1;
@@ -60,9 +65,54 @@ public class Field {
     protected boolean hasSubField = false; // 是否有子域
     protected int beginPos = 0; // 相对于父域的开始位置
 
+    // 不采用getter/setter方式，可以
+    protected Map<String, Field> fields = new HashMap<String, Field>();
 
+    public int getFieldValueType() {
+        return fieldValueType;
+    }
 
+    public void setFieldValueType(int fieldValueType) {
+        this.fieldValueType = fieldValueType;
+    }
 
+    public int getValueLen() {
+        return valueLen;
+    }
+
+    public void setValueLen(int valueLen) {
+        this.valueLen = valueLen;
+    }
+
+    public int getMaxFieldLength() {
+        return maxFieldLength;
+    }
+
+    public void setMaxFieldLength(int maxFieldLength) {
+        this.maxFieldLength = maxFieldLength;
+    }
+
+    public String getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(String fieldType) {
+        this.fieldType = fieldType;
+    }
+
+    public Field()
+    {
+        /*
+        if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)
+        {
+            fieldValue = new byte[fieldLength];
+        }
+        else
+        {
+            fieldValue = new byte[maxFieldLength];
+        }
+        */
+    }
     public int getFieldLengthType() {
         return fieldLengthType;
     }
@@ -71,7 +121,7 @@ public class Field {
     }
 
     public int getFieldLength() {
-            return fieldLength;
+        return fieldLength;
     }
     public void setFieldLength(int fieldLength) {
         this.fieldLength = fieldLength;
@@ -91,35 +141,46 @@ public class Field {
         this.fieldNo = fieldNo;
     }
 
-    public Field()
-    {
-        /*
-        if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)
-        {
-            fieldValue = new byte[fieldLength];
-        }
-        else
-        {
-            fieldValue = new byte[maxFieldLength];
-        }
-        */
+
+    public String getCurrentTag() {
+        return currentTag;
+    }
+
+    public void setCurrentTag(String currentTag) {
+        this.currentTag = currentTag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     /**
      *
-     * @param fieldValue
+     * @param data
      */
-    public void setFieldValue(byte[] fieldValue)
+    public void setFieldValue(byte[] data)
     {
         if (fieldValueType == FIELD_VALUE_TYPE_DEFAULT)
         {
-            this.fieldValue = fieldValue;
+            this.fieldValue = data;
         }
         else if(fieldValueType == FIELD_VALUE_TYPE_TL)
         {
-            System.arraycopy(tag.getBytes(), 0, this.fieldValue, 0, tag.getBytes().length);
-            System.arraycopy(fieldValue, 0, this.fieldValue, tag.getBytes().length, fieldValue.length);
+            int tagLen = tag.getBytes().length;
+
+            fieldValue = new byte[tagLen + valueLen]; //tag所占字节长度+数据长度
+
+            System.arraycopy(tag.getBytes(), 0, this.fieldValue, 0, tagLen);
+            System.arraycopy(data, 0, this.fieldValue, tagLen, data.length);
         }
         else if(fieldValueType == FIELD_VALUE_TYPE_TLV)
         {
@@ -140,6 +201,22 @@ public class Field {
         this.fieldValue = fieldValue.getBytes();
     }
 
+    /**
+     *
+     * @param c
+     * @param num
+     */
+    public void setFieldValue(char c, int num)
+    {
+        StringBuffer sb = new StringBuffer();
+
+        for (int i=0; i<num; i++)
+        {
+            sb.append(c);
+        }
+
+        fieldValue = sb.toString().getBytes();
+    }
 
     public byte[] getFieldValue()
     {
@@ -211,20 +288,27 @@ public class Field {
         return true;
     }
 
-    public void setFieldValue(char c, int num)
-    {
-        StringBuffer sb = new StringBuffer();
 
-        for (int i=0; i<num; i++)
-        {
-            sb.append(c);
-        }
-
-        fieldValue = sb.toString().getBytes();
-    }
 
     public String getTag()
     {
         return tag;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String toString()
+    {
+
+        String s = fieldNo + "[" + fieldName + "]:" + new String(fieldValue);
+
+        return s;
+    }
+
+    public void addField(Field field)
+    {
+        fields.put(field.getFieldNo(), field);
     }
 }

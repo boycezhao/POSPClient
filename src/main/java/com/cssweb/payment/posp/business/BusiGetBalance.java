@@ -208,28 +208,29 @@ public class BusiGetBalance implements BusinessAction {
         field100.setFieldValue(SW_ID);
         fields.add(field100);
 
+
         //预付卡发卡机构保留
         Field121 field121 = new Field121();
 
         //应答/应答原因码
         Field121_1 field121_1 = new Field121_1();
         field121_1.setFieldValue(Field121_1.RC_ISSUER_RESPONSE);
-        field121.setF1(field121_1);
+
 
         //单/双或双/单转换码
         Field121_2 field121_2 = new Field121_2();
         field121_2.setFieldValue(Field121_2.CC_UNKNOWN);
-        field121.setF2(field121_2);
+
 
         //卡性质
         Field121_3 field121_3 = new Field121_3();
         field121_3.setFieldValue(Field121_3.CARD_TYPE_CUP_DEBIT);
-        field121.setF3(field121_3);
+
 
         //预付卡发卡机构保留
         Field121_4 field121_4 = new Field121_4();
         field121_4.setFieldValue('0', field121_4.getFieldLength());
-        field121.setF4(field121_4);
+
 
 
 
@@ -245,6 +246,10 @@ public class BusiGetBalance implements BusinessAction {
         Field121_5 field121_5 = new Field121_5();
         field121_5.setId(field121_5_id);
 
+        field121.setF1(field121_1);
+        field121.setF2(field121_2);
+        field121.setF3(field121_3);
+        field121.setF4(field121_4);
         field121.setF5(field121_5);
 
         fields.add(field121);

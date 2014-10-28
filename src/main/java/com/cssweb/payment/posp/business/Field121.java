@@ -46,7 +46,7 @@ public class Field121 extends Field {
     }
     public void setF5(Field121_5 f5) {
         this.f5 = f5;
-        System.arraycopy(f5.getFieldValue(), 0,  fieldValue, 42, f5.getFieldLength());
+        System.arraycopy(f5.getFieldValue(), 0,  fieldValue, 43, f5.getFieldLength());
     }
 
     public Field121()
