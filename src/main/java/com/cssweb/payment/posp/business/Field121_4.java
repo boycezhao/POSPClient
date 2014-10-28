@@ -16,5 +16,6 @@ public class Field121_4 extends Field{
        // maxFieldLength = 50;
 
         isSubField = true;
+        beginPos = 3;
     }
 }

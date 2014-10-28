@@ -8,6 +8,8 @@ import com.cssweb.payment.posp.business.*;
 public class TestField {
     public static void main(String[] args)
     {
+        StringBuffer sb = new StringBuffer();
+
         //预付卡发卡机构保留
         Field121 field121 = new Field121();
 
@@ -29,33 +31,39 @@ public class TestField {
 
         //预付卡发卡机构保留
         Field121_4 field121_4 = new Field121_4();
-        field121_4.setFieldValue('0', field121_4.getFieldLength());
+        sb.delete(0, sb.length());
+        for (int i=0; i < field121_4.getFieldLength(); i++) {
+            sb.append('0');
+        }
+        field121_4.setFieldValue(sb.toString().getBytes());
         System.out.println(field121_4.toString());
 
 
 
 
         Field121_5_ID field121_5_id = new Field121_5_ID();
-        StringBuffer sb = new StringBuffer();
+        sb.delete(0, sb.length());
         for (int i=0; i < field121_5_id.getValueLen(); i++) {
-            sb.append('0');
+            sb.append('1');
         }
         field121_5_id.setFieldValue(sb.toString().getBytes());
         System.out.println(field121_5_id.toString());
 
         //转入和转出方标识代码/手续费信息
         Field121_5 field121_5 = new Field121_5();
-        field121_5.setId(field121_5_id);
+        field121_5.addField(field121_5_id);
         //field121_5.addField(field121_5_id);
         System.out.println(field121_5.toString());
 
-        field121.setF1(field121_1);
-        field121.setF2(field121_2);
-        field121.setF3(field121_3);
-        field121.setF4(field121_4);
-        field121.setF5(field121_5);
 
-        System.out.println(field121.toString());
+        field121.addField(field121_1);
+        field121.addField(field121_2);
+        field121.addField(field121_3);
+        field121.addField(field121_4);
+        field121.addField(field121_5);
+
+
+       System.out.println(field121.toString());
 
     }
 }

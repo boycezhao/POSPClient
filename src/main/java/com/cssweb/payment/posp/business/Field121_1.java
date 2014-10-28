@@ -26,5 +26,6 @@ public class Field121_1 extends Field{
         fieldLength = 1;
 
         isSubField = true;
+        beginPos = 0;
     }
 }

@@ -229,7 +229,7 @@ public class BusiGetBalance implements BusinessAction {
 
         //预付卡发卡机构保留
         Field121_4 field121_4 = new Field121_4();
-        field121_4.setFieldValue('0', field121_4.getFieldLength());
+        //field121_4.setFieldValue('0', field121_4.getFieldLength());
 
 
 
@@ -244,13 +244,6 @@ public class BusiGetBalance implements BusinessAction {
 
         //转入和转出方标识代码/手续费信息
         Field121_5 field121_5 = new Field121_5();
-        field121_5.setId(field121_5_id);
-
-        field121.setF1(field121_1);
-        field121.setF2(field121_2);
-        field121.setF3(field121_3);
-        field121.setF4(field121_4);
-        field121.setF5(field121_5);
 
         fields.add(field121);
 

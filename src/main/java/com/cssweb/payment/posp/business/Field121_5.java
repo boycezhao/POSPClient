@@ -5,33 +5,6 @@ package com.cssweb.payment.posp.business;
  */
 public class Field121_5 extends Field{
 
-    private Field121_5_FD fd;
-    private Field121_5_ID id;
-
-    public Field121_5_FD getFd() {
-        return fd;
-    }
-
-    public Field121_5_ID getId() {
-        return id;
-    }
-
-
-    public void setFd(Field121_5_FD fd) {
-        this.fd = fd;
-
-        currentTag = fd.getTag();
-
-        System.arraycopy(fd.getFieldValue(), 0,  fieldValue, 0, fd.getFieldLength());
-    }
-
-    public void setId(Field121_5_ID id) {
-        this.id = id;
-
-        currentTag = id.getTag();
-
-        System.arraycopy(id.getFieldValue(), 0,  fieldValue, 0, id.getFieldLength());
-    }
 
     public Field121_5()
     {
@@ -46,6 +19,7 @@ public class Field121_5 extends Field{
         fieldValue = new byte[fieldLength];
 
         isSubField = true;
+        beginPos = 43;
 
     }
 }

@@ -15,13 +15,13 @@ public class Field {
     private static final Logger logger = LogManager.getLogger(Field.class.getName());
 
     // 域描述
-    protected String fieldName;
+    protected String fieldName = "";
 
     // 域编号
-    protected String fieldNo;
+    protected String fieldNo = "";
 
     // 数据类型
-    protected String fieldType;
+    protected String fieldType = "";
     public static final String FIELD_TYPE_BINARY_BIT = "b";
     public static final String FIELD_TYPE_BINARY_BYTE = "B";
     public static final String FIELD_TYPE_ANS = "ans";
@@ -35,70 +35,44 @@ public class Field {
     public static final int FIELD_LENGTH_TYPE_VAR2 = 2; // 变长2
     public static final int FIELD_LENGTH_TYPE_VAR3 = 3; // 变长3
 
-    protected int maxFieldLength; // 最大长度
+    // 最大长度
+    protected int maxFieldLength = 0;
 
     protected int fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
 
 
     // 长度
-    protected int fieldLength;
+    protected int fieldLength = 0;
 
 
     // 域值
-    protected byte[] fieldValue;
+    protected byte[] fieldValue = null;
 
     // 子域当前标志名称
-    protected String tag; //T
-    protected int valueLen; //L
-    protected String value;  //V
+    protected String tag = "";
+    protected int valueLen = 0;
+    protected String value = "";
 
     //如果是父域代表当前设置的是哪一个子域
-    protected String currentTag;
+    protected String currentTag = "";
 
     protected static final int FIELD_VALUE_TYPE_DEFAULT = 0;
     protected static final int FIELD_VALUE_TYPE_TL = 1;
     protected static final int FIELD_VALUE_TYPE_TLV = 2;
     protected int fieldValueType = FIELD_VALUE_TYPE_DEFAULT;
 
-    // 子域相关处理
-    protected boolean isSubField = false; // 是否是子域
-    protected boolean hasSubField = false; // 是否有子域
-    protected int beginPos = 0; // 相对于父域的开始位置
+    // 相对于父域的开始位置
+    protected int beginPos = 0;
+
 
     // 不采用getter/setter方式，可以
     protected Map<String, Field> fields = new HashMap<String, Field>();
 
-    public int getFieldValueType() {
-        return fieldValueType;
-    }
 
-    public void setFieldValueType(int fieldValueType) {
-        this.fieldValueType = fieldValueType;
-    }
+    //以下定义暂时没使用
+    protected boolean isSubField = false; // 是否是子域
+    protected boolean hasSubField = false; // 是否有子域
 
-    public int getValueLen() {
-        return valueLen;
-    }
-
-    public void setValueLen(int valueLen) {
-        this.valueLen = valueLen;
-    }
-
-    public int getMaxFieldLength() {
-        return maxFieldLength;
-    }
-
-    public void setMaxFieldLength(int maxFieldLength) {
-        this.maxFieldLength = maxFieldLength;
-    }
-
-    public String getFieldType() {
-        return fieldType;
-    }
-
-    public void setFieldType(String fieldType) {
-        this.fieldType = fieldType;
-    }
 
     public Field()
     {
@@ -113,6 +87,38 @@ public class Field {
         }
         */
     }
+
+
+
+    public int getFieldValueType() {
+        return fieldValueType;
+    }
+    public void setFieldValueType(int fieldValueType) {
+        this.fieldValueType = fieldValueType;
+    }
+
+    public int getValueLen() {
+        return valueLen;
+    }
+    public void setValueLen(int valueLen) {
+        this.valueLen = valueLen;
+    }
+
+
+    public int getMaxFieldLength() {
+        return maxFieldLength;
+    }
+    public void setMaxFieldLength(int maxFieldLength) {
+        this.maxFieldLength = maxFieldLength;
+    }
+
+    public String getFieldType() {
+        return fieldType;
+    }
+    public void setFieldType(String fieldType) {
+        this.fieldType = fieldType;
+    }
+
     public int getFieldLengthType() {
         return fieldLengthType;
     }
@@ -145,7 +151,6 @@ public class Field {
     public String getCurrentTag() {
         return currentTag;
     }
-
     public void setCurrentTag(String currentTag) {
         this.currentTag = currentTag;
     }
@@ -153,14 +158,31 @@ public class Field {
     public void setTag(String tag) {
         this.tag = tag;
     }
+    public String getTag()
+    {
+        return tag;
+    }
 
 
     public String getValue() {
         return value;
     }
-
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public int getBeginPos() {
+        return beginPos;
+    }
+    public void setBeginPos(int beginPos) {
+        this.beginPos = beginPos;
+    }
+
+    public Map<String, Field> getFields() {
+        return fields;
+    }
+    public void setFields(Map<String, Field> fields) {
+        this.fields = fields;
     }
 
     /**
@@ -198,25 +220,12 @@ public class Field {
      */
     public void setFieldValue(String fieldValue)
     {
+
         this.fieldValue = fieldValue.getBytes();
+
     }
 
-    /**
-     *
-     * @param c
-     * @param num
-     */
-    public void setFieldValue(char c, int num)
-    {
-        StringBuffer sb = new StringBuffer();
 
-        for (int i=0; i<num; i++)
-        {
-            sb.append(c);
-        }
-
-        fieldValue = sb.toString().getBytes();
-    }
 
     public byte[] getFieldValue()
     {
@@ -290,10 +299,6 @@ public class Field {
 
 
 
-    public String getTag()
-    {
-        return tag;
-    }
 
     /**
      *
@@ -307,8 +312,14 @@ public class Field {
         return s;
     }
 
+    /**
+     *
+     * @param field
+     */
     public void addField(Field field)
     {
-        fields.put(field.getFieldNo(), field);
+        System.arraycopy(field.getFieldValue(), 0, fieldValue, field.getBeginPos(), field.getFieldLength());
+
+        fields.put(field.getFieldName(), field);
     }
 }
