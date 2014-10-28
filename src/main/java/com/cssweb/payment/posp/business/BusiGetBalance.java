@@ -2,6 +2,8 @@ package com.cssweb.payment.posp.business;
 
 
 import com.cssweb.payment.posp.network.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.Random;
  */
 public class BusiGetBalance implements BusinessAction {
 
+    private static final Logger logger = LogManager.getLogger(BusiGetBalance.class.getName());
+
     @Override
     public CustomMessage process(CustomMessage request) {
 
@@ -23,8 +27,13 @@ public class BusiGetBalance implements BusinessAction {
         String SW_ID = "11111111111";
         String IS_ID = "22222222222";
 
-        String referNo = "181030414357";
-        String terminalNo = "63856007";
+        String referNo = "181030414357"; // 参考号
+        String terminalNo = "63856007"; // 终端号
+        String batchNo = "000216"; // 批次号
+        String authNo = "571462"; // 授权码
+        String voucherNo = "005572"; // 凭证号
+
+
 
         CustomMessage response = new CustomMessage();
 
@@ -38,7 +47,9 @@ public class BusiGetBalance implements BusinessAction {
         // 主账号
         Field2 field2 = new Field2();
         field2.setFieldValue("6226090217946181");
+        logger.debug(field2.toString());
         fields.add(field2);
+
 
         //交易处理码
         Field3 field3 = new Field3();
@@ -46,6 +57,7 @@ public class BusiGetBalance implements BusinessAction {
         field3.setTradeType(Field3.TRD_TYPE_QUERY_SERVICE);
         field3.setFrom(Field3.FROM_DEPOSIT + Field3.FROM_DEFAULT);
         field3.setTo(Field3.TO_DEFAULT + Field3.TO_DEFAULT);
+        logger.debug(field3.toString());
         fields.add(field3);
 
         // 交易传输时间

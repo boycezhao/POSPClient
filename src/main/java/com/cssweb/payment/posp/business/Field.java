@@ -216,13 +216,11 @@ public class Field {
 
     /**
      *
-     * @param fieldValue
+     * @param data
      */
-    public void setFieldValue(String fieldValue)
+    public void setFieldValue(String data)
     {
-
-        this.fieldValue = fieldValue.getBytes();
-
+        setFieldValue(data.getBytes());
     }
 
 
