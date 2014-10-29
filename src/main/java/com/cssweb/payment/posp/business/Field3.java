@@ -50,24 +50,30 @@ public class Field3  extends Field{
         return tradeType;
     }
 
-    public void setTradeType(String tradeType) {
-        this.tradeType = tradeType;
-    }
+
 
     public String getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
+
 
     public String getTo() {
         return to;
     }
 
+    public void setTradeType(String tradeType) {
+        this.tradeType = tradeType;
+        System.arraycopy(tradeType.getBytes(), 0, fieldValue, 0, tradeType.getBytes().length);
+    }
+    public void setFrom(String from) {
+
+        this.from = from;
+        System.arraycopy(from.getBytes(), 0, fieldValue, 2, from.getBytes().length);
+    }
     public void setTo(String to) {
         this.to = to;
+        System.arraycopy(to.getBytes(), 0, fieldValue, 4, to.getBytes().length);
     }
 
     public Field3()

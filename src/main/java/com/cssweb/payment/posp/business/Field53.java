@@ -30,9 +30,7 @@ public class Field53 extends Field {
         return encAlgo;
     }
 
-    public void setEncAlgo(String encAlgo) {
-        this.encAlgo = encAlgo;
-    }
+
 
     public String getPinFormat() {
         return pinFormat;
@@ -40,6 +38,11 @@ public class Field53 extends Field {
 
     public void setPinFormat(String pinFormat) {
         this.pinFormat = pinFormat;
+        System.arraycopy(pinFormat.getBytes(), 0, fieldValue, 0, pinFormat.getBytes().length);
+    }
+    public void setEncAlgo(String encAlgo) {
+        this.encAlgo = encAlgo;
+        System.arraycopy(encAlgo.getBytes(), 0, fieldValue, 1, encAlgo.getBytes().length);
     }
 
     public Field53()
@@ -52,6 +55,10 @@ public class Field53 extends Field {
         fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
         fieldLength = 16;
 
-        fieldValue = new byte[16];
+        fieldValue = new byte[fieldLength];
+        for (int i=0; i<fieldLength; i++)
+        {
+            fieldValue[i] = '0';
+        }
     }
 }

@@ -13,6 +13,6 @@ public class Field37 extends Field{
         fieldType = FIELD_TYPE_AN;
 
         fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        maxFieldLength = 12;
+        fieldLength = 12;
     }
 }

@@ -43,7 +43,9 @@ public class BusiGetBalance implements BusinessAction {
         FieldData fieldData = new FieldData();
 
         List<Field> fields = new ArrayList<Field>();
-
+/*
+        try
+        {
         // 主账号
         Field2 field2 = new Field2();
         field2.setFieldValue("6226090217946181");
@@ -272,7 +274,7 @@ public class BusiGetBalance implements BusinessAction {
         Field128 field128 = new Field128();
         field128.setFieldValue("MAC");
         fields.add(field128);
-
+*/
         return null;
     }
 }

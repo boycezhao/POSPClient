@@ -189,11 +189,59 @@ public class Field {
      *
      * @param data
      */
-    public void setFieldValue(byte[] data)
-    {
+    public void setFieldValue(byte[] data) throws FieldLengthException, OverflowMaxLengthException {
         if (fieldValueType == FIELD_VALUE_TYPE_DEFAULT)
         {
-            this.fieldValue = data;
+
+
+            if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)
+            {
+                if (data.length < fieldLength)
+                    throw new FieldLengthException(this);
+
+                if (data.length > fieldLength)
+                    throw new OverflowMaxLengthException(this);
+
+                this.fieldValue = data;
+
+                // 如果是数值型，那么前补0
+                if (fieldType == FIELD_TYPE_N)
+                {
+
+                }
+                else if (fieldType == FIELD_TYPE_N)
+                {
+
+                }
+                // 如果是字符型，那后后补space
+            }
+            else if(fieldLengthType == FIELD_LENGTH_TYPE_VAR2)
+            {
+                //前面2字节表示长度
+                int len = data.length;
+               // if (len > (maxFieldLength-2) )
+               //     throw
+                String lenStr = String.valueOf(len);
+                if (lenStr.length() < 2)
+                    lenStr = "0" + lenStr;
+
+                System.arraycopy(lenStr.getBytes(), 0, fieldValue, 0, 2);
+                System.arraycopy(data, 0, fieldValue, 2, data.length);
+
+                fieldLength = 2 + data.length;
+
+            }
+            else if(fieldLengthType == FIELD_LENGTH_TYPE_VAR3)
+            {
+                //前面3字节表示长度
+            }
+            else
+            {
+              //  throw Exception;
+            }
+
+
+
         }
         else if(fieldValueType == FIELD_VALUE_TYPE_TL)
         {
@@ -218,8 +266,7 @@ public class Field {
      *
      * @param data
      */
-    public void setFieldValue(String data)
-    {
+    public void setFieldValue(String data) throws FieldLengthException, OverflowMaxLengthException {
         setFieldValue(data.getBytes());
     }
 
@@ -305,7 +352,7 @@ public class Field {
     public String toString()
     {
 
-        String s = fieldNo + "[" + fieldName + "]:" + new String(fieldValue);
+        String s = fieldNo + "(" + fieldName + ")：" + new String(fieldValue) + "; 实际长度：" + fieldLength;
 
         return s;
     }

@@ -38,37 +38,43 @@ public class BusiTestNetwork implements BusinessAction {
         BitFieldMap bitFieldMap = new BitFieldMap();
         FieldData fieldData = new FieldData();
 
-        // 设置域值
-        Field7 f7 = new Field7();
-        Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
-        String tranTime = sdf.format(now);
-        f7.setFieldValue(tranTime);
+        try {
+            // 设置域值
+            Field7 f7 = new Field7();
+            Date now = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
+            String tranTime = sdf.format(now);
+            f7.setFieldValue(tranTime);
 
-        Field11 f11 = new Field11();
-        String traceNo = "";
-        Random random = new Random();
-        for (int i=0; i<6; i++) {
-            traceNo += random.nextInt(10);
+            Field11 f11 = new Field11();
+            String traceNo = "";
+            Random random = new Random();
+            for (int i = 0; i < 6; i++) {
+                traceNo += random.nextInt(10);
+            }
+            f11.setFieldValue(traceNo);
+
+            Field33 f33 = new Field33();
+            f33.setFieldValue("111111");
+
+            Field39 f39 = new Field39();
+            f39.setFieldValue("00");
+
+            Field70 f70 = new Field70();
+            f70.setFieldValue("301"); // 线路测试
+
+
+            fields.add(f7);
+            fields.add(f11);
+            fields.add(f33);
+            fields.add(f39);
+            fields.add(f70);
+            // 设置域值结束
+        } catch (FieldLengthException e) {
+            e.printStackTrace();
+        } catch (OverflowMaxLengthException e) {
+            e.printStackTrace();
         }
-        f11.setFieldValue(traceNo);
-
-        Field33 f33 = new Field33();
-        f33.setFieldValue("111111");
-
-        Field39 f39 = new Field39();
-        f39.setFieldValue("00");
-
-        Field70 f70 = new Field70();
-        f70.setFieldValue("301"); // 线路测试
-
-
-        fields.add(f7);
-        fields.add(f11);
-        fields.add(f33);
-        fields.add(f39);
-        fields.add(f70);
-        // 设置域值结束
 
 
         // 开始处理消息类型

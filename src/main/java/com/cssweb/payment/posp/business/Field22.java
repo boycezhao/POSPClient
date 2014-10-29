@@ -24,16 +24,19 @@ public class Field22 extends Field{
         return PAN;
     }
 
-    public void setPAN(String PAN) {
-        this.PAN = PAN;
-    }
+
 
     public String getPIN() {
         return PIN;
     }
 
+    public void setPAN(String PAN) {
+        this.PAN = PAN;
+        System.arraycopy(PAN.getBytes(), 0, fieldValue, 0, PAN.getBytes().length);
+    }
     public void setPIN(String PIN) {
         this.PIN = PIN;
+        System.arraycopy(PIN.getBytes(), 0, fieldValue, 2, PIN.getBytes().length);
     }
 
     private String PAN;
