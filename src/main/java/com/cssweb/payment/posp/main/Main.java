@@ -28,7 +28,7 @@ public class Main {
         try {
             BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
             while(true) {
-                System.out.println("请输入命令（echo, quit, exit）:");
+                System.out.println("请输入命令（balance,echo, quit, exit）:");
 
                 String cmd = console.readLine();
 
