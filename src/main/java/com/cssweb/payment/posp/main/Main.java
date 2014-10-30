@@ -35,10 +35,17 @@ public class Main {
 
 
                 if (cmd.equalsIgnoreCase("echo")) {
-                    System.out.println("echo...");
+
                     POSPClient client = new POSPClient();
                     client.connect("127.0.0.1", 3500);
-                    client.testNetwork();
+                    client.echo();
+                    client.close();
+                }
+                else if(cmd.equalsIgnoreCase("balance"))
+                {
+                    POSPClient client = new POSPClient();
+                    client.connect("127.0.0.1", 3500);
+                    client.getBalance();
                     client.close();
                 }
                 else if(cmd.equalsIgnoreCase("exit") || cmd.equalsIgnoreCase("quit"))

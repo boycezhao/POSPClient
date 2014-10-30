@@ -1,11 +1,7 @@
-package com.cssweb.payment.posp.business;
+package com.cssweb.payment.posp.client;
 
-
-import com.cssweb.payment.posp.network.BitFieldMap;
-import com.cssweb.payment.posp.network.FieldData;
-import com.cssweb.payment.posp.network.MessageType;
-import com.cssweb.payment.posp.network.CustomMessage;
-import com.cssweb.payment.posp.network.MsgHeader;
+import com.cssweb.payment.posp.business.*;
+import com.cssweb.payment.posp.network.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,29 +13,27 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by chenhf on 2014/8/25.
+ * Created by chenhf on 2014/10/30.
  */
-public class BusiTestNetwork implements BusinessAction {
-    private static final Logger logger = LogManager.getLogger(BusiTestNetwork.class.getName());
+public class TestEcho {
+    private static final Logger logger =  LogManager.getLogger(TestEcho.class.getName());
 
-    @Override
-    public CustomMessage process(CustomMessage request) {
+    public CustomMessage getRequest()
+    {
+        CustomMessage request = new CustomMessage();
 
 
-        FieldData reqField = request.getFieldData();
-        Field7 reqF7 = (Field7) reqField.getField(7);
-        logger.debug("reqF7=" + new String(reqF7.getFieldValue()));
-
-        // 应答消息
-        CustomMessage response = new CustomMessage();
-        List<Field> fields = new ArrayList<Field>();
         MsgHeader msgHeader = new MsgHeader();
         MessageType msgType = new MessageType();
         BitFieldMap bitFieldMap = new BitFieldMap();
         FieldData fieldData = new FieldData();
 
+        // 设置域值
+        List<Field> fields = new ArrayList<Field>();
+
         try {
-            // 设置域值
+
+
             Field7 f7 = new Field7();
             Date now = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmmss");
@@ -70,6 +64,44 @@ public class BusiTestNetwork implements BusinessAction {
             fields.add(f39);
             fields.add(f70);
             // 设置域值结束
+
+
+
+        // 开始处理消息类型
+        msgType.setMsgType("0820");
+        request.setMsgType(msgType);
+        logger.info("msgType = " + new String(msgType.getMsgType()));
+        // 结束处理消息类型
+
+
+
+        // 设置位图
+        bitFieldMap.setFields(fields);
+        request.setBitFieldMap(bitFieldMap);
+
+        logger.info("array = " + bitFieldMap.getArrayStr());
+
+
+
+
+            // 设置域值
+            fieldData.encode(fields);
+            request.setFieldData(fieldData);
+            logger.info("fieldData = " + new String(fieldData.getFieldData()));
+
+            // 设置消息头
+            int totalLen = MsgHeader.MSG_HEADER_SIZE + MessageType.MSG_TYPE_SIZE + bitFieldMap.getBitFieldMapLen() + fieldData.getFieldDataLen();
+            logger.info("totalLen = " + totalLen);
+            msgHeader.encode(totalLen, "00010000", "00010000", (byte)0, "00000000", (byte)0, "00000");
+            request.setMsgHeader(msgHeader);
+
+            // 消息编码,这一步非常重要，把msgType, bitFieldMap, fieldData合成msgContent
+            request.encode();
+
+            return request;
+
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (FieldLengthException e) {
             e.printStackTrace();
         } catch (OverflowMaxLengthException e) {
@@ -77,41 +109,7 @@ public class BusiTestNetwork implements BusinessAction {
         }
 
 
-        // 开始处理消息类型
-        msgType.setMsgType("0820");
-        response.setMsgType(msgType);
-        // 结束处理消息类型
-
-
-
-        // 设置位图
-        bitFieldMap.setFields(fields);
-        response.setBitFieldMap(bitFieldMap);
-
-
-        // 设置域值
-        try {
-            fieldData.encode(fields);
-            response.setFieldData(fieldData);
-
-            // 设置消息头
-            int totalLen = MsgHeader.MSG_HEADER_SIZE + MessageType.MSG_TYPE_SIZE + bitFieldMap.getBitFieldMapLen() + fieldData.getFieldDataLen();
-            msgHeader.encode(totalLen, "00010000", "00010000", (byte)0, "00000000", (byte)0, "00000");
-            response.setMsgHeader(msgHeader);
-
-            // 消息编码,这一步非常重要，把msgType, bitFieldMap, fieldData合成msgContent
-            response.encode();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
-
-        // 发送应答消息
-        request.getChannelHandlerContext().writeAndFlush(response);
         return null;
+
     }
 }

@@ -12,7 +12,7 @@ public class WorkerThread implements Runnable {
 	private CustomMessage request;
 
 
-    private BusiTestNetwork testNetwork = new BusiTestNetwork();
+    private BusiEchoTest echo = new BusiEchoTest();
     private BusiGetBalance getBalance = new BusiGetBalance();
 	
 
