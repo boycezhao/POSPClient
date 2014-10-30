@@ -131,6 +131,7 @@ public class Field {
     }
     public void setFieldLength(int fieldLength) {
         this.fieldLength = fieldLength;
+        fieldValue = new byte[fieldLength];
     }
 
     public String getFieldName() {
@@ -388,7 +389,7 @@ public class Field {
 
         fields.put(field.getFieldName(), field);
 
-        fieldLength += field.getFieldLength();
+
     }
 
     /**

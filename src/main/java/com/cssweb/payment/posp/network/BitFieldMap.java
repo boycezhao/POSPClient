@@ -234,5 +234,28 @@ public class BitFieldMap {
         return bitFieldMapLen;
     }
 
+    public String showBitFieldMap()
+    {
+        StringBuffer sb = new StringBuffer();
+        int fieldNo = 0;
+
+        for (int i=0; i<array.length; i++)
+        {
+            fieldNo += 1;
+
+            if (array[i] == 1)
+            {
+                sb.append("有效域" + fieldNo + "\n");
+            }
+            else
+            {
+
+            }
+        }
+
+        return sb.toString();
+    }
+
+
 
 }
