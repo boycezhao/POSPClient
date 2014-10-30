@@ -14,6 +14,6 @@ public class Field32 extends Field{
 
         fieldLengthType = FIELD_LENGTH_TYPE_VAR2;
         maxFieldLength = 2+11;
-        fieldValue = new byte[maxFieldLength];
+       // fieldValue = new byte[maxFieldLength];
     }
 }

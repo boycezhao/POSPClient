@@ -16,10 +16,9 @@ public class Field121_5 extends Field{
         fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
         fieldLength = 38;
 
-        fieldValue = new byte[fieldLength];
+        //fieldValue = new byte[fieldLength];
 
-        isSubField = true;
         beginPos = 43;
-
+        isSubField = true;
     }
 }

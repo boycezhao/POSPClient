@@ -1,9 +1,11 @@
 package com.cssweb.payment.posp;
 
 import com.cssweb.payment.posp.business.*;
+import com.cssweb.payment.posp.network.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,11 +21,11 @@ public class TestGetBalance {
     public static void main(String[] args)
     {
         Date now = new Date();
+        StringBuffer sb = new StringBuffer();
 
         String AC_ID = "00000000000";
         String SW_ID = "11111111111";
         String IS_ID = "22222222222";
-
         String referNo = "181030414357"; // 参考号
         String terminalNo = "63856007"; // 终端号
         String batchNo = "000216"; // 批次号
@@ -31,8 +33,16 @@ public class TestGetBalance {
         String voucherNo = "005572"; // 凭证号
         String merchantNo = "102310058125081"; // 商户编号
 
-        StringBuffer sb = new StringBuffer();
 
+
+
+
+        CustomMessage response = new CustomMessage();
+
+        MsgHeader msgHeader = new MsgHeader();
+        MessageType msgType = new MessageType();
+        BitFieldMap bitFieldMap = new BitFieldMap();
+        FieldData fieldData = new FieldData();
         List<Field> fields = new ArrayList<Field>();
 
         try {
@@ -48,9 +58,11 @@ public class TestGetBalance {
             //交易处理码
             Field3 field3 = new Field3();
             //301000
-            field3.setTradeType(Field3.TRD_TYPE_QUERY_SERVICE);
-            field3.setFrom(Field3.FROM_DEPOSIT + Field3.FROM_DEFAULT);
-            field3.setTo(Field3.TO_DEFAULT + Field3.TO_DEFAULT);
+            String f3 = Field3.TRD_TYPE_QUERY_SERVICE + Field3.FROM_DEPOSIT + Field3.FROM_DEFAULT + Field3.TO_DEFAULT + Field3.TO_DEFAULT;
+            field3.setFieldValue(f3);
+            //field3.setTradeType(Field3.TRD_TYPE_QUERY_SERVICE);
+            //field3.setFrom(Field3.FROM_DEPOSIT + Field3.FROM_DEFAULT);
+            //field3.setTo(Field3.TO_DEFAULT + Field3.TO_DEFAULT);
             System.out.println(field3.toString());
             fields.add(field3);
 
@@ -118,8 +130,10 @@ public class TestGetBalance {
 
             //服务点输入方式码
             Field22 field22 = new Field22();
-            field22.setPAN(Field22.PAN_IC);
-            field22.setPIN(Field22.PIN_INCLUDE);
+            String f22 = Field22.PAN_IC + Field22.PIN_INCLUDE;
+            field22.setFieldValue(f22);
+            //field22.setPAN(Field22.PAN_IC);
+            //field22.setPIN(Field22.PIN_INCLUDE);
             System.out.println(field22.toString());
             fields.add(field22);
 
@@ -177,7 +191,10 @@ public class TestGetBalance {
 
             //受卡方名称地址
             Field43 field43 = new Field43();
-            field43.setFieldValue("地址");
+            String addr = field43.appendSpace("地址", field43.getFieldLength());
+            System.out.println("长度========" + addr.length());
+            System.out.println("长度========" + addr.getBytes().length);
+            field43.setFieldValue(addr);
             System.out.println(field43.toString());
             fields.add(field43);
 
@@ -208,8 +225,11 @@ public class TestGetBalance {
 
             //安全控制信息
             Field53 field53 = new Field53();
-            field53.setPinFormat(Field53.PIN_FORMAT_PAN);
-            field53.setEncAlgo(Field53.ENCRYPTION_METHOD_DOUBLE);
+
+            String f53 = Field53.PIN_FORMAT_PAN + Field53.ENCRYPTION_METHOD_DOUBLE + Field53.RESERVED;
+            field53.setFieldValue(f53);
+            //field53.setPinFormat(Field53.PIN_FORMAT_PAN);
+            //field53.setEncAlgo(Field53.ENCRYPTION_METHOD_DOUBLE);
             System.out.println(field53.toString());
             fields.add(field53);
 
@@ -274,7 +294,7 @@ public class TestGetBalance {
 
             //转入和转出方标识代码/手续费信息
             Field121_5 field121_5 = new Field121_5();
-            field121_5.addField(field121_5_id);
+            field121_5.setFieldValue(field121_5_id);
             //field121_5.addField(field121_5_id);
             System.out.println(field121_5.toString());
 
@@ -284,8 +304,6 @@ public class TestGetBalance {
             field121.addField(field121_3);
             field121.addField(field121_4);
             field121.addField(field121_5);
-
-
             System.out.println(field121.toString());
 
             fields.add(field121);
@@ -305,6 +323,17 @@ public class TestGetBalance {
             System.out.println(field128.toString());
 
             fields.add(field128);
+
+            int totalLen = 0;
+            for (Field field : fields)
+            {
+                totalLen += field.getFieldLength();
+            }
+            System.out.println("实际总长度=" + totalLen);
+
+            // 合并各个域的值
+            fieldData.encode(fields);
+            System.out.println(fieldData.toString());
         }
         catch(FieldLengthException fle)
         {
@@ -313,6 +342,8 @@ public class TestGetBalance {
         } catch (OverflowMaxLengthException omle) {
 
             System.out.println(omle.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 

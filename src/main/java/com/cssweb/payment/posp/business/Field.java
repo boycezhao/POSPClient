@@ -202,6 +202,7 @@ public class Field {
                 if (data.length > fieldLength)
                     throw new OverflowMaxLengthException(this);
 
+                //fieldValue = new byte[fieldLength];
                 this.fieldValue = data;
 
                 // 如果是数值型，那么前补0
@@ -209,7 +210,7 @@ public class Field {
                 {
 
                 }
-                else if (fieldType == FIELD_TYPE_N)
+                else if (fieldType == FIELD_TYPE_AN || fieldType == FIELD_TYPE_ANS || fieldType == FIELD_TYPE_ANSB)
                 {
 
                 }
@@ -217,10 +218,15 @@ public class Field {
             }
             else if(fieldLengthType == FIELD_LENGTH_TYPE_VAR2)
             {
+
                 //前面2字节表示长度
                 int len = data.length;
-               // if (len > (maxFieldLength-2) )
-               //     throw
+               if ( (len+2) > maxFieldLength )
+                    throw new OverflowMaxLengthException(this);
+
+                fieldLength = 2 + data.length;
+                fieldValue = new byte[fieldLength];
+
                 String lenStr = String.valueOf(len);
                 if (lenStr.length() < 2)
                     lenStr = "0" + lenStr;
@@ -228,7 +234,7 @@ public class Field {
                 System.arraycopy(lenStr.getBytes(), 0, fieldValue, 0, 2);
                 System.arraycopy(data, 0, fieldValue, 2, data.length);
 
-                fieldLength = 2 + data.length;
+
 
             }
             else if(fieldLengthType == FIELD_LENGTH_TYPE_VAR3)
@@ -270,10 +276,24 @@ public class Field {
         setFieldValue(data.getBytes());
     }
 
+    /**
+     *
+     * @param subField
+     * @throws FieldLengthException
+     * @throws OverflowMaxLengthException
+     */
+    public void setFieldValue(Field subField) throws FieldLengthException, OverflowMaxLengthException {
+        setFieldValue(subField.getFieldValue());
+    }
 
-
+    /**
+     *
+     * @return
+     */
     public byte[] getFieldValue()
     {
+        return fieldValue;
+        /*
         if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)
         {
             return fieldValue;
@@ -301,7 +321,7 @@ public class Field {
 
             return val;
         }
-        /*
+
         else if (fieldLengthType == FIELD_LENGTH_TYPE_VAR3)
         {
 
@@ -324,11 +344,12 @@ public class Field {
 
             return val;
         }
-        */
+
         else
         {
             return null;
         }
+        */
     }
 
     /**
@@ -366,5 +387,41 @@ public class Field {
         System.arraycopy(field.getFieldValue(), 0, fieldValue, field.getBeginPos(), field.getFieldLength());
 
         fields.put(field.getFieldName(), field);
+
+        fieldLength += field.getFieldLength();
+    }
+
+    /**
+     * 字符串后补空格
+     * @param val 字符串
+     * @param totalLen 总长度
+     * @return 返回后补空格后字符串
+     */
+    public String appendSpace(String val, int totalLen)
+    {
+        int valLen = val.getBytes().length;
+        if (valLen >= totalLen)
+            return val;
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(val);
+
+        for (int i=0; i < totalLen - valLen; i++)
+        {
+            sb.append(" ");
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     *
+     * @param val
+     * @param totalLen
+     * @return
+     */
+    public String insertZero(String val, int totalLen)
+    {
+        return "";
     }
 }

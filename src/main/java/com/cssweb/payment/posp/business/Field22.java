@@ -52,7 +52,7 @@ public class Field22 extends Field{
         fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
         fieldLength = 3;
 
-        fieldValue = new byte[fieldLength];
+        //fieldValue = new byte[fieldLength];
     }
 
 }

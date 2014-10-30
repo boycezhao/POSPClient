@@ -54,11 +54,12 @@ public class Field53 extends Field {
 
         fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
         fieldLength = 16;
-
+/*
         fieldValue = new byte[fieldLength];
         for (int i=0; i<fieldLength; i++)
         {
             fieldValue[i] = '0';
         }
+        */
     }
 }

@@ -126,7 +126,11 @@ public class FieldData {
     }
 
 
-
+    /**
+     *
+     * @param fields
+     * @throws IOException
+     */
     public void encode(List<Field> fields) throws IOException {
         this.fields = fields;
 
@@ -137,6 +141,7 @@ public class FieldData {
         //StringBuffer sb = new StringBuffer();
         for (Field field : fields)
         {
+
             byte[] fieldValue = field.getFieldValue();
 
             baos.write(fieldValue);
@@ -165,5 +170,13 @@ public class FieldData {
     }
     public void setFieldDataLen(int fieldDataLen) {
         this.fieldDataLen = fieldDataLen;
+    }
+
+    public String toString()
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("域数据总长度=" + fieldDataLen);
+        sb.append("; 域数据=" + new String(fieldData));
+        return sb.toString();
     }
 }

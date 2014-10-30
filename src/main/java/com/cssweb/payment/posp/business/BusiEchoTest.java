@@ -73,28 +73,15 @@ public class BusiEchoTest implements BusinessAction {
             fields.add(f39);
             fields.add(f70);
             // 设置域值结束
-        } catch (FieldLengthException e) {
-            e.printStackTrace();
-        } catch (OverflowMaxLengthException e) {
-            e.printStackTrace();
-        }
 
+            // 设置域值
+            fieldData.encode(fields);
+
+            // 设置位图
+            bitFieldMap.setFields(fields);
 
         // 开始处理消息类型
         msgType.setMsgType("0830");
-
-        // 结束处理消息类型
-
-
-
-        // 设置位图
-        bitFieldMap.setFields(fields);
-
-
-
-        // 设置域值
-        try {
-            fieldData.encode(fields);
 
 
             // 设置消息头
@@ -111,7 +98,12 @@ public class BusiEchoTest implements BusinessAction {
             response.encode();
 
 
-        } catch (IOException e) {
+
+    } catch (FieldLengthException e) {
+        e.printStackTrace();
+    } catch (OverflowMaxLengthException e) {
+        e.printStackTrace();
+    }catch (IOException e) {
             e.printStackTrace();
         }
 
