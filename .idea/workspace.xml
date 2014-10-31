@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e9e7d76-46a5-438e-aae6-24410e02c682" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field121.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field121.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestGetBalance.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestGetBalance.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="POSPClient.iws" />
@@ -35,8 +34,8 @@
       <file leaf-file-name="UnitTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/cssweb/payment/posp/UnitTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="182" max-vertical-offset="456">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="456">
+              <caret line="14" column="49" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -45,8 +44,8 @@
       <file leaf-file-name="TestGetBalance.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestGetBalance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5212" max-vertical-offset="7087">
-              <caret line="301" column="26" selection-start-line="301" selection-start-column="26" selection-end-line="301" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5507" max-vertical-offset="7068">
+              <caret line="300" column="24" selection-start-line="300" selection-start-column="24" selection-end-line="300" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,8 +56,18 @@
       <file leaf-file-name="Field121.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field121.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6738197" vertical-offset="1529" max-vertical-offset="2223">
-              <caret line="97" column="9" selection-start-line="97" selection-start-column="9" selection-end-line="97" selection-end-column="9" />
+            <state vertical-scroll-proportion="1.0815451" vertical-offset="1358" max-vertical-offset="2223">
+              <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BusiGetBalance.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiGetBalance.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="836">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -67,9 +76,12 @@
       <file leaf-file-name="Field.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2666" max-vertical-offset="7372">
-              <caret line="203" column="0" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3588" max-vertical-offset="7429">
+              <caret line="258" column="16" selection-start-line="258" selection-start-column="16" selection-end-line="258" selection-end-column="16" />
+              <folding>
+                <element signature="e#5556#5557#0" expanded="true" />
+                <element signature="e#5615#5616#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -111,16 +123,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="760">
               <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestEcho.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestEcho.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="684" max-vertical-offset="2109">
-              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -204,10 +206,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestEcho.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/network/FieldData.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiEchoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestGetBalance.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field121_3.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field121.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestGetBalance.java" />
       </list>
     </option>
   </component>
@@ -943,7 +945,7 @@
       <workItem from="1414491166988" duration="893000" />
       <workItem from="1414549669432" duration="21991000" />
       <workItem from="1414631613317" duration="26000000" />
-      <workItem from="1414680084665" duration="16211000" />
+      <workItem from="1414680084665" duration="16566000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1408510691824</created>
@@ -1081,11 +1083,15 @@
       <created>1414748795963</created>
       <updated>1414748795963</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="commit">
+      <created>1414759828455</created>
+      <updated>1414759828455</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="296506000" />
+    <option name="totallyTimeSpent" value="296861000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1552" height="824" extended-state="6" />
@@ -1336,14 +1342,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/cssweb/payment/posp/UnitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="182" max-vertical-offset="456">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field121_3.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="760">
@@ -1378,18 +1376,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiGetBalance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="836">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/cssweb/payment/posp/UnitTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="456">
+          <caret line="14" column="49" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2658" max-vertical-offset="7372">
-          <caret line="203" column="0" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3588" max-vertical-offset="7429">
+          <caret line="258" column="16" selection-start-line="258" selection-start-column="16" selection-end-line="258" selection-end-column="16" />
+          <folding>
+            <element signature="e#5556#5557#0" expanded="true" />
+            <element signature="e#5615#5616#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestGetBalance.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5212" max-vertical-offset="7087">
-          <caret line="301" column="26" selection-start-line="301" selection-start-column="26" selection-end-line="301" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5507" max-vertical-offset="7068">
+          <caret line="300" column="24" selection-start-line="300" selection-start-column="24" selection-end-line="300" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1398,8 +1415,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field121.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6738197" vertical-offset="1529" max-vertical-offset="2223">
-          <caret line="97" column="9" selection-start-line="97" selection-start-column="9" selection-end-line="97" selection-end-column="9" />
+        <state vertical-scroll-proportion="1.0815451" vertical-offset="1358" max-vertical-offset="2223">
+          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding />
         </state>
       </provider>

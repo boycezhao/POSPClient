@@ -186,8 +186,7 @@ public class TestGetBalance {
             //受卡方名称地址
             Field43 field43 = new Field43();
             String addr = field43.appendSpace("地址", field43.getDataLen());
-            System.out.println("长度========" + addr.length());
-            System.out.println("长度========" + addr.getBytes().length);
+
             field43.setData(addr);
             System.out.println(field43.toString());
             fields.add(field43);
