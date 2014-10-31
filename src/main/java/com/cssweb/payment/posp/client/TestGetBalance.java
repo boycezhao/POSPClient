@@ -283,7 +283,7 @@ public class TestGetBalance {
             for (int i = 0; i < field121_5_id.getDataLen(); i++) {
                 sb.append('1');
             }
-            field121_5_id.setFieldValue(sb.toString().getBytes());
+            field121_5_id.setData(sb.toString().getBytes());
             System.out.println(field121_5_id.toString());
 
             //转入和转出方标识代码/手续费信息

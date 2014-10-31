@@ -202,7 +202,7 @@ public class Field {
     public String toString()
     {
 
-        String s = fieldNo + "(" + fieldName + ")：" + new String(fieldValue) + "; 实际长度：" + fieldLength;
+        String s = fieldNo + "(" + fieldName + ")：" + new String(fieldValue) + "; 实际长度：" + fieldLength + "; 数据长度：" + dataLen;
 
         return s;
     }
@@ -284,6 +284,7 @@ public class Field {
 
         // copy子域的值
         fieldValue = field.getFieldValue();
+        fieldLength = field.getFieldLength();
     }
     /**
      *
