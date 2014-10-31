@@ -3,7 +3,6 @@ package com.cssweb.payment.posp.business;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -202,7 +201,7 @@ public class Field {
     public String toString()
     {
 
-        String s = fieldNo + "(" + fieldName + ")：" + new String(fieldValue) + "; 实际长度：" + fieldLength + "; 数据长度：" + dataLen;
+        String s = fieldNo + "(" + fieldName + ")：" + new String(data) + "; 实际长度：" + fieldLength + "; 数据长度：" + dataLen;
 
         return s;
     }
@@ -283,6 +282,10 @@ public class Field {
         fields.put(currentTag, field);
 
         // copy子域的值
+
+        data = field.getData();
+        dataLen = field.getDataLen();
+
         fieldValue = field.getFieldValue();
         fieldLength = field.getFieldLength();
     }
@@ -380,6 +383,8 @@ public class Field {
 
             System.arraycopy(fieldData, srcPos, data, 0, dataLen);
             fieldLength = dataLen;
+
+
 
             nextPos =  srcPos + fieldLength;
         }

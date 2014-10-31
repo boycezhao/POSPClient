@@ -23,28 +23,38 @@ public class Field121 extends Field {
     @Override
     public int decode(byte[] fieldData, int srcPos)
     {
+        int pos = srcPos;
+
+        byte[] varLen = new byte[3];
+        System.arraycopy(fieldData, pos, varLen, 0, 3);
+        dataLen = Integer.parseInt(new String(varLen));
+
+        data = new byte[dataLen];
+        System.arraycopy(fieldData, pos+3, data, 0, dataLen);
+
+        fieldLength = 3 + dataLen;
+        srcPos +=  fieldLength;
+
 
         Field121_1 field121_1 = new Field121_1();
-        srcPos = field121_1.decode(fieldData, srcPos);
+        pos = field121_1.decode(data, field121_1.getBeginPos());
         addSubField(field121_1);
 
-
         Field121_2 field121_2 = new Field121_2();
-        srcPos = field121_2.decode(fieldData, srcPos);
+        pos = field121_2.decode(data, field121_2.getBeginPos());
         addSubField(field121_2);
 
-
         Field121_3 field121_3 = new Field121_3();
-        srcPos = field121_3.decode(fieldData, srcPos);
+        pos = field121_3.decode(data, field121_3.getBeginPos());
         addSubField(field121_3);
 
         Field121_4 field121_4 = new Field121_4();
-        srcPos = field121_4.decode(fieldData, srcPos);
+        pos = field121_4.decode(data, field121_4.getBeginPos());
         addSubField(field121_4);
 
         // 读标志
         byte[] tag = new byte[2];
-        System.arraycopy(fieldData, srcPos, tag, 0, 2);
+        System.arraycopy(data, pos, tag, 0, 2);
         String tagStr = new String(tag);
 
         Field121_5 field121_5 = new Field121_5();
@@ -52,13 +62,13 @@ public class Field121 extends Field {
         if (tagStr.equalsIgnoreCase("FD"))
         {
             Field121_5_FD field121_5_fd = new Field121_5_FD();
-            srcPos = field121_5_fd.decode(fieldData, srcPos);
+            pos = field121_5_fd.decode(data, pos);
             field121_5.addSubFieldByTag(field121_5_fd);
         }
         if (tagStr.equalsIgnoreCase("ID"))
         {
             Field121_5_ID field121_5_id = new Field121_5_ID();
-            srcPos = field121_5_id.decode(fieldData, srcPos);
+            pos = field121_5_id.decode(data, pos);
             field121_5.addSubFieldByTag(field121_5_id);
         }
 
@@ -73,14 +83,19 @@ public class Field121 extends Field {
 
         for (Field subField : fields.values())
         {
-            System.out.println("field121_5 no=" + subField.getFieldNo());
+           // System.out.println("field121_5 no=" + subField.getFieldNo());
             dataLen += subField.getFieldLength();
         }
 
-//前面3字节表示长度
-
+        //前面3字节表示长度
         if ( (dataLen) > maxFieldLength )
             throw new OverflowMaxLengthException(this);
+
+        data = new byte[dataLen];
+        for (Field subField : fields.values())
+        {
+            System.arraycopy(subField.getFieldValue(), 0, data, subField.getBeginPos(), subField.getFieldLength());
+        }
 
         fieldLength = 3 + dataLen;
         fieldValue = new byte[fieldLength];
@@ -91,12 +106,6 @@ public class Field121 extends Field {
 
         System.arraycopy(val.getBytes(), 0, fieldValue, 0, 3);
 
-        for (Field subField : fields.values())
-        {
-
-            System.arraycopy(subField.getFieldValue(), 0, fieldValue, 3 + subField.getBeginPos(), subField.getFieldLength());
-        }
-
-
+        System.arraycopy(data, 0, fieldValue, 3, dataLen);
     }
 }
