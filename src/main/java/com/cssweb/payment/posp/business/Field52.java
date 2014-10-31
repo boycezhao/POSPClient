@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/16.
  */
-public class Field52 extends Field{
+public class Field52 extends Field {
 
     public Field52()
     {
@@ -12,8 +12,8 @@ public class Field52 extends Field{
 
         fieldType = FIELD_TYPE_BINARY_BIT;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 64/8;
+
+        dataLen = 64/8;
     }
 
 }

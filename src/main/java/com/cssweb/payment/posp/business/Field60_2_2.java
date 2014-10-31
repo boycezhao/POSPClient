@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/17.
  */
-public class Field60_2_2 extends Field{
+public class Field60_2_2 extends Field {
 
     public static final String TERMINAL_CAP_UNKNOWN = "0"; //终端读取能力不可知
     public static final String TERMINAL_CAP_MAGNETIC = "2"; //只能接触式读取磁条卡
@@ -18,8 +18,8 @@ public class Field60_2_2 extends Field{
         fieldName = "终端读取能力";
         fieldNo = "60.2.2";
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 1;
+
+        dataLen = 1;
 
     }
 }

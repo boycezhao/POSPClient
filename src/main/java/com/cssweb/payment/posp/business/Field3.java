@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/15.
  */
-public class Field3  extends Field{
+public class Field3  extends Field {
 
     public static final String TRD_TYPE_DEBIT = "19"; // 借记
     public static final String TRD_TYPE_GOODS_SERVICE = "00"; //商品和服务
@@ -84,8 +84,8 @@ public class Field3  extends Field{
 
         fieldType = FIELD_TYPE_N;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 6;
+
+        dataLen = 6;
 
         //fieldValue = new byte[fieldLength];
     }

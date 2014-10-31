@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/24.
  */
-public class Field61_6_NM extends Field{
+public class Field61_6_NM extends Field {
 
     private String name1;
     private String name2;
@@ -15,10 +15,9 @@ public class Field61_6_NM extends Field{
 
         fieldType = FIELD_TYPE_ANS;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 60;
 
-        isSubField = true;
+        dataLen = 60;
+
 
     }
 }

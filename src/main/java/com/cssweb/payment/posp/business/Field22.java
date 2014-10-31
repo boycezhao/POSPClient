@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/16.
  */
-public class Field22 extends Field{
+public class Field22 extends Field {
     public static final String PAN_UNKNOW = "00";
     public static final String PAN_MAGNETIC = "01";//手工
     public static final String PAN_MANUAL = "02";//接触式读取磁条
@@ -49,8 +49,8 @@ public class Field22 extends Field{
 
         fieldType = FIELD_TYPE_N;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 3;
+
+        dataLen = 3;
 
         //fieldValue = new byte[fieldLength];
     }

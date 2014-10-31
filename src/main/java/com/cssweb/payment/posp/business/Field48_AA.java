@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/22.
  */
-public class Field48_AA extends Field{
+public class Field48_AA extends Field {
 
     public Field48_AA()
     {
@@ -12,7 +12,7 @@ public class Field48_AA extends Field{
 
         fieldType = FIELD_TYPE_ANSB;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_VAR3;
+        fieldValueType = FIELD_VALUE_TYPE_TLLLV;
         maxFieldLength = 510;
     }
 }

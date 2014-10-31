@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/17.
  */
-public class Field60_2_1 extends Field{
+public class Field60_2_1 extends Field {
 
     public static final String ACCOUNT_TYPE_PERSONAL_CARD = "0"; // 个人卡帐户
     public static final String ACCOUNT_TYPE_PERSONAL = "1"; //个人非卡帐户
@@ -18,7 +18,7 @@ public class Field60_2_1 extends Field{
         fieldName = "账户所有人类型";
         fieldNo = "60.2.1";
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 1;
+
+        dataLen = 1;
     }
 }

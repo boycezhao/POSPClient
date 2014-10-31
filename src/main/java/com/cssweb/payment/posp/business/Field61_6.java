@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/20.
  */
-public class Field61_6 extends Field{
+public class Field61_6 extends Field {
 
     private Field61_6_AM fieldAM;
 
@@ -22,9 +22,9 @@ public class Field61_6 extends Field{
 
         fieldType = FIELD_TYPE_ANS;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_VAR3;
+        fieldValueType = FIELD_VALUE_TYPE_LLLV;
         maxFieldLength = 168;
 
-        isSubField = true;
+
     }
 }

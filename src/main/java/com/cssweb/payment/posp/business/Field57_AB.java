@@ -4,7 +4,7 @@ package com.cssweb.payment.posp.business;
  * Created by chenhf on 2014/10/24.
  */
 // field57
-public class Field57_AB extends Field{
+public class Field57_AB extends Field {
 
     private String swinfo; //预付卡发卡机构附加交易信息
     private String isinfo; //发卡方附加交易信息
@@ -17,7 +17,7 @@ public class Field57_AB extends Field{
 
         fieldType = FIELD_TYPE_ANSB;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_VAR3;
+        fieldValueType = FIELD_VALUE_TYPE_LLLV;
         maxFieldLength = 510;
     }
 }

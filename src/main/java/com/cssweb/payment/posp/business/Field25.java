@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/15.
  */
-public class Field25  extends Field{
+public class Field25  extends Field {
 
     public static final String COMMIT = "00"; //正常提交
     public static final String NOT_COMMIT = "01"; //客户不提交
@@ -41,7 +41,7 @@ public class Field25  extends Field{
 
         fieldType = FIELD_TYPE_N;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 2;
+
+        dataLen = 2;
     }
 }

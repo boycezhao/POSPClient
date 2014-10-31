@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/24.
  */
-public class Field48_AS extends Field{
+public class Field48_AS extends Field {
 
     private Field48_AA fieldIN;
     private Field48_PB fieldPB;
@@ -18,7 +18,7 @@ public class Field48_AS extends Field{
 
         fieldType = FIELD_TYPE_N;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 12;
+        fieldValueType = FIELD_VALUE_TYPE_TV;
+        dataLen = 12;
     }
 }

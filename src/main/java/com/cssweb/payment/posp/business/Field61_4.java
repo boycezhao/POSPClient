@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/20.
  */
-public class Field61_4 extends Field{
+public class Field61_4 extends Field {
 
     public static final String FLAG_CUP = "CUP";
     public static final String FLAG_VISA = "VIS";
@@ -17,9 +17,9 @@ public class Field61_4 extends Field{
 
         fieldType = FIELD_TYPE_ANS;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 7;
 
-        isSubField = true;
+        dataLen = 7;
+
+
     }
 }

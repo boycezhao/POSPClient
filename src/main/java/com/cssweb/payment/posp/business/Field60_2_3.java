@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/17.
  */
-public class Field60_2_3 extends Field{
+public class Field60_2_3 extends Field {
 
     public static final String IC_CONDITION_CODE_UNKNOWN = "0"; //未使用或后续子域存在
     /*
@@ -24,7 +24,7 @@ public class Field60_2_3 extends Field{
         fieldName = "IC卡条件代码";
         fieldNo = "60.2.3";
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 1;
+
+        dataLen = 1;
     }
 }

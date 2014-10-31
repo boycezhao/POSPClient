@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/15.
  */
-public class Field18  extends Field{
+public class Field18  extends Field {
     public Field18()
     {
         //取值请参见GB/T 20548-2006《金融零售业务 商户类别代码》
@@ -13,7 +13,7 @@ public class Field18  extends Field{
 
         fieldType = FIELD_TYPE_N;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 4;
+
+        dataLen = 4;
     }
 }

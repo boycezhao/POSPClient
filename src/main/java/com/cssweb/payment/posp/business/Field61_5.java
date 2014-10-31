@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/20.
  */
-public class Field61_5 extends Field{
+public class Field61_5 extends Field {
 
     public static final String ARQC_SUCCESS = "1"; //交易通过ARQC认证
     public static final String ARQC_FAIL = "2"; // 交易未能通过ARQC认证
@@ -16,9 +16,9 @@ public class Field61_5 extends Field{
 
         fieldType = FIELD_TYPE_ANS;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 1;
 
-        isSubField = true;
+        dataLen = 1;
+
+
     }
 }

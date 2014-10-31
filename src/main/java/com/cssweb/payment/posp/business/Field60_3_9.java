@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/17.
  */
-public class Field60_3_9 extends Field{
+public class Field60_3_9 extends Field {
 
     public static final String CARD_ACC_LEVEL_UNKNOWN = "0"; //未知
     public static final String CARD_ACC_LEVEL_NORMAL = "1"; //普卡
@@ -19,7 +19,7 @@ public class Field60_3_9 extends Field{
         fieldName = "卡账户等级";
         fieldNo = "60.3.9";
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 1;
+
+        dataLen = 1;
     }
 }

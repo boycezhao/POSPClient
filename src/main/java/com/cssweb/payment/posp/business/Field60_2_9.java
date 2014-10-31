@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/17.
  */
-public class Field60_2_9 extends Field{
+public class Field60_2_9 extends Field {
 
     public static final String INTERACTION_TYPE_DEFAULT = "0";
     public static final String INTERACTION_TYPE_INTERNET_SMS = "1"; // 互联网，短信
@@ -15,7 +15,7 @@ public class Field60_2_9 extends Field{
         fieldName = "交互方式标志，与终端类型配合使用";
         fieldNo = "60.2.9";
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 1;
+
+        dataLen = 1;
     }
 }

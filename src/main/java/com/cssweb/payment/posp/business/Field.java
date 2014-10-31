@@ -3,9 +3,8 @@ package com.cssweb.payment.posp.business;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -13,6 +12,33 @@ import java.util.Map;
  */
 public class Field {
     private static final Logger logger = LogManager.getLogger(Field.class.getName());
+
+    // 域的数据类型
+    public static final String FIELD_TYPE_BINARY_BIT = "b";
+    public static final String FIELD_TYPE_BINARY_BYTE = "B";
+    public static final String FIELD_TYPE_ANS = "ans";
+    public static final String FIELD_TYPE_N = "n";
+    public static final String FIELD_TYPE_Z = "Z";
+    public static final String FIELD_TYPE_AN = "an";
+    public static final String FIELD_TYPE_ANSB = "ansb";
+
+
+    /*
+        1.数据
+        2.2字节长度+数据
+        3.3字节长度+数据
+        4.tag+数据
+        5.tag+2字节长度+数据
+        6.tag+3字节长度+数据
+         */
+    //域的值构成类型
+    protected static final int FIELD_VALUE_TYPE_DEFAULT = 1;
+    protected static final int FIELD_VALUE_TYPE_LLV = 2;
+    protected static final int FIELD_VALUE_TYPE_LLLV = 3;
+    protected static final int FIELD_VALUE_TYPE_TV = 4;
+    protected static final int FIELD_VALUE_TYPE_TLLV = 5;
+    protected static final int FIELD_VALUE_TYPE_TLLLV = 6;
+
 
     // 域描述
     protected String fieldName = "";
@@ -22,71 +48,34 @@ public class Field {
 
     // 数据类型
     protected String fieldType = "";
-    public static final String FIELD_TYPE_BINARY_BIT = "b";
-    public static final String FIELD_TYPE_BINARY_BYTE = "B";
-    public static final String FIELD_TYPE_ANS = "ans";
-    public static final String FIELD_TYPE_N = "n";
-    public static final String FIELD_TYPE_Z = "Z";
-    public static final String FIELD_TYPE_AN = "an";
-    public static final String FIELD_TYPE_ANSB = "ansb";
 
-    // 长度类型
-    public static final int FIELD_LENGTH_TYPE_FIXED = 0; // 定长
-    public static final int FIELD_LENGTH_TYPE_VAR2 = 2; // 变长2
-    public static final int FIELD_LENGTH_TYPE_VAR3 = 3; // 变长3
 
-    // 最大长度
+
+
+
+    protected int fieldValueType = FIELD_VALUE_TYPE_DEFAULT;
+
+    protected byte[] data = null; //真正的数据
+
+    protected int dataLen = 0;
+    // 最大数据长度
     protected int maxFieldLength = 0;
-
-    protected int fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-
-
-    // 长度
-    protected int fieldLength = 0;
-
-
-    // 域值
-    protected byte[] fieldValue = null;
 
     // 子域当前标志名称
     protected String tag = "";
-    protected int valueLen = 0;
-    protected String value = "";
-
     //如果是父域代表当前设置的是哪一个子域
     protected String currentTag = "";
 
-    protected static final int FIELD_VALUE_TYPE_DEFAULT = 0;
-    protected static final int FIELD_VALUE_TYPE_TL = 1;
-    protected static final int FIELD_VALUE_TYPE_TLV = 2;
-    protected int fieldValueType = FIELD_VALUE_TYPE_DEFAULT;
+    // 长度，fieldValue的长度
+    protected int fieldLength = 0;
+    // 完整的域值包括tag，
+    protected byte[] fieldValue = null;
 
     // 相对于父域的开始位置
     protected int beginPos = 0;
+    protected Map<String, Field> fields = new LinkedHashMap<String, Field>();
 
 
-    // 不采用getter/setter方式，可以
-    protected Map<String, Field> fields = new HashMap<String, Field>();
-
-
-    //以下定义暂时没使用
-    protected boolean isSubField = false; // 是否是子域
-    protected boolean hasSubField = false; // 是否有子域
-
-
-    public Field()
-    {
-        /*
-        if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)
-        {
-            fieldValue = new byte[fieldLength];
-        }
-        else
-        {
-            fieldValue = new byte[maxFieldLength];
-        }
-        */
-    }
 
 
 
@@ -96,14 +85,6 @@ public class Field {
     public void setFieldValueType(int fieldValueType) {
         this.fieldValueType = fieldValueType;
     }
-
-    public int getValueLen() {
-        return valueLen;
-    }
-    public void setValueLen(int valueLen) {
-        this.valueLen = valueLen;
-    }
-
 
     public int getMaxFieldLength() {
         return maxFieldLength;
@@ -119,19 +100,11 @@ public class Field {
         this.fieldType = fieldType;
     }
 
-    public int getFieldLengthType() {
-        return fieldLengthType;
-    }
-    public void setFieldLengthType(int fieldLengthType) {
-        this.fieldLengthType = fieldLengthType;
-    }
-
     public int getFieldLength() {
         return fieldLength;
     }
     public void setFieldLength(int fieldLength) {
         this.fieldLength = fieldLength;
-        fieldValue = new byte[fieldLength];
     }
 
     public String getFieldName() {
@@ -164,14 +137,6 @@ public class Field {
         return tag;
     }
 
-
-    public String getValue() {
-        return value;
-    }
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public int getBeginPos() {
         return beginPos;
     }
@@ -186,176 +151,39 @@ public class Field {
         this.fields = fields;
     }
 
-    /**
-     *
-     * @param data
-     */
-    public void setFieldValue(byte[] data) throws FieldLengthException, OverflowMaxLengthException {
-        if (fieldValueType == FIELD_VALUE_TYPE_DEFAULT)
-        {
 
-
-            if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)
-            {
-                if (data.length < fieldLength)
-                    throw new FieldLengthException(this);
-
-                if (data.length > fieldLength)
-                    throw new OverflowMaxLengthException(this);
-
-                //fieldValue = new byte[fieldLength];
-                this.fieldValue = data;
-
-                // 如果是数值型，那么前补0
-                if (fieldType == FIELD_TYPE_N)
-                {
-
-                }
-                else if (fieldType == FIELD_TYPE_AN || fieldType == FIELD_TYPE_ANS || fieldType == FIELD_TYPE_ANSB)
-                {
-
-                }
-                // 如果是字符型，那后后补space
-            }
-            else if(fieldLengthType == FIELD_LENGTH_TYPE_VAR2)
-            {
-
-                //前面2字节表示长度
-                int len = data.length;
-               if ( (len+2) > maxFieldLength )
-                    throw new OverflowMaxLengthException(this);
-
-                fieldLength = 2 + data.length;
-                fieldValue = new byte[fieldLength];
-
-                String lenStr = String.valueOf(len);
-                if (lenStr.length() < 2)
-                    lenStr = "0" + lenStr;
-
-                System.arraycopy(lenStr.getBytes(), 0, fieldValue, 0, 2);
-                System.arraycopy(data, 0, fieldValue, 2, data.length);
-
-
-
-            }
-            else if(fieldLengthType == FIELD_LENGTH_TYPE_VAR3)
-            {
-                //前面3字节表示长度
-            }
-            else
-            {
-              //  throw Exception;
-            }
-
-
-
-        }
-        else if(fieldValueType == FIELD_VALUE_TYPE_TL)
-        {
-            int tagLen = tag.getBytes().length;
-
-            fieldValue = new byte[tagLen + valueLen]; //tag所占字节长度+数据长度
-
-            System.arraycopy(tag.getBytes(), 0, this.fieldValue, 0, tagLen);
-            System.arraycopy(data, 0, this.fieldValue, tagLen, data.length);
-        }
-        else if(fieldValueType == FIELD_VALUE_TYPE_TLV)
-        {
-
-        }
-        else
-        {
-            //throw exception
-        }
+    public void setFieldValue(byte[] fieldValue) {
+        this.fieldValue = fieldValue;
     }
-
-    /**
-     *
-     * @param data
-     */
-    public void setFieldValue(String data) throws FieldLengthException, OverflowMaxLengthException {
-        setFieldValue(data.getBytes());
-    }
-
-    /**
-     *
-     * @param subField
-     * @throws FieldLengthException
-     * @throws OverflowMaxLengthException
-     */
-    public void setFieldValue(Field subField) throws FieldLengthException, OverflowMaxLengthException {
-        setFieldValue(subField.getFieldValue());
-    }
-
-    /**
-     *
-     * @return
-     */
     public byte[] getFieldValue()
     {
         return fieldValue;
-        /*
-        if (fieldLengthType == FIELD_LENGTH_TYPE_FIXED)
-        {
-            return fieldValue;
-        }
-        else if (fieldLengthType == FIELD_LENGTH_TYPE_VAR2)
-        {
-            // 真实域内容长度
-            int actualLen = fieldValue.length;
-            String s = String.valueOf(actualLen);
-            if (actualLen < 10)
-            {
-                // 长度左边补0
-                s = "0" + s;
-            }
+    }
 
 
-            // 长度转成字符串，转成字节数组
-            byte[] varLen = s.getBytes(); // 例如："09"
+    public byte[] getData() {
+        return data;
+    }
+    public void setData(String data) throws OverflowMaxLengthException, FieldLengthException {
+        setData(data.getBytes());
+    }
+    public void setData(byte[] data) throws OverflowMaxLengthException, FieldLengthException {
+        this.data = data;
 
+        encode();
+    }
 
-
-            byte[] val = new byte[2 + actualLen];
-            System.arraycopy(varLen, 0, val, 0, varLen.length);
-            System.arraycopy(fieldValue, 0, val, varLen.length, fieldValue.length);
-
-            return val;
-        }
-
-        else if (fieldLengthType == FIELD_LENGTH_TYPE_VAR3)
-        {
-
-            // 真实域内容长度
-            int actualLen = fieldValue.length;
-            //if (actualLen > 2)
-            {
-                //throw;
-            }
-
-            // 长度转成字符串，转成字节数组
-            byte[] varLen = String.valueOf(actualLen).getBytes();
-
-            // 域可变内容
-            byte[] actual = fieldValue.getBytes();
-
-            byte[] val = new byte[3 + actualLen];
-            System.arraycopy(varLen, 0, val, 0, varLen.length);
-            System.arraycopy(actual, 0, val, varLen.length, actual.length);
-
-            return val;
-        }
-
-        else
-        {
-            return null;
-        }
-        */
+    public int getDataLen() {
+        return dataLen;
+    }
+    public void setDataLen(int dataLen) {
+        this.dataLen = dataLen;
     }
 
     /**
      * 验证数据格式
      * @return
+
      */
     public boolean validate()
     {
@@ -382,15 +210,13 @@ public class Field {
     /**
      *
      * @param field
-     */
+
     public void addField(Field field)
     {
         System.arraycopy(field.getFieldValue(), 0, fieldValue, field.getBeginPos(), field.getFieldLength());
 
         fields.put(field.getFieldName(), field);
-
-
-    }
+    }*/
 
     /**
      * 字符串后补空格
@@ -424,5 +250,197 @@ public class Field {
     public String insertZero(String val, int totalLen)
     {
         return "";
+    }
+
+
+    /**
+     *
+     * @param subField
+     */
+    public void addSubField(Field subField)
+    {
+        fields.put(subField.getFieldNo(), subField);
+    }
+    /**
+     *
+     * @param fieldNo
+     * @return
+     */
+    public Field getSubField(String fieldNo)
+    {
+        return fields.get(fieldNo);
+    }
+
+
+    /**
+     *
+     * @param field
+     */
+    public void addSubFieldByTag(Field field)
+    {
+        currentTag = field.getTag();
+
+        fields.put(currentTag, field);
+
+        // copy子域的值
+        fieldValue = field.getFieldValue();
+    }
+    /**
+     *
+     * @return
+     */
+    public Field getSubFieldByTag()
+    {
+        return fields.get(currentTag);
+    }
+
+
+    /**
+     *
+     * @throws OverflowMaxLengthException
+     * @throws FieldLengthException
+     */
+    public void encode() throws OverflowMaxLengthException, FieldLengthException {
+        if (fieldValueType == FIELD_VALUE_TYPE_DEFAULT)
+        {
+            if (data.length > dataLen)
+                throw new OverflowMaxLengthException(this);
+
+            if (data.length < dataLen)
+                throw new FieldLengthException(this);
+
+            fieldValue = data;
+            fieldLength = dataLen;
+        }
+        else if (fieldValueType == FIELD_VALUE_TYPE_LLV)
+        {
+            //前面2字节表示长度
+            dataLen = data.length;
+            if ( (dataLen) > maxFieldLength )
+                throw new OverflowMaxLengthException(this);
+
+            fieldLength = 2 + dataLen;
+            fieldValue = new byte[fieldLength];
+
+            String str ="00";
+            String dataLenStr = String.valueOf(dataLen);
+            String val  = str.substring(0, str.length() - dataLenStr.length()) + dataLenStr;
+
+            System.arraycopy(val.getBytes(), 0, fieldValue, 0, 2);
+            System.arraycopy(data, 0, fieldValue, 2, dataLen);
+        }
+        else if (fieldValueType == FIELD_VALUE_TYPE_LLLV)
+        {
+            //前面3字节表示长度
+            dataLen = data.length;
+            if ( (dataLen) > maxFieldLength )
+                throw new OverflowMaxLengthException(this);
+
+            fieldLength = 3 + dataLen;
+            fieldValue = new byte[fieldLength];
+
+            String str ="000";
+            String dataLenStr = String.valueOf(dataLen);
+            String val  = str.substring(0, str.length() - dataLenStr.length()) + dataLenStr;
+
+            System.arraycopy(val.getBytes(), 0, fieldValue, 0, 3);
+            System.arraycopy(data, 0, fieldValue, 3, dataLen);
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_TV)
+        {
+            fieldLength = 2 + dataLen;
+            fieldValue = new byte[fieldLength];
+
+            System.arraycopy(tag.getBytes(), 0, this.fieldValue, 0, 2);
+            System.arraycopy(data, 0, this.fieldValue, 2, dataLen);
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_TLLV)
+        {
+
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_TLLLV)
+        {
+
+        }
+    }
+
+
+    /**
+     *
+     * @param fieldData
+     * @param srcPos
+     */
+    public int decode(byte[] fieldData, int srcPos)
+    {
+        int nextPos = 0;
+
+        if (fieldValueType == FIELD_VALUE_TYPE_DEFAULT) {
+            data = new byte[dataLen];
+
+            System.arraycopy(fieldData, srcPos, data, 0, dataLen);
+            fieldLength = dataLen;
+
+            nextPos =  srcPos + fieldLength;
+        }
+        else if (fieldValueType == FIELD_VALUE_TYPE_LLV)
+        {
+            byte[] varLen = new byte[2];
+            System.arraycopy(fieldData, srcPos, varLen, 0, 2);
+            dataLen = Integer.parseInt(new String(varLen));
+
+
+
+            data = new byte[dataLen];
+
+            System.arraycopy(fieldData, srcPos+2, data, 0, dataLen);
+
+            fieldLength = 2 + dataLen;
+            nextPos =  srcPos + fieldLength;
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_LLLV)
+        {
+            byte[] varLen = new byte[3];
+            System.arraycopy(fieldData, srcPos, varLen, 0, 3);
+            dataLen = Integer.parseInt(new String(varLen));
+
+
+
+            data = new byte[dataLen];
+
+            System.arraycopy(fieldData, srcPos+3, data, 0, dataLen);
+
+            fieldLength = 3 + dataLen;
+            nextPos =  srcPos + fieldLength;
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_TV)
+        {
+            byte[] varLen = new byte[2];
+            System.arraycopy(fieldData, srcPos, varLen, 0, 2);
+
+            tag = new String(varLen);
+
+
+
+            data = new byte[dataLen];
+
+            System.arraycopy(fieldData, srcPos+2, data, 0, dataLen);
+
+            fieldLength = 2 + dataLen;
+            nextPos =  srcPos + fieldLength;
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_TLLV)
+        {
+
+        }
+        else if(fieldValueType == FIELD_VALUE_TYPE_TLLLV)
+        {
+
+        }
+        else
+        {
+
+        }
+
+        return nextPos;
     }
 }

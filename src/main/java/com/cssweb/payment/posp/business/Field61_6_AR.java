@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/24.
  */
-public class Field61_6_AR extends Field{
+public class Field61_6_AR extends Field {
 
     private String serialNo; // SR流水号
     private String verificationTime; //验证服务时间
@@ -16,9 +16,9 @@ public class Field61_6_AR extends Field{
 
         fieldType = FIELD_TYPE_ANS;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 26;
 
-        isSubField = true;
+        dataLen = 26;
+
+
     }
 }

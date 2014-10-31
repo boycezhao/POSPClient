@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/27.
  */
-public class Field121_5_FD extends Field{
+public class Field121_5_FD extends Field {
 
     public Field121_5_FD()
     {
@@ -12,13 +12,13 @@ public class Field121_5_FD extends Field{
 
         fieldType = FIELD_TYPE_ANS;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
+
         fieldLength = 38;
+        fieldValueType = FIELD_VALUE_TYPE_TV;
 
-
-        fieldValueType = FIELD_VALUE_TYPE_TL;
         tag = "FD";
+        dataLen = 36;
 
-        isSubField = true;
+
     }
 }

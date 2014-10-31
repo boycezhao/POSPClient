@@ -3,7 +3,7 @@ package com.cssweb.payment.posp.business;
 /**
  * Created by chenhf on 2014/10/15.
  */
-public class Field12  extends Field{
+public class Field12  extends Field {
     public Field12()
     {
         fieldName = "受卡方所在地时间";
@@ -11,7 +11,7 @@ public class Field12  extends Field{
 
         fieldType = FIELD_TYPE_N;
 
-        fieldLengthType = FIELD_LENGTH_TYPE_FIXED;
-        fieldLength = 6;
+
+        dataLen = 6;
     }
 }
