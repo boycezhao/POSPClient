@@ -3,6 +3,7 @@ package com.cssweb.payment.posp.business;
 import com.cssweb.payment.posp.network.CustomMessage;
 
 /**
+ * 重置密钥
  * Created by chenhf on 2014/10/15.
  */
 public class BusiResetKey implements BusinessAction {

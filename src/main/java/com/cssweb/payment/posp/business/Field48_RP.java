@@ -10,12 +10,13 @@ public class Field48_RP extends Field {
 
     public Field48_RP()
     {
-        fieldName = "折扣消费交易中的刷卡金额";
+        fieldName = "积分兑换信息";
         fieldNo = "48.RP";
 
-        fieldType = FIELD_TYPE_N;
+        fieldType = FIELD_TYPE_ANS;
 
-
+        fieldValueType = FIELD_VALUE_TYPE_TV;
+        tag = "RP";
         dataLen = 60;
     }
 

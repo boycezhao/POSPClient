@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * 余额查询
  * Created by chenhf on 2014/8/25.
  */
 public class BusiGetBalance implements BusinessAction {

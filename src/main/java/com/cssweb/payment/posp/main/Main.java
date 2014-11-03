@@ -28,24 +28,45 @@ public class Main {
         try {
             BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
             while(true) {
-                System.out.println("请输入命令（balance,echo, quit, exit）:");
+                System.out.println("请输入命令（balance,consume, reverse, applykey, restkey, quit, exit）:");
 
                 String cmd = console.readLine();
 
 
 
-                if (cmd.equalsIgnoreCase("echo")) {
-
-                    POSPClient client = new POSPClient();
-                    client.connect("127.0.0.1", 3500);
-                    client.echo();
-                    client.close();
-                }
-                else if(cmd.equalsIgnoreCase("balance"))
+                if(cmd.equalsIgnoreCase("balance"))
                 {
                     POSPClient client = new POSPClient();
                     client.connect("127.0.0.1", 3500);
                     client.getBalance();
+                    client.close();
+                }
+                else if(cmd.equalsIgnoreCase("consume"))
+                {
+                    POSPClient client = new POSPClient();
+                    client.connect("127.0.0.1", 3500);
+                    client.consume();
+                    client.close();
+                }
+                else if(cmd.equalsIgnoreCase("reverse"))
+                {
+                    POSPClient client = new POSPClient();
+                    client.connect("127.0.0.1", 3500);
+                    client.consumeReverse();
+                    client.close();
+                }
+                else if(cmd.equalsIgnoreCase("applykey"))
+                {
+                    POSPClient client = new POSPClient();
+                    client.connect("127.0.0.1", 3500);
+                    client.applyKey();
+                    client.close();
+                }
+                else if(cmd.equalsIgnoreCase("resetkey"))
+                {
+                    POSPClient client = new POSPClient();
+                    client.connect("127.0.0.1", 3500);
+                    client.resetKey();
                     client.close();
                 }
                 else if(cmd.equalsIgnoreCase("exit") || cmd.equalsIgnoreCase("quit"))

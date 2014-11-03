@@ -16,9 +16,10 @@ public class Field48_AS extends Field {
         fieldName = "组合用法";
         fieldNo = "48.AS";
 
-        fieldType = FIELD_TYPE_N;
+       // fieldType = FIELD_TYPE_N;
 
         fieldValueType = FIELD_VALUE_TYPE_TV;
-        dataLen = 12;
+        tag = "AS";
+       // dataLen = 12;
     }
 }

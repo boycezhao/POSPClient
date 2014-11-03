@@ -84,18 +84,32 @@ public class POSPClient {
 
 
 
-    public void echo()
-    {
-        TestEcho test = new TestEcho();
-        CustomMessage request = test.getRequest();
-        handler.sendRequest(request);
-    }
+
 
     public void getBalance()
     {
         TestGetBalance test = new TestGetBalance();
         CustomMessage request = test.getRequest();
         handler.sendRequest(request);
+    }
+
+    public void consume()
+    {
+
+    }
+
+    public void consumeReverse()
+    {
+
+    }
+
+    public void applyKey()
+    {
+
+    }
+    public void resetKey()
+    {
+
     }
 
 

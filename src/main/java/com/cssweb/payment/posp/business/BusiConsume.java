@@ -3,6 +3,7 @@ package com.cssweb.payment.posp.business;
 import com.cssweb.payment.posp.network.CustomMessage;
 
 /**
+ * 消费
  * Created by chenhf on 2014/10/15.
  */
 public class BusiConsume  implements BusinessAction {

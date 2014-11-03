@@ -1,23 +1,19 @@
 package com.cssweb.payment.posp.business;
 
 /**
- * Created by chenhf on 2014/10/22.
+ * Created by chenhf on 2014/11/3.
  */
-public class Field48_PB extends Field {
-    private Field22 field22;
-    private Field60_2_3 field60_2_3;
+public class Field48_AS_PB extends Field{
 
-    public Field48_PB()
+    public Field48_AS_PB()
     {
         fieldName = "基于PBOC电子钱包/存折标准和基于PBOC借贷记标准的电子现金应用的非指定账户圈存信息";
-        fieldNo = "48.PB";
+        fieldNo = "48.AS.PB";
 
         fieldType = FIELD_TYPE_N;
 
-        fieldValueType = FIELD_VALUE_TYPE_TV;
+        fieldValueType = FIELD_VALUE_TYPE_TLLV;
         tag = "PB";
         dataLen = 4;
-
-
     }
 }
