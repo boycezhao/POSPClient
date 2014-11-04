@@ -60,7 +60,14 @@ public class TestConsumeReverse {
 
             //交易金额
             Field4 field4 = new Field4();
+            field4.setData("000000100002");
+            System.out.println(field4.toString());
             fields.add(field4);
+
+            //清算金额
+            Field5 field5 = new Field5();
+            //持卡人扣账金额
+            Field6 field6 = new Field6();
 
             // 交易传输时间
             Field7 field7 = new Field7();
@@ -70,6 +77,11 @@ public class TestConsumeReverse {
             System.out.println(field7.toString());
             fields.add(field7);
 
+
+            //清算汇率
+            Field9 field9 = new Field9();
+            //持卡人扣账汇率
+            Field10 field10 = new Field10();
 
             //系统跟踪号
             Field11 field11 = new Field11();
@@ -109,7 +121,11 @@ public class TestConsumeReverse {
             fields.add(field15);
 
 
+            // 商户类型
+            //取值请参见GB/T 20548-2006《金融零售业务 商户类别代码》
             Field18 field18 = new Field18();
+            field18.setData("1234");
+            System.out.println(field18.toString());
             fields.add(field18);
 
 
@@ -128,11 +144,7 @@ public class TestConsumeReverse {
             System.out.println(field25.toString());
             fields.add(field25);
 
-            //服务点PIN获取码
-            Field26 field26 = new Field26();
-            field26.setData("06"); // 6位长度密码
-            System.out.println(field26.toString());
-            fields.add(field26);
+
 
             //受理机构标识码
             Field32 field32 = new Field32();
@@ -155,8 +167,9 @@ public class TestConsumeReverse {
             System.out.println(field37.toString());
             fields.add(field37);
 
+            //授权标识应答码
             Field38 field38 = new Field38();
-            fields.add(field38);
+            //fields.add(field38);
 
 
             //受卡机终端标识码
@@ -181,13 +194,6 @@ public class TestConsumeReverse {
 
 
 
-            //附加数据－私有
-            Field48 field48 = new Field48();
-
-            Field48_AA field48_aa = new Field48_AA();
-
-
-            fields.add(field48);
 
             //交易货币代码
             //参见ISO 4217标准
@@ -196,20 +202,39 @@ public class TestConsumeReverse {
             System.out.println(field49.toString());
             fields.add(field49);
 
-            //个人标识码数据，存放加密后的PIN
-            Field52 field52 = new Field52();
-            field52.setData("enc  pin");
-            System.out.println(field52.toString());
-            fields.add(field52);
+            //原始数据元
+            Field90 field90 = new Field90();
 
-            //安全控制信息
-            Field53 field53 = new Field53();
-            String f53 = Field53.PIN_FORMAT_PAN + Field53.ENCRYPTION_METHOD_DOUBLE + Field53.RESERVED;
-            field53.setData(f53);
-            //field53.setPinFormat(Field53.PIN_FORMAT_PAN);
-            //field53.setEncAlgo(Field53.ENCRYPTION_METHOD_DOUBLE);
-            System.out.println(field53.toString());
-            fields.add(field53);
+            Field90_1 field90_1 = new Field90_1();
+            field90_1.setData("msgt");
+            System.out.println(field90_1.toString());
+
+            Field90_2 field90_2 = new Field90_2();
+            field90_2.setData(field11.getData());
+            System.out.println(field90_2.toString());
+
+            Field90_3 field90_3 = new Field90_3();
+            field90_3.setData(field7.getData());
+            System.out.println(field90_3.toString());
+
+            Field90_4 field90_4 = new Field90_4();
+            field90_4.setData(field32.getData());
+            System.out.println(field90_4.toString());
+
+            Field90_5 field90_5 = new Field90_5();
+            field90_5.setData(field33.getData());
+            System.out.println(field90_5.toString());
+
+            field90.addSubField(field90_1);
+            field90.addSubField(field90_2);
+            field90.addSubField(field90_3);
+            field90.addSubField(field90_4);
+            field90.addSubField(field90_5);
+
+            field90.encode();
+
+            System.out.println(field90.toString());
+            fields.add(field90);
 
 
 
@@ -282,7 +307,7 @@ public class TestConsumeReverse {
 
             //报文鉴别码
             Field128 field128 = new Field128();
-            field128.setData("MAC45378");
+            field128.setData("MAC45678");
             System.out.println(field128.toString());
 
             fields.add(field128);

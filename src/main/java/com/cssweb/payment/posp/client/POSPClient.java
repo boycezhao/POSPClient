@@ -95,21 +95,24 @@ public class POSPClient {
 
     public void consume()
     {
-
+        TestConsume test = new TestConsume();
+        CustomMessage request = test.getRequest();
+        handler.sendRequest(request);
     }
 
     public void consumeReverse()
     {
-
+        TestConsumeReverse test = new TestConsumeReverse();
+        CustomMessage request = test.getRequest();
+        handler.sendRequest(request);
     }
 
-    public void applyKey()
-    {
 
-    }
     public void resetKey()
     {
-
+        TestResetKey test = new TestResetKey();
+        CustomMessage request = test.getRequest();
+        handler.sendRequest(request);
     }
 
 

@@ -193,7 +193,7 @@ public class TestConsume {
             Field48 field48 = new Field48();
 
             Field48_AA field48_aa = new Field48_AA();
-            fields.add(field48);
+            //fields.add(field48);
 
             //交易货币代码
             //参见ISO 4217标准
@@ -288,7 +288,7 @@ public class TestConsume {
 
             //报文鉴别码
             Field128 field128 = new Field128();
-            field128.setData("MAC45378");
+            field128.setData("MAC45678");
             System.out.println(field128.toString());
 
             fields.add(field128);
