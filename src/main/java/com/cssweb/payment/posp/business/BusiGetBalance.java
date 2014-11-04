@@ -47,9 +47,7 @@ public class BusiGetBalance implements BusinessAction {
         Field128 reqField128 = (Field128) reqFieldData.getField(128);
         logger.info(reqField128.toString());
 
-        CustomMessage response = new CustomMessage();
 
-
-        return response;
+        return null;
     }
 }

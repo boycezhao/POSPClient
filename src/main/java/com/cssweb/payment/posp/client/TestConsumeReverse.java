@@ -50,8 +50,8 @@ public class TestConsumeReverse {
             //交易处理码
             Field3 field3 = new Field3();
             //301000
-            String f3 = Field3.TRD_TYPE_QUERY_SERVICE + Field3.FROM_DEPOSIT + Field3.FROM_DEFAULT + Field3.TO_DEFAULT + Field3.TO_DEFAULT;
-            field3.setData(f3);
+            //String f3 = Field3.TRD_TYPE_QUERY_SERVICE + Field3.FROM_DEPOSIT + Field3.FROM_DEFAULT + Field3.TO_DEFAULT + Field3.TO_DEFAULT;
+            field3.setData("00x000");
             //field3.setTradeType(Field3.TRD_TYPE_QUERY_SERVICE);
             //field3.setFrom(Field3.FROM_DEPOSIT + Field3.FROM_DEFAULT);
             //field3.setTo(Field3.TO_DEFAULT + Field3.TO_DEFAULT);
@@ -327,7 +327,7 @@ public class TestConsumeReverse {
             System.out.println(bitFieldMap.showBitFieldMap());
 
             // 开始处理消息类型
-            msgType.setMsgType("0200");
+            msgType.setMsgType("0420");
 
             // 设置消息头
             totalLen = MsgHeader.MSG_HEADER_SIZE + MessageType.MSG_TYPE_SIZE + bitFieldMap.getBitFieldMapLen() + fieldData.getFieldDataLen();
