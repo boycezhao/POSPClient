@@ -55,13 +55,7 @@ public class Main {
                     client.consumeReverse();
                     client.close();
                 }
-                else if(cmd.equalsIgnoreCase("applykey"))
-                {
-                    POSPClient client = new POSPClient();
-                    client.connect("127.0.0.1", 3500);
-                    client.applyKey();
-                    client.close();
-                }
+                
                 else if(cmd.equalsIgnoreCase("resetkey"))
                 {
                     POSPClient client = new POSPClient();
