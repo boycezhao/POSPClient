@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e9e7d76-46a5-438e-aae6-24410e02c682" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiApplyKey.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiApplyKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/network/FieldData.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/network/FieldData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/main/Main.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/main/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerInitializer.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerInitializer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/POSPClient.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/POSPClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/POSPServer.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/POSPServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/WorkerThread.java" afterPath="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/WorkerThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="POSPClient.iws" />
@@ -37,18 +39,8 @@
       <file leaf-file-name="WorkerThread.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/WorkerThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1679" max-vertical-offset="2204">
-              <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BusiResetKey.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiResetKey.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="121" max-vertical-offset="456">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1532" max-vertical-offset="2204">
+              <caret line="100" column="9" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -57,28 +49,58 @@
       <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44878048" vertical-offset="199" max-vertical-offset="1558">
-              <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.6479751" vertical-offset="248" max-vertical-offset="1482">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestConsumeReverse.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestConsumeReverse.java">
+      <file leaf-file-name="POSPClient.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/POSPClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4134" max-vertical-offset="6745">
-              <caret line="236" column="11" selection-start-line="236" selection-start-column="11" selection-end-line="236" selection-end-column="11" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1551" max-vertical-offset="2850">
+              <caret line="165" column="21" selection-start-line="165" selection-start-column="21" selection-end-line="165" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Field70.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field70.java">
+      <file leaf-file-name="NettyServerInitializer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerInitializer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="456">
-              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="741">
+              <caret line="46" column="57" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NettyServerHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="316" max-vertical-offset="931">
+              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="POSPServer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/POSPServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1064">
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NettyClientHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/NettyClientHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="61" max-vertical-offset="1539">
+              <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -116,26 +138,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Field96.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field96.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="437">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestConsumeReverseCancel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestConsumeReverseCancel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="247">
-              <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -154,9 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestAuth.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestSignIn.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field4.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field48_BC.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field48_AA.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field48_AS_RP.java" />
@@ -194,9 +193,7 @@
         <option value="$PROJECT_DIR$/src/test/java/com/cssweb/payment/posp/ConsumeReverseUnitTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestApplyKey.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestResetKey.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/POSPClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiResetKey.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/WorkerThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestGetBalance.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiGetBalance.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/TestConsume.java" />
@@ -204,6 +201,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/BusiApplyKey.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/network/FieldData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/POSPClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerInitializer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/POSPServer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/WorkerThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/main/Main.java" />
       </list>
     </option>
@@ -390,6 +392,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="posp" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -969,7 +975,7 @@
       <workItem from="1414977070223" duration="27511000" />
       <workItem from="1415021826020" duration="3863000" />
       <workItem from="1415063918098" duration="21577000" />
-      <workItem from="1415152055015" duration="17006000" />
+      <workItem from="1415152055015" duration="19675000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1408510691824</created>
@@ -1135,11 +1141,15 @@
       <created>1415094770515</created>
       <updated>1415094770515</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="commit">
+      <created>1415181820771</created>
+      <updated>1415181820771</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="367600000" />
+    <option name="totallyTimeSpent" value="370269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1552" height="824" extended-state="6" />
@@ -1164,8 +1174,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299866" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27309236" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44277108" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27309236" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44277108" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1229,35 +1239,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field48_BC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="532">
-          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field48_IN.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="589">
-          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field48_AA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="475">
-          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field48_CD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="760">
-          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field48_AS_IN.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="475">
@@ -1403,14 +1384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="109" max-vertical-offset="456">
           <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/POSPClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1534" max-vertical-offset="1995">
-          <caret line="114" column="37" selection-start-line="112" selection-start-column="7" selection-end-line="114" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1582,14 +1555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/WorkerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1679" max-vertical-offset="2204">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/Field.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2648" max-vertical-offset="7600">
@@ -1616,10 +1581,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/NettyClientHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="61" max-vertical-offset="1539">
+          <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/client/POSPClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2235" max-vertical-offset="2850">
+          <caret line="165" column="21" selection-start-line="165" selection-start-column="21" selection-end-line="165" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="741">
+          <caret line="46" column="57" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/POSPServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1064">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/server/NettyServerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="316" max-vertical-offset="931">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/business/WorkerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1532" max-vertical-offset="2204">
+          <caret line="100" column="9" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cssweb/payment/posp/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44878048" vertical-offset="199" max-vertical-offset="1558">
-          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.6479751" vertical-offset="248" max-vertical-offset="1482">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
       </provider>

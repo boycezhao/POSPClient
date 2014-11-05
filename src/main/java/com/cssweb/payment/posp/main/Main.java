@@ -19,12 +19,12 @@ public class Main {
         WorkerThreadPool.getInstance().init(10, 10000);
 
         // 客户端线程
-        POSPClient client = new POSPClient("127.0.0.1", 2013);
+        POSPClient client = new POSPClient("127.0.0.1", 3500);
         Thread threadClient = new Thread(client);
         threadClient.start();
 
         // 创建服务线程
-        POSPServer server = new POSPServer(2013);
+        POSPServer server = new POSPServer(2013, client);
         Thread thread = new Thread(server);
         thread.start();
 
@@ -41,32 +41,28 @@ public class Main {
 
                 if(cmd.equalsIgnoreCase("balance"))
                 {
-                    POSPClient client = new POSPClient();
-                    client.connect("127.0.0.1", 3500);
+
                     client.getBalance();
-                    client.close();
+
                 }
                 else if(cmd.equalsIgnoreCase("consume"))
                 {
-                    POSPClient client = new POSPClient();
-                    client.connect("127.0.0.1", 3500);
+
                     client.consume();
-                    client.close();
+
                 }
                 else if(cmd.equalsIgnoreCase("reverse"))
                 {
-                    POSPClient client = new POSPClient();
-                    client.connect("127.0.0.1", 3500);
+
                     client.consumeReverse();
-                    client.close();
+
                 }
                 
                 else if(cmd.equalsIgnoreCase("resetkey"))
                 {
-                    POSPClient client = new POSPClient();
-                    client.connect("127.0.0.1", 3500);
+
                     client.resetKey();
-                    client.close();
+
                 }
                 else if(cmd.equalsIgnoreCase("exit") || cmd.equalsIgnoreCase("quit"))
                 {

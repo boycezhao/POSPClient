@@ -2,6 +2,7 @@ package com.cssweb.payment.posp.business;
 
 
 
+import com.cssweb.payment.posp.client.POSPClient;
 import com.cssweb.payment.posp.network.CustomMessage;
 import com.cssweb.payment.posp.network.FieldData;
 import org.apache.logging.log4j.LogManager;
@@ -10,17 +11,14 @@ import org.apache.logging.log4j.Logger;
 
 public class WorkerThread implements Runnable {
 	private static final Logger logger =  LogManager.getLogger(WorkerThread.class.getName());
-	private CustomMessage request;
+    private POSPClient client;
+    private CustomMessage request;
 
-
-
-
-	
-
-	public WorkerThread(CustomMessage req)
-	{
-		this.request = req;
-	}
+    public WorkerThread(CustomMessage req, POSPClient client)
+    {
+        this.request = req;
+        this.client = client;
+    }
 
 
 

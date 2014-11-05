@@ -2,6 +2,7 @@
 package com.cssweb.payment.posp.server;
 
 
+import com.cssweb.payment.posp.client.POSPClient;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -22,11 +23,12 @@ public class POSPServer implements Runnable{
     ServerBootstrap b = new ServerBootstrap();
 
     private final int port;
+    private POSPClient client;
 
-    public POSPServer(int port) {
+    public POSPServer(int port, POSPClient client) {
         this.port = port;
+        this.client = client;
     }
-
     public void run() {
 
 
@@ -37,7 +39,7 @@ public class POSPServer implements Runnable{
              .channel(NioServerSocketChannel.class)
              .option(ChannelOption.SO_BACKLOG, 8192)
              .handler(new LoggingHandler(LogLevel.INFO))
-             .childHandler(new NettyServerInitializer());
+             .childHandler(new NettyServerInitializer(client));
 
             b.bind(port).sync().channel().closeFuture().sync();
 

@@ -3,6 +3,7 @@ package com.cssweb.payment.posp.server;
 
 import com.cssweb.payment.posp.business.WorkerThread;
 import com.cssweb.payment.posp.business.WorkerThreadPool;
+import com.cssweb.payment.posp.client.POSPClient;
 import com.cssweb.payment.posp.network.CustomMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -16,6 +17,14 @@ public class NettyServerHandler extends
 	private static final Logger logger = LogManager
 			.getLogger(NettyServerHandler.class.getName());
 
+    private POSPClient client;
+
+
+    public NettyServerHandler(POSPClient client)
+    {
+        this.client = client;
+    }
+
 	@Override
 	public void channelRead0(ChannelHandlerContext ctx, CustomMessage request)
 			throws Exception {
@@ -23,7 +32,7 @@ public class NettyServerHandler extends
 
 		request.setChannelHandlerContext(ctx);
 
-		WorkerThread reqTask = new WorkerThread(request);
+		WorkerThread reqTask = new WorkerThread(request,client);
 		WorkerThreadPool.getInstance().execute(reqTask);
 
 		// ctx.writeAndFlush(request);
