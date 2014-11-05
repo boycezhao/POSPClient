@@ -18,6 +18,11 @@ public class Main {
         //
         WorkerThreadPool.getInstance().init(10, 10000);
 
+        // 客户端线程
+        POSPClient client = new POSPClient("127.0.0.1", 2013);
+        Thread threadClient = new Thread(client);
+        threadClient.start();
+
         // 创建服务线程
         POSPServer server = new POSPServer(2013);
         Thread thread = new Thread(server);
@@ -28,7 +33,7 @@ public class Main {
         try {
             BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
             while(true) {
-                System.out.println("请输入命令（balance,consume, reverse, applykey, restkey, quit, exit）:");
+                System.out.println("请输入命令（balance,consume, reverse, restkey, quit, exit）:");
 
                 String cmd = console.readLine();
 

@@ -5,6 +5,7 @@ import com.cssweb.payment.posp.network.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,24 +28,85 @@ public class BusiApplyKey implements BusinessAction {
         FieldData fieldData = new FieldData();
         List<Field> fields = new ArrayList<Field>();
 
+        FieldData reqFieldData = request.getFieldData();
+        logger.info(reqFieldData.toString());
+
 
         try {
-            Field3 field3 = new Field3();
 
-            field3.setData("00X000");
-            System.out.println(field3.toString());
-            fields.add(field3);
+
+            Field7 f7 = (Field7) reqFieldData.getField(7);
+            logger.info(f7.toString());
+            fields.add(f7);
+
+            Field11 f11 = (Field11) reqFieldData.getField(11);
+            logger.info(f11.toString());
+            fields.add(f11);
+
+
+            Field33 f33 = (Field33) reqFieldData.getField(33);
+            logger.info(f33.toString());
+            fields.add(f33);
+
+            //应答码
+            Field39 field39 = new Field39();
+            field39.setData(ResponseCode.RC_SUCCESS);
+            logger.info(field39.toString());
+            fields.add(field39);
+
+
+            Field53 f53 = (Field53) reqFieldData.getField(53);
+            logger.info(f53.toString());
+            fields.add(f53);
+
+
+            Field70 f70 = (Field70) reqFieldData.getField(70);
+            logger.info(f70.toString());
+            fields.add(f70);
+
+
+
+
+            int totalLen = 0;
+            for (Field field : fields) {
+                totalLen += field.getFieldLength();
+            }
+            System.out.println("实际总长度=" + totalLen);
+
+            // 合并各个域的值
+            fieldData.encode(fields);
+            System.out.println(fieldData.toString());
+
+            // 设置位图
+            bitFieldMap.setFields(fields);
+            System.out.println(bitFieldMap.showBitFieldMap());
+
+            // 开始处理消息类型
+            msgType.setMsgType("0830");
+
+            // 设置消息头
+            totalLen = MsgHeader.MSG_HEADER_SIZE + MessageType.MSG_TYPE_SIZE + bitFieldMap.getBitFieldMapLen() + fieldData.getFieldDataLen();
+            msgHeader.encode(totalLen, "48020000", "B0210029", (byte) 0, "00000000", (byte) 0, "00000");
+
+            // 消息编码,这一步非常重要，把msgHeader, msgType, bitFieldMap, fieldData合成msgContent
+            response.setMsgHeader(msgHeader);
+            response.setMsgType(msgType);
+            response.setBitFieldMap(bitFieldMap);
+            response.setFieldData(fieldData);
+
+            //
+            response.encode();
+            return response;
 
         } catch (OverflowMaxLengthException e) {
             e.printStackTrace();
         } catch (FieldLengthException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
-
-        msgType.setMsgType("0830");
-
-        return response;
+        return null;
     }
 }
