@@ -3,6 +3,7 @@ package com.cssweb.payment.posp.business;
 
 
 import com.cssweb.payment.posp.client.POSPClient;
+import com.cssweb.payment.posp.common.Field3;
 import com.cssweb.payment.posp.network.CustomMessage;
 import com.cssweb.payment.posp.network.FieldData;
 import org.apache.logging.log4j.LogManager;
@@ -97,6 +98,7 @@ public class WorkerThread implements Runnable {
 
                 BusiApplyKey applyKey = new BusiApplyKey();
                 response = applyKey.process(request);
+            client.sendResponse(response);
 
         }
         else if(msgType.equals("0810"))

@@ -1,9 +1,8 @@
 package com.cssweb.payment.posp.client;
 
-import com.cssweb.payment.posp.business.*;
+import com.cssweb.payment.posp.common.*;
 import com.cssweb.payment.posp.network.*;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

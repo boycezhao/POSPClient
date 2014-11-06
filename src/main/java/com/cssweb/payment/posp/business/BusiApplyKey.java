@@ -1,6 +1,7 @@
 package com.cssweb.payment.posp.business;
 
 
+import com.cssweb.payment.posp.common.*;
 import com.cssweb.payment.posp.network.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -96,8 +97,8 @@ public class BusiApplyKey implements BusinessAction {
 
             //
             response.encode();
-            return response;
 
+            return response;
         } catch (OverflowMaxLengthException e) {
             e.printStackTrace();
         } catch (FieldLengthException e) {
@@ -105,7 +106,6 @@ public class BusiApplyKey implements BusinessAction {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         return null;
     }

@@ -124,7 +124,7 @@ public class POSPClient implements Runnable{
 
     public void close()
     {
-        System.out.println("payment client 关闭.....................................");
+
 
         //ch.closeFuture().sync();
 
@@ -166,5 +166,12 @@ public class POSPClient implements Runnable{
         handler.sendRequest(request);
     }
 
-
+    /**
+     *
+     * @param response
+     */
+    public void sendResponse(CustomMessage response)
+    {
+        handler.sendResponse(response);
+    }
 }
