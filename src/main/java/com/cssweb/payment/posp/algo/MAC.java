@@ -1,13 +1,19 @@
 package com.cssweb.payment.posp.algo;
 
 import com.cssweb.payment.posp.common.Field;
+import org.apache.commons.codec.binary.Hex;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.Security;
 
 /**
  * Created by chenhf on 2014/11/10.
  */
 public class MAC {
 
-    public String MAK = "456";
+    public static final String MAK = "1234567812345678";
 
     /**
      * 第一步：选择参与计算的域
@@ -24,7 +30,7 @@ public class MAC {
      */
     private byte byteXOR(byte src1, byte src2)
     {
-        return (byte) ((src1 & 0xFF) ^ (src1 & 0xFF));
+        return (byte) ((src1 & 0xFF) ^ (src2 & 0xFF));
     }
 
     /**
@@ -33,7 +39,7 @@ public class MAC {
      * @param src2
      * @return
      */
-    private byte[] bytesXOR(byte[] src1, byte[] src2)
+    public byte[] bytesXOR(byte[] src1, byte[] src2)
     {
         int length = src1.length;
 
@@ -106,12 +112,19 @@ public class MAC {
         byte[] resultXOR = bytesXOR(desfront8, behind8);
 
         // 用异或的结果TEMP BLOCK 再进行一次单倍长密钥算法运算
+        System.out.println("mak =  " + MAK.length);
+        System.out.println("xor = " + resultXOR.length);
+
         byte[] buff = DES.encrypt(MAK, resultXOR);
 
         // 将运算后的结果（ENC BLOCK2）转换成16 个HEXDECIMAL asc
         // 取8个长度字节
         byte[] retBuf = new byte[8];
-        System.arraycopy(bytesToHexString(buff).getBytes(), 0, retBuf, 0, 8);
+
+        String finalResult = bytesToHexString(buff);
+        System.out.println("finalResult = " + finalResult);
+
+        System.arraycopy(finalResult.getBytes(), 0, retBuf, 0, 8);
 
         return retBuf;
     }
@@ -130,7 +143,7 @@ public class MAC {
      * @param data
      * @return
      */
-    public String bytesToHexString(byte[] data)
+    private String bytesToHexString(byte[] data)
     {
         StringBuffer sb = new StringBuffer();
 
@@ -147,13 +160,40 @@ public class MAC {
 
     public static void main(String[] args)
     {
+
+
         MAC mac = new MAC();
 
-        byte[] data = new byte[3];
-        data[0] = 1;
-        data[1] = 2;
-        data[2] = 127;
+        // 测试XOR
+        /*
+        byte[] src1 = {1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8};
+        byte[] src2 = {8, 7, 6, 5, 4, 3, 2, 1, 8, 7, 6, 5, 4, 3, 2, 1};
+        byte[] result = mac.bytesXOR(src1, src2);
+        for (int i =0; i<result.length; i++)
+        {
 
-        System.out.println("hex string=" + mac.bytesToHexString(data));
+            System.out.println(result[i]);
+        }
+        */
+
+        // 测试DES加密
+            //byte[] key  = DES.initKey();
+            //System.out.println("key len = " + key.length);
+
+            byte[] result = DES.encrypt("12345678".getBytes(), "1234567812345678".getBytes());
+            System.out.println("des result=" + Hex.encodeHexString(result).toUpperCase());
+
+
+
+
+
+
+
+// 计算ANSI-X9.9-MAC
+
+
+        // key必须是24位， 后面8位无效，
+        System.out.println("MAC =" + new String( mac.calcMAC("12345678".getBytes(), "1234567812345678".getBytes()) ) );
+
     }
 }
