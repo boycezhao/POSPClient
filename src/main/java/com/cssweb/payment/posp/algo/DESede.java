@@ -6,25 +6,26 @@ import org.apache.commons.codec.binary.Hex;
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.DESedeKeySpec;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
-import java.security.*;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
 
 /**
  * Created by chenhf on 2014/11/11.
  */
-public class DES {
+public class DESede {
 
-    private static final String KEY_ALGORITHM = "DES";
-    private static final String CIPHER_ALGORITHM = "DES/ECB/NoPadding";
 
+
+    private static final  String KEY_ALGORITHM = "DESede";
+    private static final  String CIPHER_ALGORITHM = "DESede/ECB/NoPadding";
 
 
     /**
      * @return
-     * @throws NoSuchAlgorithmException
+     * @throws java.security.NoSuchAlgorithmException
      */
     public static byte[] initKey(int keyBitsLen) throws NoSuchAlgorithmException, NoSuchProviderException {
         KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
@@ -39,17 +40,20 @@ public class DES {
     /**
      * @param key
      * @return
-     * @throws InvalidKeyException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
+     * @throws java.security.InvalidKeyException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
      */
     private static Key toKey(byte[] key) {
         try {
-            DESKeySpec dks = new DESKeySpec(key);
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
 
-            //DESedeKeySpec dks = new DESedeKeySpec(Key);
-            //SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
+            byte[] k = new byte[24];
+            for (int i=0; i<k.length; i++)
+                k[i] = (byte)0x00;
+            System.arraycopy(key, 0, k, 0, key.length);
+
+            DESedeKeySpec dks = new DESedeKeySpec(k);
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM, "BC");
 
 
             SecretKey securekey = keyFactory.generateSecret(dks);
@@ -61,6 +65,8 @@ public class DES {
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
             e.printStackTrace();
         }
 
@@ -79,7 +85,7 @@ public class DES {
         try {
             Key k = toKey(key);
 
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM, "BC");
 
             cipher.init(Cipher.ENCRYPT_MODE, k);
 
@@ -95,6 +101,8 @@ public class DES {
             e1.printStackTrace();
         } catch (InvalidKeyException e1) {
             e1.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
         }
 
         return null;
@@ -139,10 +147,11 @@ public class DES {
 
     public static void main(String[] args)
     {
-        byte[] key = BCD.A2B("1234567812345678".getBytes());
+        byte[] key = BCD.A2B("12345678123456781234567812345678".getBytes());
+        System.out.println("key长度=" + key.length);
         byte[] data = BCD.A2B("1234567812345678".getBytes());
 
-        byte[] encryptData = DES.encrypt(key, data);
+        byte[] encryptData = DESede.encrypt(key, data);
         System.out.println("加密结果长度= " + encryptData.length);
 
         System.out.println("加密结果= " + Hex.encodeHexString(encryptData).toUpperCase());

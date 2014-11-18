@@ -117,11 +117,11 @@ public class MAC {
 
     public static void main(String[] args) throws NoSuchProviderException, NoSuchAlgorithmException {
 
-        byte[] MAK = BCD.A2B("1234567812345678".getBytes());
-        byte[] data = BCD.A2B("1234567812345678".getBytes());
+       // byte[] MAK = BCD.A2B("1234567812345678".getBytes());
+      //  byte[] data = BCD.A2B("1234567812345678".getBytes());
 
-       // byte[] MAK = BCD.A2B("abcdefghabcdefgh".getBytes());
-        //byte[] data = BCD.A2B("abcdefghabcdefgh".getBytes());
+        byte[] MAK = BCD.A2B("abcdefghabcdefgh".toUpperCase().getBytes());
+        byte[] data = BCD.A2B("abcdefghabcdefgh".toUpperCase().getBytes());
 
         byte[] mac = MAC.calcMAC(MAK, data);
         System.out.println("mac长度=" + mac.length);
