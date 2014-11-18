@@ -1,11 +1,13 @@
 package com.cssweb.payment.posp.algo;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.DESedeKeySpec;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -15,23 +17,21 @@ import java.security.spec.InvalidKeySpecException;
  */
 public class DES {
 
-    private static final  String KEY_ALGORITHM = "DES";
-    private static final  String CIPHER_ALGORITHM = "DES/ECB/NoPadding";
+    private static final String KEY_ALGORITHM = "DES";
+    private static final String CIPHER_ALGORITHM = "DES/ECB/NoPadding";
 
     //private static final  String KEY_ALGORITHM = "DESede";
-   // private static final  String CIPHER_ALGORITHM = "DESede/ECB/NoPadding";
-
+    // private static final  String CIPHER_ALGORITHM = "DESede/ECB/NoPadding";
 
 
     /**
-     *
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public static byte[] initKey() throws NoSuchAlgorithmException, NoSuchProviderException {
+    public static byte[] initKey(int keyBitsLen) throws NoSuchAlgorithmException, NoSuchProviderException {
         KeyGenerator kg = KeyGenerator.getInstance(KEY_ALGORITHM);
 
-        kg.init(64);
+        kg.init(keyBitsLen);
 
         SecretKey secretKey = kg.generateKey();
 
@@ -39,7 +39,6 @@ public class DES {
     }
 
     /**
-     *
      * @param key
      * @return
      * @throws InvalidKeyException
@@ -47,15 +46,12 @@ public class DES {
      * @throws InvalidKeySpecException
      */
     private static Key toKey(byte[] key) {
-
-
         try {
             DESKeySpec dks = new DESKeySpec(key);
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
 
-            // DESedeKeySpec dks = new DESedeKeySpec(key);
-            //SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM, "BC");
-
+            //DESedeKeySpec dks = new DESedeKeySpec(Key);
+            //SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
 
 
             SecretKey securekey = keyFactory.generateSecret(dks);
@@ -76,43 +72,19 @@ public class DES {
 
     /**
      * 加密
+     *
      * @param key
      * @param src
      * @return
      */
     public static byte[] encrypt(byte[] key, byte[] src) {
-
-        System.out.println("encrypt key len = " + key.length);
-
-/*
-public static String getEncString(String strMing, byte[] byteKey) {
-        byte[] byteMi = null;
-        byte[] byteMing = null;
-        byte[] buf = strMing.getBytes();
-        int len = 8 - buf.length % 8;
-        byteMing = new byte[buf.length + len];
-        System.arraycopy(buf, 0, byteMing, 0, buf.length);
-        byteMi = encrypt(byteMing, byteKey);
-        return Base64.encode(byteMi);
-    }
- */
         try {
-
             Key k = toKey(key);
 
-            // CBC模式需要， ECB模式不需要IV
-            byte[] iv = {1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8};
-            IvParameterSpec zeroIv = new IvParameterSpec(iv);
-
-            //Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM, "BC");
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 
-            // 用密匙初始化Cipher对象
-            //cipher.init(Cipher.ENCRYPT_MODE, k, zeroIv);
             cipher.init(Cipher.ENCRYPT_MODE, k);
 
-            // 现在，获取数据并加密
-            // 正式执行加密操作
             return cipher.doFinal(src);
 
         } catch (NoSuchPaddingException e1) {
@@ -134,39 +106,47 @@ public static String getEncString(String strMing, byte[] byteKey) {
      *
      * @param key
      * @param src
-     * @return
-     */
-    public byte[] decrypt(byte[] key, byte[] src)
+     * @return public byte[] decrypt(byte[] key, byte[] src)
     {
-        SecureRandom sr = new SecureRandom();
+    SecureRandom sr = new SecureRandom();
 
-        try {
-            Key k = toKey(key);
+    try {
+    Key k = toKey(key);
 
 
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM, "BC");
+    Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM, "BC");
 
-            //cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
-            cipher.init(Cipher.DECRYPT_MODE, k);
+    //cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
+    cipher.init(Cipher.DECRYPT_MODE, k);
 
-            return cipher.doFinal(src);
+    return cipher.doFinal(src);
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        }  catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+    } catch (NoSuchAlgorithmException e) {
+    e.printStackTrace();
+    } catch (InvalidKeyException e) {
+    e.printStackTrace();
+    }  catch (NoSuchPaddingException e) {
+    e.printStackTrace();
+    } catch (IllegalBlockSizeException e) {
+    e.printStackTrace();
+    } catch (BadPaddingException e) {
+    e.printStackTrace();
+    } catch (NoSuchProviderException e) {
+    e.printStackTrace();
     }
 
+    return null;
+    }
+     */
 
+    public static void main(String[] args)
+    {
+        byte[] key = BCD.A2B("1234567812345678".getBytes());
+        byte[] data = BCD.A2B("1234567812345678".getBytes());
+
+        byte[] encryptData = DES.encrypt(key, data);
+        System.out.println("加密结果长度= " + encryptData.length);
+
+        System.out.println("加密结果= " + Hex.encodeHexString(encryptData).toUpperCase());
+    }
 }
