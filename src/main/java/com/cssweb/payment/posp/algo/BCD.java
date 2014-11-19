@@ -3,6 +3,7 @@ package com.cssweb.payment.posp.algo;
 /**
  * Created by chenhf on 2014/11/11.
  * 参考http://blog.csdn.net/centralperk/article/details/7533857
+ * 此类可以用apache common codec hex代替
  */
 public class BCD {
 

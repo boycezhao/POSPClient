@@ -58,8 +58,7 @@ public class MAC {
 
         // 将异或运算后的最后8个字节（RESULT BLOCK）转换成16个HEXDECIMAL：
         byte[] resultBlock = bytesToHexString(oper1).getBytes();
-
-
+       // byte[] resultBlock = Hex.encodeHexString(oper1).getBytes();
 
         // 取前8个字节用mkey1，DES加密
         byte[] front8 = new byte[8];
@@ -84,6 +83,7 @@ public class MAC {
         byte[] retBuf = new byte[8];
 
         String finalResult = bytesToHexString(buff);
+       // String finalResult = Hex.encodeHexString(buff);
 
 
         System.arraycopy(finalResult.getBytes(), 0, retBuf, 0, 8);
@@ -117,13 +117,15 @@ public class MAC {
 
     public static void main(String[] args) throws NoSuchProviderException, NoSuchAlgorithmException {
 
-       // byte[] MAK = BCD.A2B("1234567812345678".getBytes());
-      //  byte[] data = BCD.A2B("1234567812345678".getBytes());
+        String key = "abcdefgh";
+        System.out.println("key测试工具用编码=" + Hex.encodeHexString(key.getBytes()));
 
-        byte[] MAK = BCD.A2B("abcdefghabcdefgh".toUpperCase().getBytes());
-        byte[] data = BCD.A2B("abcdefghabcdefgh".toUpperCase().getBytes());
+        String data = "1234567887654321";
+        System.out.println("data测试工具用编码=" + Hex.encodeHexString(data.getBytes()));
 
-        byte[] mac = MAC.calcMAC(MAK, data);
+
+
+        byte[] mac = MAC.calcMAC(key.getBytes(), data.getBytes());
         System.out.println("mac长度=" + mac.length);
 
         System.out.println("mac=" + Hex.encodeHexString(mac).toUpperCase());

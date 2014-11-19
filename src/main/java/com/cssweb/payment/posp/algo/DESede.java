@@ -47,13 +47,15 @@ public class DESede {
     private static Key toKey(byte[] key) {
         try {
 
-            byte[] k = new byte[24];
-            for (int i=0; i<k.length; i++)
-                k[i] = (byte)0x00;
-            System.arraycopy(key, 0, k, 0, key.length);
+            // 参考http://blog.163.com/11_gying/blog/static/4067301220136176054973/
 
-            DESedeKeySpec dks = new DESedeKeySpec(k);
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM, "BC");
+            byte[] newKey = new byte[24];
+
+            System.arraycopy(key, 0, newKey, 0, 16);
+            System.arraycopy(key, 0, newKey, 16, 8);
+
+            DESedeKeySpec dks = new DESedeKeySpec(newKey);
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
 
 
             SecretKey securekey = keyFactory.generateSecret(dks);
@@ -65,8 +67,6 @@ public class DESede {
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
             e.printStackTrace();
         }
 
@@ -85,7 +85,7 @@ public class DESede {
         try {
             Key k = toKey(key);
 
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM, "BC");
+            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 
             cipher.init(Cipher.ENCRYPT_MODE, k);
 
@@ -101,10 +101,7 @@ public class DESede {
             e1.printStackTrace();
         } catch (InvalidKeyException e1) {
             e1.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
         }
-
         return null;
     }
 
@@ -147,11 +144,16 @@ public class DESede {
 
     public static void main(String[] args)
     {
-        byte[] key = BCD.A2B("12345678123456781234567812345678".getBytes());
-        System.out.println("key长度=" + key.length);
-        byte[] data = BCD.A2B("1234567812345678".getBytes());
 
-        byte[] encryptData = DESede.encrypt(key, data);
+        String key = "1234567812345678";
+        System.out.println("测试工具用编码key=" + Hex.encodeHexString(key.getBytes()));
+
+        String data = "1234567812345678";
+        System.out.println("测试工具用编码data=" + Hex.encodeHexString(data.getBytes()));
+
+
+
+        byte[] encryptData = DESede.encrypt(key.getBytes(), data.getBytes());
         System.out.println("加密结果长度= " + encryptData.length);
 
         System.out.println("加密结果= " + Hex.encodeHexString(encryptData).toUpperCase());

@@ -139,10 +139,15 @@ public class DES {
 
     public static void main(String[] args)
     {
-        byte[] key = BCD.A2B("1234567812345678".getBytes());
-        byte[] data = BCD.A2B("1234567812345678".getBytes());
+        String key = "abcdefgh";
+        System.out.println("key测试工具用编码=" + Hex.encodeHexString(key.getBytes()));
 
-        byte[] encryptData = DES.encrypt(key, data);
+        String data = "12345678";
+        System.out.println("data测试工具用编码=" + Hex.encodeHexString(data.getBytes()));
+
+
+
+        byte[] encryptData = DES.encrypt(key.getBytes(), data.getBytes());
         System.out.println("加密结果长度= " + encryptData.length);
 
         System.out.println("加密结果= " + Hex.encodeHexString(encryptData).toUpperCase());

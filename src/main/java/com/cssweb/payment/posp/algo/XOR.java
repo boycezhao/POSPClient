@@ -40,17 +40,14 @@ public class XOR {
 
     public static void main(String args[])
     {
-        byte[] src1 = BCD.A2B("1234567887654321".getBytes());
-        byte[] src2 = BCD.A2B("1234567812345678".getBytes());
+        String src1 = "12345678";
+        System.out.println("src1输入测试工具=" + Hex.encodeHexString(src1.getBytes()));
 
-        byte[] result = XOR.bytesXOR(src1, src2);
+        String src2 = "87654321";
+        System.out.println("src2输入测试工具=" + Hex.encodeHexString(src2.getBytes()));
+
+        byte[] result = XOR.bytesXOR(src1.getBytes(), src2.getBytes());
         System.out.println("异或结果长度=" + result.length);
-/*
-        for (int i=0; i<result.length; i++)
-        {
-            System.out.println("result[" + i +"]=" + result[i]);
-        }
-*/
 
         System.out.println("xor = " + Hex.encodeHexString(result));
     }
