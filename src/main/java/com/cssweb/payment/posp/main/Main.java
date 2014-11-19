@@ -18,12 +18,12 @@ public class Main {
         //
         WorkerThreadPool.getInstance().init(10, 10000);
 
-        // 客户端线程
+        // 创建发送连接
         POSPClient client = new POSPClient("127.0.0.1", 3500);
         Thread threadClient = new Thread(client);
         threadClient.start();
 
-        // 创建服务线程
+        // 创建接收连接
         POSPServer server = new POSPServer(2013, client);
         Thread thread = new Thread(server);
         thread.start();
