@@ -65,18 +65,39 @@ public class PIN {
     /**
      * 采用双倍长密钥算法计算
      * @param PIK
-     * @param PIN
-     * @param PAN
+     * @param pin
+     * @param pan
      * @return
      */
-    public static byte[] encryptPIN(byte[] PIK, byte[] PIN, byte[] PAN)
+    public static byte[] encryptPIN(byte[] PIK, String pin, String pan)
     {
-        byte[] xor = XOR.bytesXOR(PAN, PIN);
+        byte[] pinBlock = getPINBlock(pin);
+
+        for (int i=0; i<pinBlock.length; i++) {
+            System.out.print("pinBlock[" + i + "]=" + byte2Hex(pinBlock[i]) + ",");
+        }
+
+
+        System.out.println();
+
+
+        byte[] panBlock = PIN.getPANBlock(pan);
+        for (int i=0; i<panBlock.length; i++) {
+            System.out.print("panBlock[" + i + "]=" + byte2Hex(panBlock[i]) + ",");
+        }
+
+        System.out.println();
+
+        byte[] xor = XOR.bytesXOR(panBlock, pinBlock);
         for (int i=0; i<xor.length; i++) {
             System.out.print("xor[" + i + "]=" + byte2Hex(xor[i]) + ",");
         }
+        System.out.println();
+        System.out.println("异或结果输入测试工具=" + Hex.encodeHexString(xor));
 
-        return null;
+
+        byte[] encryptPIN = DESede.encrypt(PIK, xor);
+        return encryptPIN;
     }
 
     /**
@@ -97,26 +118,13 @@ public class PIN {
 
     public static void main(String args[])
     {
-        byte[] pin = PIN.getPINBlock("123456");
-        for (int i=0; i<pin.length; i++) {
-            System.out.print("pin[" + i + "]=" + PIN.byte2Hex(pin[i]) + ",");
-        }
+        String PIK = "1234567812345678"; //采用双倍密钥算法，所以密钥长度必须是16字节
+        System.out.println("测试工具用编码key=" + Hex.encodeHexString(PIK.getBytes()));
 
+        String pin = "123456";
+        String pan = "123456789012345678";
 
-        System.out.println();
-
-       // byte[] pan = PIN.getPANBlock("123456789012345678");
-        byte[] pan = PIN.getPANBlock("1234567890123456");
-        for (int i=0; i<pan.length; i++) {
-            System.out.print("pan[" + i + "]=" + PIN.byte2Hex(pan[i]) + ",");
-        }
-
-        System.out.println();
-
-        byte[] PIK = null;
-        byte[] encryptPIN = PIN.encryptPIN(PIK, pin, pan);
-        for (int i=0; i<encryptPIN.length; i++) {
-           // System.out.print("encryptPIN[" + i + "]=" + PIN.byte2Hex(encryptPIN[i]) + ",");
-        }
+        byte[] result = PIN.encryptPIN(PIK.getBytes(), pin, pan);
+        System.out.println("加密pin=" + Hex.encodeHexString(result).toUpperCase());
     }
 }
