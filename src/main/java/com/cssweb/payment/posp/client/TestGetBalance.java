@@ -303,14 +303,6 @@ public class TestGetBalance {
 
             fields.add(field121);
 
-            //受理方保留
-            Field122 field122 = new Field122();
-            Field122_1 field122_1 = new Field122_1();
-            Field122_2 field122_2 = new Field122_2();
-
-
-            //发卡方保留
-            Field123 field123 = new Field123();
 
             //报文鉴别码
             Field128 field128 = new Field128();
