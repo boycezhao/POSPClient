@@ -1,4 +1,4 @@
-package com.cssweb.payment.posp.algo;
+package com.cssweb.payment.posp.security.software;
 
 /**
  * Created by chenhf on 2014/11/11.

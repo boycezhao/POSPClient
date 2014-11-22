@@ -1,14 +1,9 @@
-package com.cssweb.payment.posp.algo;
-
-import com.cssweb.payment.posp.common.Field;
-import org.apache.commons.codec.DecoderException;
+package com.cssweb.payment.posp.security.software;
 
 import org.apache.commons.codec.binary.Hex;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.Security;
 
 /**
  * Created by chenhf on 2014/11/10.
